@@ -6,9 +6,11 @@
 #define DRUMMACHINE_METRONOME_H
 
 #include <vector>
+#include <QtCore/QTimer>
 
-class Metronome {
+class Metronome : public QTimer {
 public:
+
     bool isMute1() const {
         return isMute;
     }
@@ -25,11 +27,22 @@ public:
         Metronome::accents = accents;
     }
 
+    int getBpm() const {
+        return Bpm;
+    }
+
+    void setBpm(int bpm) {
+        Bpm = bpm;
+    }
+
+    void timerEvent(QTimerEvent *event) override;
+
     void beep();
 
 private:
     bool isMute;
     std::vector<int> accents;
+    int Bpm;
 
 
 };

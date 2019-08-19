@@ -1,11 +1,16 @@
 #include <iostream>
 
-#include "Metronome.h"
-#include "Pattern.h"
-#include "Player.h"
+#include <QPaintEvent>
+#include <QtWidgets>
+#include "MainWindow.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    std::cout << "test" << std::endl;
-    return 0;
+
+int main(int argc, char *argv[]) {
+
+    QApplication app(argc, argv);
+
+    MainWindow *main = new MainWindow;
+    main->show();
+
+    return app.exec();
 }
