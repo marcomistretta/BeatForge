@@ -1,9 +1,9 @@
 PROJECT(MyTest)
 cmake_minimum_required(VERSION 3.13)
- set(MySources "main.cpp" "Observer.h" "Subject.h" "Metronome.h" "Metronome.cpp"
-         "MainWindow.h" "MainWindow.cpp"  "StepButton.h" "StepButton.cpp"
-         "Drum.h" "Drum.cpp" "DrumWidget.cpp" "DrumWidget.h"
-         "DrumKit.cpp" "DrumKit.h" "DrumKitWidget.h" "DrumKitWidget.cpp"
+ set(MySources "src/main.cpp" "src/Observer.h" "src/Subject.h" "src/Metronome.h" "src/Metronome.cpp"
+         "src/MainWindow.h" "src/MainWindow.cpp"  "src/StepButton.h" "src/StepButton.cpp"
+         "src/Drum.h" "src/Drum.cpp" "src/DrumWidget.cpp" "src/DrumWidget.h"
+         "src/DrumKit.cpp" "src/DrumKit.h" "src/DrumKitWidget.h" "src/DrumKitWidget.cpp"
          )
  set(CMAKE_INCLUDE_CURRENT_DIR ON)
  set(CMAKE_AUTOMOC ON)
