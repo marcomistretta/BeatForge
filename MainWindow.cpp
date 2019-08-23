@@ -1,29 +1,28 @@
 //
 // Created by Guglielmo Fratticioli on 09/07/19.
 //
-#define MWIND_POSX 200
-#define MWIND_POSY 200
-#define MWIND_LENGHT 1080
-#define MWIND_HIGHT 720
 
-#include <QtWidgets/QGridLayout>
-#include <QToolBar>
+
+
 #include "MainWindow.h"
+#include "DrumKit.h"
+#include "DrumKitWidget.h"
+
+#include <QWidget>
+#include <QMainWindow>
+#include <QGridLayout>
 #include <QPushButton>
 
-MainWindow::MainWindow(QWidget *parent) :
-        QMainWindow(parent) {
-    MainWindow::setUpGui();
-}
+MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
-void MainWindow::setUpGui() {
-    this->setGeometry(MWIND_POSX, MWIND_POSY, MWIND_LENGHT, MWIND_HIGHT);
-    QWidget *MainWidget = new QWidget(this);
-    MainWidget->setGeometry(MWIND_POSX, MWIND_POSY, MWIND_LENGHT, MWIND_HIGHT);
-    //TODO INSTANTIATE WIDGETS FOR MAIN WINDOW
+    this->setGeometry(0,0,1000,500);
+    mainWidget = new QWidget(this);
+    mainWidget->setGeometry(0,0,1000,500);
 
-    QGridLayout *MainLayout = new QGridLayout;
-    //TODO ADD WIDGETS TO GRID_LAYOUT
+    drumKitWidget = new DrumKitWidget(this);
 
-    MainWidget->setLayout(MainLayout);
+    mainLayout = new QGridLayout();
+    mainLayout->addWidget(drumKitWidget);
+    mainWidget->setLayout(mainLayout);
+    this->setCentralWidget(drumKitWidget);
 }

@@ -1,15 +1,13 @@
 //
 // Created by Guglielmo Fratticioli on 17/08/19.
 //
-
 #ifndef MYTEST_DRUM_H
 #define MYTEST_DRUM_H
 
-
 #include "Subject.h"
-#include "Observer.h"
-#include <QWidget>
+#include <QMetaType>
 
+class Observer;
 
 enum STEP_STATUS{
     ON = 1,
@@ -25,11 +23,10 @@ enum PLAY_STATUS{
     STOPPED = 0,
 };
 
-class Drum: public Subject {
-
+class Drum: public Subject{
 public:
-    Drum(QWidget* parent);
-    Drum(QWidget* parent , QString sample_Path);
+    Drum();
+    Drum(const Drum& drum);
 
     void addObserver(Observer* o) override;
     void removeObserver(Observer* o) override;
@@ -37,52 +34,19 @@ public:
     bool isChecked(int position);
     void editStep(int step);
 
-    QString getName() const {
-        return name;
-    }
-    void setName(QString name) {
-        Drum::name = name;
-    }
-    QString getSamplePath() const {
-        return sample_Path;
-    }
-    void setSamplePath(QString samplePath) {
-        sample_Path = samplePath;
-    }
-    int getVolume() const {
-        return volume;
-    }
-    void setVolume(int volume) {
-        Drum::volume = volume;
-    }
     const STEP_STATUS *getGroove() const {
         return groove;
     }
-    MUTE_STATUS getMuteStatus() const {
-        return muteStatus;
-    }
-    void setMuteStatus(MUTE_STATUS muteStatus) {
-        Drum::muteStatus = muteStatus;
-    }
-    PLAY_STATUS getPlayStatus() const {
-        return playStatus;
-    }
-    void setPlayStatus(PLAY_STATUS playStatus) {
-        Drum::playStatus = playStatus;
-    }
+    std::list<Observer*> getObservers() const {
+        return observers;
+    };
 
 private:
-
-    QString name;
-    QString sample_Path;
-    int volume;
-    std::list<Observer*> Observers;
-
+    std::list<Observer*> observers;
     STEP_STATUS groove[16];
-    MUTE_STATUS muteStatus;
-    PLAY_STATUS playStatus;
 
 };
-
+Q_DECLARE_METATYPE(Drum)
+Q_DECLARE_METATYPE(Drum*)
 
 #endif //MYTEST_DRUM_H

@@ -8,15 +8,15 @@
 #include <QPushButton>
 
 class StepButton: public QPushButton{
+    Q_OBJECT
 public:
     explicit StepButton(QWidget * parent = nullptr);
-    int getPosition() const {
-        return position;
-    }
+    void setBackground(QColor color);
+
     void setPosition(int position) {
         StepButton::position = position;
     }
-    void setBackground(QColor color);
+
 
 private slots:
     void on_clicked();

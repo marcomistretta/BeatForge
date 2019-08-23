@@ -2,36 +2,33 @@
 #ifndef TESTQTGUI_DRUMWIDGET_H
 #define TESTQTGUI_DRUMWIDGET_H
 
-#include "Drum.h"
-#include "StepButton.h"
-
+#include "Observer.h"
 #include <QWidget>
-#include <QPushButton>
-#include <QHBoxLayout>
 
-
-
+class QPushButton;
+class QHBoxLayout;
+class StepButton;
+class Drum;
 
 class DrumWidget: public QWidget, public Observer {
 
 public:
     ~DrumWidget();
     DrumWidget(QWidget* parent);
-    void obsUpdate() override;
-    void setUpGui();
 
+    void obsUpdate() override;
+    void setDrum(Drum *drum) {
+        DrumWidget::drum = drum;
+    }
     Drum *getDrum() const {
         return drum;
     }
 
-
-
 private:
-
     QHBoxLayout * layout;
     QPushButton* drum_info;
-    QPushButton* playButton;
-    QPushButton* pauseButton;
+    QPushButton* muteButton;
+    QPushButton* soloButton;
     Drum* drum;
     StepButton* buttons[16];
 

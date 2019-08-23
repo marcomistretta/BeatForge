@@ -7,17 +7,18 @@
 
 #include <QMainWindow>
 
+class QGridLayout;
+class QWidget;
+class DrumKitWidget;
+
 class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-protected:
-
-    //void paintEvent(QPaintEvent * e) override;
-
 private:
-
-    void setUpGui();
+    QWidget * mainWidget;
+    DrumKitWidget* drumKitWidget;
+    QGridLayout* mainLayout;
 };
 
 
