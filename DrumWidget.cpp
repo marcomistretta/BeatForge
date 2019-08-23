@@ -29,10 +29,11 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     layout->setStretchFactor(drum_info, 3);
     //BUILDING PLAY-PAUSE-MUTE-SOLO
 
+    //FIXME cambiato playicon in muteicon
     muteButton = new QPushButton();
-    QIcon playicon;
-    playicon.addFile(QString("/home/gege/Studio/C++/png/playicon.png"));
-    muteButton->setIcon(playicon);
+    QIcon muteicon;
+    muteicon.addFile(QString("res/icon/muteicon.png"));
+    muteButton->setIcon(muteicon);
 
     soloButton = new QPushButton();
     QIcon soloicon;

@@ -27,6 +27,7 @@ public:
 private:
     QHBoxLayout * layout;
     QPushButton* drum_info;
+    //FIXME il nome dei bottoni è giusto
     QPushButton* muteButton;
     QPushButton* soloButton;
     Drum* drum;

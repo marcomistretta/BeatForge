@@ -6,6 +6,8 @@
 
 #include "Subject.h"
 #include <QMetaType>
+//FIXME
+#include <QMediaPlayer>
 
 class Observer;
 
@@ -13,14 +15,16 @@ enum STEP_STATUS{
     ON = 1,
     OFF = 0,
 };
+//FIXME con l'aggiunta di SOLO_STATUS, ho deciso di togliere "SOLO = 1" da qui
 enum MUTE_STATUS{
     MUTED = 0,
-    SOLO = 1,
-    NORMAL = 2,
+    NORMAL = 1,
 };
-enum PLAY_STATUS{
-    PLAYING = 1,
-    STOPPED = 0,
+
+//TODO: Ho cambiato PLAY_STATUS in SOLO_STATUS
+enum SOLO_STATUS{
+    FALSE = 0,
+    TRUE = 1,
 };
 
 class Drum: public Subject{
@@ -41,9 +45,16 @@ public:
         return observers;
     };
 
+
+
+
 private:
+    //FIXME come test ho usato uno stesso sample in tutte le drum
+
     std::list<Observer*> observers;
     STEP_STATUS groove[16];
+    QMediaPlayer* mediaplayer; //FIXME
+
 
 };
 Q_DECLARE_METATYPE(Drum)
