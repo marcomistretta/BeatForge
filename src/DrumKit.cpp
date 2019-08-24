@@ -3,7 +3,6 @@
 //
 
 #include "DrumKit.h"
-
 #include "Drum.h"
 #include "Observer.h"
 

@@ -4,23 +4,27 @@
 
 #include "Drum.h"
 #include "Observer.h"
+
 #include <QDebug>
 
 Drum::Drum() {
     qDebug() << "Drum constructed";
-    for (int i = 0; i < 16; i++)
-        groove[i] = OFF;
+    //ho messo auto
+    for (auto & i : groove)
+        i = OFF;
     mediaplayer = new QMediaPlayer;
     soloing = NOSOLO;
     muting = NOMUTED;
-
 }
 
-//TODO copy mediaplayer solo mute
+//TODO copy mediaplayer
 Drum::Drum(const Drum &drum) {
     for (int i = 0; i < 16; i++)
         groove[i] = drum.getGroove()[i];
     observers = drum.getObservers();
+
+    soloing = drum.getSoloing();
+    muting = drum.getMuting();
 }
 
 void Drum::addObserver(Observer *o) {
@@ -30,18 +34,18 @@ void Drum::addObserver(Observer *o) {
 
 void Drum::removeObserver(Observer *o) {
     observers.remove(o);
+    qDebug() << "Observer removed";
 }
 
 void Drum::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
+    qDebug() << "Observer notified";
 }
 
+//FIXME ho semplificato la funzione isChecked
 bool Drum::isChecked(int position) {
-    if (groove[position] == OFF)
-        return false;
-    else
-        return true;
+    return groove[position] == ON;
 }
 
 void Drum::editStep(int step) {
@@ -61,11 +65,19 @@ MUTE_STATUS Drum::getMuting() const {
     return muting;
 }
 
-void Drum::setSoloing(SOLO_STATUS soloing) {
-    Drum::soloing = soloing;
+void Drum::setSoloing(SOLO_STATUS sStatus) {
+    Drum::soloing = sStatus;
 }
 
-void Drum::setMuting(MUTE_STATUS muting) {
-    Drum::muting = muting;
+void Drum::setMuting(MUTE_STATUS mStatus) {
+    Drum::muting = mStatus;
+}
+
+const std::list<Observer *> &Drum::getObservers() const {
+    return observers;
+}
+
+const STEP_STATUS *Drum::getGroove() const {
+    return groove;
 }
 
