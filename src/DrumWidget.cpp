@@ -11,6 +11,7 @@
 DrumWidget::~DrumWidget() {
     drum->removeObserver(this);
 }
+
 DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
 
     QPalette pal;
@@ -18,26 +19,27 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     this->setPalette(pal);
     this->setAutoFillBackground(true);
 
-
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
-    //BUILDING INFO BOX
 
+    //BUILDING INFO BOX
     drum_info = new QPushButton();
     drum_info->setStyleSheet("background: #23B400");
     layout->addWidget(drum_info);
     layout->setStretchFactor(drum_info, 3);
-    //BUILDING PLAY-PAUSE-MUTE-SOLO
 
+    //BUILDING MUTE-SOLO
     //FIXME cambiato playicon in muteicon
     muteButton = new QPushButton();
     QIcon muteicon;
-    muteicon.addFile(QString("res/icon/muteicon.png"));
+    //FIXME funziona ma sarebbe meglio una path interna
+    muteicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/muteicon.png"));
     muteButton->setIcon(muteicon);
 
     soloButton = new QPushButton();
     QIcon soloicon;
-    soloicon.addFile(QString("/home/gege/Studio/C++/png/pauseicon.png"));
+    //FIXME funziona ma sarebbe meglio una path interna
+    soloicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/soloicon.png"));
     soloButton->setIcon(soloicon);
 
 
@@ -66,6 +68,15 @@ void DrumWidget::obsUpdate() {
         else
             buttons[pos]->setBackground(Qt::white);
     }
+}
+
+//FIXME implement
+void DrumWidget::on_mute_pressed() {
+    connect(muteButton,SIGNAL(clicked()),this,SLOT(on_mute_pressed()));
+}
+
+void DrumWidget::on_solo_pressed() {
+    connect(soloButton,SIGNAL(clicked()),this,SLOT(on_solo_pressed()));
 }
 
 
