@@ -9,7 +9,7 @@
 
 Drum::Drum() {
     qDebug() << "Drum constructed";
-    //ho messo auto
+    //FIXME utilizzato auto
     for (auto & i : groove)
         i = OFF;
     mediaplayer = new QMediaPlayer;
@@ -17,12 +17,12 @@ Drum::Drum() {
     muting = NOMUTED;
 }
 
-//TODO copy mediaplayer
+//TODO copy mediaplayer?
 Drum::Drum(const Drum &drum) {
     for (int i = 0; i < 16; i++)
         groove[i] = drum.getGroove()[i];
     observers = drum.getObservers();
-
+    //FIXME
     soloing = drum.getSoloing();
     muting = drum.getMuting();
 }
