@@ -36,8 +36,13 @@ public:
     void addObserver(Observer* o) override;
     void removeObserver(Observer* o) override;
     void notify() override;
-    bool isChecked(int position);
+    bool isChecked(int position); //controlla se uno step è attivo oppure no
     void editStep(int step);
+    //Aggiunta
+    SOLO_STATUS getSoloing() const;
+    MUTE_STATUS getMuting() const;
+    void setSoloing(SOLO_STATUS soloing);
+    void setMuting(MUTE_STATUS muting);
 
     const STEP_STATUS *getGroove() const {
         return groove;

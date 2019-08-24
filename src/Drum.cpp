@@ -53,3 +53,19 @@ void Drum::editStep(int step) {
     notify();
 }
 
+SOLO_STATUS Drum::getSoloing() const {
+    return soloing;
+}
+
+MUTE_STATUS Drum::getMuting() const {
+    return muting;
+}
+
+void Drum::setSoloing(SOLO_STATUS soloing) {
+    Drum::soloing = soloing;
+}
+
+void Drum::setMuting(MUTE_STATUS muting) {
+    Drum::muting = muting;
+}
+

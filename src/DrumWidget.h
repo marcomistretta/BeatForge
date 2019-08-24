@@ -46,6 +46,8 @@ private slots:
 
     void on_solo_pressed();
 
+    void on_drum_info_pressed();
+
 };
 
 #endif //TESTQTGUI_DRUMWIDGET_H

@@ -28,6 +28,8 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     drum_info->setStyleSheet("background: #23B400");
     layout->addWidget(drum_info);
     layout->setStretchFactor(drum_info, 3);
+    //FIXME
+    connect(drum_info,SIGNAL(clicked()),this,SLOT(on_drum_info_pressed()));
 
     //BUILDING MUTE-SOLO
     //FIXME cambiato playicon in muteicon
@@ -37,7 +39,6 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     muteicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/muteicon.png"));
     muteButton->setIcon(muteicon);
     connect(muteButton,SIGNAL(clicked()),this,SLOT(on_mute_pressed()));
-
     soloButton = new QPushButton();
     QIcon soloicon;
     //FIXME funziona ma sarebbe meglio una path interna
@@ -82,11 +83,24 @@ void DrumWidget::on_mute_pressed() {
 }
 
 void DrumWidget::on_solo_pressed() {
+    if (drum->getSoloing() == SOLO) {
+        drum->setSoloing(NOSOLO);
+        drum_info->setStyleSheet("background: #23B400");
+    }
+    else {
+        drum->setSoloing(SOLO);
+        soloButton
+    }
 
     qDebug()<<"Solo Updating";
 
 
 
+}
+
+void DrumWidget::on_drum_info_pressed() {
+
+    qDebug()<<"Infobox clicked";
 }
 
 
