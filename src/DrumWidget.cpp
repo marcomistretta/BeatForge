@@ -1,13 +1,14 @@
 
 #include "DrumWidget.h"
 #include "Drum.h"
+#include "DrumKit.h"
 #include "StepButton.h"
-
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QSizePolicy>
 #include <QPalette>
 #include <QDebug>
+
 DrumWidget::~DrumWidget() {
     drum->removeObserver(this);
 }
@@ -35,12 +36,14 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     //FIXME funziona ma sarebbe meglio una path interna
     muteicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/muteicon.png"));
     muteButton->setIcon(muteicon);
+    connect(muteButton,SIGNAL(clicked()),this,SLOT(on_mute_pressed()));
 
     soloButton = new QPushButton();
     QIcon soloicon;
     //FIXME funziona ma sarebbe meglio una path interna
     soloicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/soloicon.png"));
     soloButton->setIcon(soloicon);
+    connect(soloButton,SIGNAL(clicked()),this,SLOT(on_solo_pressed()));
 
 
     layout->addWidget(muteButton,0,0);
@@ -57,8 +60,8 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
         layout->addWidget(buttons[i]);
         layout->setStretchFactor(buttons[i], 1);
     }
-
-    this->setLayout(layout);                                                                //SETTING THE LAYOUT
+    //SETTING THE LAYOUT
+    this->setLayout(layout);
      }
 void DrumWidget::obsUpdate() {
     qDebug()<<"Observer Updating";
@@ -72,11 +75,18 @@ void DrumWidget::obsUpdate() {
 
 //FIXME implement
 void DrumWidget::on_mute_pressed() {
-    connect(muteButton,SIGNAL(clicked()),this,SLOT(on_mute_pressed()));
+
+    qDebug()<<"Mute Updating";
+
+
 }
 
 void DrumWidget::on_solo_pressed() {
-    connect(soloButton,SIGNAL(clicked()),this,SLOT(on_solo_pressed()));
+
+    qDebug()<<"Solo Updating";
+
+
+
 }
 
 

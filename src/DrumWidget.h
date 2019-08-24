@@ -14,7 +14,7 @@ class StepButton;
 class Drum;
 
 class DrumWidget : public QWidget, public Observer {
-
+    Q_OBJECT
 public:
     ~DrumWidget();
 
@@ -40,8 +40,10 @@ private:
     StepButton *buttons[16];
 
 private slots:
+
     //FIXME da implementare
     void on_mute_pressed();
+
     void on_solo_pressed();
 
 };

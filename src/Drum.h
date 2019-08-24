@@ -17,14 +17,15 @@ enum STEP_STATUS{
 };
 //FIXME con l'aggiunta di SOLO_STATUS, ho deciso di togliere "SOLO = 1" da qui
 enum MUTE_STATUS{
-    MUTED = 0,
-    NORMAL = 1,
+    NOMUTED = 0,
+    MUTED = 1,
+
 };
 
 //TODO: Ho cambiato PLAY_STATUS in SOLO_STATUS
 enum SOLO_STATUS{
-    FALSE = 0,
-    TRUE = 1,
+    NOSOLO = 0,
+    SOLO = 1,
 };
 
 class Drum: public Subject{
@@ -49,10 +50,13 @@ public:
 
 
 private:
-    //FIXME come test ho usato uno stesso sample in tutte le drum
-
     std::list<Observer*> observers;
     STEP_STATUS groove[16];
+
+    //FIXME mia aggiunta
+    SOLO_STATUS soloing;
+    MUTE_STATUS muting;
+
     QMediaPlayer* mediaplayer; //FIXME
 
 
