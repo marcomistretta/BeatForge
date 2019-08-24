@@ -8,6 +8,7 @@
 #include <QSizePolicy>
 #include <QPalette>
 #include <QDebug>
+//#include <QtGui/qopengles2ext.h> //TODO COSAAAAA
 
 DrumWidget::~DrumWidget() {
     drum->removeObserver(this);
@@ -38,12 +39,14 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     //FIXME funziona ma sarebbe meglio una path interna
     muteicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/muteicon.png"));
     muteButton->setIcon(muteicon);
+    muteButton->setStyleSheet("background: #698b22");//olivedrab4
     connect(muteButton,SIGNAL(clicked()),this,SLOT(on_mute_pressed()));
     soloButton = new QPushButton();
     QIcon soloicon;
     //FIXME funziona ma sarebbe meglio una path interna
     soloicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/soloicon.png"));
     soloButton->setIcon(soloicon);
+    soloButton->setStyleSheet("background: #698b22");//olivedrab4
     connect(soloButton,SIGNAL(clicked()),this,SLOT(on_solo_pressed()));
 
 
@@ -76,25 +79,34 @@ void DrumWidget::obsUpdate() {
 
 //FIXME implement
 void DrumWidget::on_mute_pressed() {
+    if (drum->getMuting() == NOMUTED) {
+        drum->setMuting(MUTED);
+        muteButton->setStyleSheet("background: #ff4500"); //orangered1
+        //drum_info->setStyleSheet(QString("background-color: %1"));
+        qDebug()<<"Mute Updating to MUTED";
 
-    qDebug()<<"Mute Updating";
-
+    }
+    else {
+        drum->setMuting(NOMUTED);
+        muteButton->setStyleSheet("background: #698b22");//olivedrab4
+        qDebug()<<"Mute Updating to NOMUTED";
+    }
 
 }
 
 void DrumWidget::on_solo_pressed() {
-    if (drum->getSoloing() == SOLO) {
-        drum->setSoloing(NOSOLO);
-        drum_info->setStyleSheet("background: #23B400");
+    if (drum->getSoloing() == NOSOLO) {
+        drum->setSoloing(SOLO);
+        soloButton->setStyleSheet("background: #ff4500"); //orangered1
+        //drum_info->setStyleSheet(QString("background-color: %1"));
+        qDebug()<<"Solo Updating to SOLO";
+
     }
     else {
-        drum->setSoloing(SOLO);
-        soloButton
+        drum->setSoloing(NOSOLO);
+        soloButton->setStyleSheet("background: #698b22");//olivedrab4
+        qDebug()<<"Solo Updating to NOSOLO";
     }
-
-    qDebug()<<"Solo Updating";
-
-
 
 }
 
