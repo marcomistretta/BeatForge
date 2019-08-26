@@ -4,13 +4,28 @@
 
 #include <QtMultimedia/QSound>
 #include "Metronome.h"
+#include <QDebug>
 
-void Metronome::beep() {
-    QString path = QString("/home/gege/samples/Ragers_Lofi Noiiz/Single Hit/Hi Hats/Hat01.wav");
-    QSound::play(path);
+Metronome::Metronome(): state(OFF){
+    qDebug()<<"Metronome constructed";
 }
+void Metronome::notify() {
+    for(Observer * observer : observers)
+        observer->obsUpdate();
+    qDebug()<<"MetroWidgt notified";
 
-void Metronome::timerEvent(QTimerEvent *event) {
-    beep();
 }
-
+void Metronome::addObserver(Observer *o) {
+    qDebug()<<"Observer added";
+    observers.push_back(o);
+}
+void Metronome::removeObserver(Observer *o) {
+    qDebug()<<"Observer removed";
+    observers.remove(o);
+}
+bool Metronome::isActive() {
+    if(this->state == ON)
+        return true;
+    else
+        return false;
+}
