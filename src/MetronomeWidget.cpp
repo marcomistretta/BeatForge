@@ -10,7 +10,7 @@ MetronomeWidget::MetronomeWidget( QWidget *parent): Observer(), metronome(new Me
     metronome->addObserver(this);                                                                          //adding observer
     QString currentPath = QDir::currentPath();                                                             //Setting the icon
     QIcon icon;
-    icon.addFile(QString("../res/icons/metronome.png"));
+    icon.addFile(QString("/home/gege/Scrivania/DrumMachine/res/icons/metronome.png"));
     this->setIcon(icon);
                                                                                                             //connecting methods
     connect(this,SIGNAL(clicked()), this, SLOT(on_pressed()));
