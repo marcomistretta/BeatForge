@@ -7,7 +7,6 @@
 #include "DrumKit.h"
 #include "DrumWidget.h"
 
-
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDebug>
@@ -15,7 +14,6 @@
 DrumKitWidget::DrumKitWidget(QWidget* parent): QWidget(parent), drumKit(new DrumKit(this)) {
     drumKit->insertRows(0,1, QModelIndex());                                                            //DRUM HAS BEEN CONSTRUCTED
     Drum* drum = drumKit->data(drumKit->index(0,0, QModelIndex()), Qt::DisplayRole).value<Drum*>();     //GETTING THE DRUM ADDRESS
-
 
 
     addbutton = new QPushButton(this);
@@ -33,7 +31,6 @@ DrumKitWidget::DrumKitWidget(QWidget* parent): QWidget(parent), drumKit(new Drum
     this->setLayout(layout);
 }
 void DrumKitWidget::on_add_pressed(){
-
     drumKit->insertRows(0,1, QModelIndex());                                                            //DRUM HAS BEEN CONSTRUCTED
     Drum* drum = drumKit->data(drumKit->index(0,0, QModelIndex()), Qt::DisplayRole).value<Drum*>();     //GETTING THE DRUM ADDRESS
 

@@ -21,11 +21,11 @@ public:
 
     int rowCount(const QModelIndex &parent) const override;
 
+    bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
+    bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
     QVariant data(const QModelIndex & index, int role) const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
-    bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
-    bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
@@ -34,6 +34,5 @@ public:
 private:
     QVector<Drum*> drums;
 };
-
 
 #endif //MYTEST_DRUMKIT_H

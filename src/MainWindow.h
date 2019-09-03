@@ -12,6 +12,7 @@ class QWidget;
 class DrumKitWidget;
 class MetronomeWidget;
 
+
 class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -22,6 +23,7 @@ private:
     DrumKitWidget* drumKitWidget;
     MetronomeWidget* metronomeWidget;
     QGridLayout* mainLayout;
+
 
 };
 

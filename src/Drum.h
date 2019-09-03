@@ -5,22 +5,25 @@
 #define MYTEST_DRUM_H
 
 #include "Subject.h"
-#include <QMetaType>
 
+
+#include <QMetaType>
+class QMediaPlayer;
 class Observer;
 
 enum STEP_STATUS{
-    ON = 1,
     OFF = 0,
+    ON = 1,
 };
+
 enum MUTE_STATUS{
-    MUTED = 0,
-    SOLO = 1,
-    NORMAL = 2,
+    NOMUTED = 0,
+    MUTED = 1,
 };
-enum PLAY_STATUS{
-    PLAYING = 1,
-    STOPPED = 0,
+
+enum SOLO_STATUS{
+    NOSOLO = 0,
+    SOLO = 1,
 };
 
 class Drum: public Subject{
@@ -31,20 +34,45 @@ public:
     void addObserver(Observer* o) override;
     void removeObserver(Observer* o) override;
     void notify() override;
+
+    const std::list<Observer *> &getObservers() const;
+
     bool isChecked(int position);
     void editStep(int step);
 
     const STEP_STATUS *getGroove() const {
         return groove;
     }
+  
+    SOLO_STATUS getSoloState() const{ 
+         return soloState;
+    };
+    MUTE_STATUS getMuteState() const{
+         return muteState; 
+    };
+    void setSoloState(SOLO_STATUS sStatus){
+         soloState = sStatus;
+    };
+    void setMuteState(MUTE_STATUS mStatus){
+         muteState = mStatus;
+    };
+  
+    QMediaPlayer* getMediaPlayer const(){
+         return mediaPlayer;
+    };  
+  
     std::list<Observer*> getObservers() const {
         return observers;
     };
 
 private:
     std::list<Observer*> observers;
-    STEP_STATUS groove[16];
 
+    STEP_STATUS groove[16]{};
+    SOLO_STATUS soloState;
+    MUTE_STATUS muteState;
+
+    QMediaPlayer* mediaPlayer; //FIXME
 };
 Q_DECLARE_METATYPE(Drum)
 Q_DECLARE_METATYPE(Drum*)

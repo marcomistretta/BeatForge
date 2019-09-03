@@ -9,12 +9,6 @@
 #include "DrumKitWidget.h"
 #include "MetronomeWidget.h"
 
-#include <QWidget>
-#include <QMainWindow>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QPainter>
-
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
     this->showMaximized();

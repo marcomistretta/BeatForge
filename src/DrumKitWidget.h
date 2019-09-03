@@ -15,11 +15,9 @@ class QPushButton;
 class DrumKitWidget: public QWidget {
     Q_OBJECT
 public:
-
-    DrumKitWidget(QWidget* parent = nullptr);
+    explicit DrumKitWidget(QWidget* parent = nullptr);
 
 private slots:
-
     void on_add_pressed();
 
 private:
