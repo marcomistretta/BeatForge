@@ -8,7 +8,7 @@
 #include "DrumKit.h"
 #include "DrumKitWidget.h"
 #include "MetronomeWidget.h"
-
+#include <QGridLayout>
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
     this->showMaximized();
@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
     int mainHeight = this->size().height();
 
     this->setFixedSize(mainWidth,mainHeight);
-    this->setStyleSheet(QString("*{image: url(../res/Background.png);};"));
+    this->setStyleSheet(QString("*{image: url(/home/gege/Scrivania/DrumMachine/res/Background.png);};"));
     this->setContentsMargins(0,0,0,0);
 
     mainWidget = new QWidget(this);

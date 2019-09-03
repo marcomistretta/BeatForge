@@ -19,7 +19,7 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     int mainWidth = static_cast<QMainWindow*>(this->parent()->parent()->parent())->size().width();
     int mainHeight = static_cast<QMainWindow*>(this->parent()->parent()->parent())->size().height();
 
-    this->setStyleSheet(QString("*{image: url(../res/DrumWidget.png);}"));
+    this->setStyleSheet(QString("*{image: url(/home/gege/Scrivania/DrumMachine/res/DrumWidget.png);};"));
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
     layout->setContentsMargins(0,0,0,0);
@@ -39,7 +39,7 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
 
     muteButton = new QPushButton();
     QIcon playicon;
-    playicon.addFile(QString("../res/icons/MuteButton-OFF.png"));
+    playicon.addFile(QString("/home/gege/Scrivania/DrumMachine/res/icons/MuteButton-OFF.png"));
     muteButton->setFixedSize(mainHeight/35,mainHeight/35);
     muteButton->setIcon(playicon);
     connect(muteButton, SIGNAL(clicked()), this, SLOT(on_mute_pressed()));
@@ -47,7 +47,7 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
 
     soloButton = new QPushButton();
     QIcon soloicon;
-    soloicon.addFile(QString("../res/icons/SoloButton-OFF.png"));
+    soloicon.addFile(QString("/home/gege/Scrivania/DrumMachine/res/icons/SoloButton-OFF.png"));
     soloButton->setFixedSize(mainHeight/35,mainHeight/35);
     soloButton->setIcon(soloicon);
     connect(soloButton, SIGNAL(clicked()), this, SLOT(on_solo_pressed()));
@@ -91,27 +91,27 @@ void DrumWidget::obsUpdate() {
 
 //FIXME implement
 void DrumWidget::on_mute_pressed() {
-    if (drum->getMuting() == NOMUTED) {
-        drum->setMuting(MUTED);
+    if (drum->getMuteState() == NOMUTED) {
+        drum->setMuteState(MUTED);
         muteButton->setStyleSheet("background: #ff4500"); //orangered1
         //drum_info->setStyleSheet(QString("background-color: %1"));
         qDebug() << "Mute Updating to MUTED";
     } else {
-        drum->setMuting(NOMUTED);
+        drum->setMuteState(NOMUTED);
         muteButton->setStyleSheet("background: #698b22");//olivedrab4
         qDebug() << "Mute Updating to NOMUTED";
     }
 }
 
 void DrumWidget::on_solo_pressed() {
-    if (drum->getSoloing() == NOSOLO) {
-        drum->setSoloing(SOLO);
+    if (drum->getSoloState() == NOSOLO) {
+        drum->setSoloState(SOLO);
         soloButton->setStyleSheet("background: #ff4500"); //orangered1
         //drum_info->setStyleSheet(QString("background-color: %1"));
         qDebug() << "Solo Updating to SOLO";
 
     } else {
-        drum->setSoloing(NOSOLO);
+        drum->setSoloState(NOSOLO);
         soloButton->setStyleSheet("background: #698b22");//olivedrab4
         qDebug() << "Solo Updating to NOSOLO";
     }
