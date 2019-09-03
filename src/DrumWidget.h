@@ -8,9 +8,7 @@
 class QPushButton;
 
 class QHBoxLayout;
-
 class StepButton;
-
 class Drum;
 
 class DrumWidget : public QWidget, public Observer {
@@ -40,12 +38,9 @@ private:
     StepButton *buttons[16];
 
 private slots:
-
     //FIXME da implementare
     void on_mute_pressed();
-
     void on_solo_pressed();
-
     void on_drum_info_pressed();
 
 };

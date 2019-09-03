@@ -1,8 +1,10 @@
 
 #include "DrumWidget.h"
 #include "Drum.h"
-#include "DrumKit.h"
+
 #include "StepButton.h"
+#include <QMainWindow>
+
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QSizePolicy>
@@ -13,66 +15,79 @@
 DrumWidget::~DrumWidget() {
     drum->removeObserver(this);
 }
+DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
+    int mainWidth = static_cast<QMainWindow*>(this->parent()->parent()->parent())->size().width();
+    int mainHeight = static_cast<QMainWindow*>(this->parent()->parent()->parent())->size().height();
 
-DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
-
-    QPalette pal;
-    pal.setColor(QPalette::Background, QColor(72, 71, 90));
-    this->setPalette(pal);
-    this->setAutoFillBackground(true);
-
+    this->setStyleSheet(QString("*{image: url(../res/DrumWidget.png);}"));
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
-
+    layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(10);
+    layout->setMargin(0);
     //BUILDING INFO BOX
+
     drum_info = new QPushButton();
-    drum_info->setStyleSheet("background: #23B400");
-    layout->addWidget(drum_info);
-    layout->setStretchFactor(drum_info, 3);
+
+    drum_info->setStyleSheet(QString("*{background: rgb(140,200,255);}"));
+    drum_info->setFixedSize(mainWidth/10,mainHeight/31);
     connect(drum_info, SIGNAL(clicked()), this, SLOT(on_drum_info_pressed()));
 
-    //BUILDING MUTE-SOLO
+    layout->addWidget(drum_info,Qt::AlignLeft,Qt::AlignVCenter);
+
+    //BUILDING PLAY-PAUSE-MUTE-SOLO
+
     muteButton = new QPushButton();
-    QIcon muteicon;
-    //FIXME funziona ma sarebbe meglio una path interna
-    muteicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/muteicon.png"));
-    muteButton->setIcon(muteicon);
-    muteButton->setStyleSheet("background: #698b22");//olivedrab4
+    QIcon playicon;
+    playicon.addFile(QString("../res/icons/MuteButton-OFF.png"));
+    muteButton->setFixedSize(mainHeight/35,mainHeight/35);
+    muteButton->setIcon(playicon);
     connect(muteButton, SIGNAL(clicked()), this, SLOT(on_mute_pressed()));
+
 
     soloButton = new QPushButton();
     QIcon soloicon;
-    //FIXME funziona ma sarebbe meglio una path interna
-    soloicon.addFile(QString("/home/misterm/Scrivania/PROGETTO/res/icon/soloicon.png"));
+    soloicon.addFile(QString("../res/icons/SoloButton-OFF.png"));
+    soloButton->setFixedSize(mainHeight/35,mainHeight/35);
     soloButton->setIcon(soloicon);
-    soloButton->setStyleSheet("background: #698b22");//olivedrab4
     connect(soloButton, SIGNAL(clicked()), this, SLOT(on_solo_pressed()));
 
-    layout->addWidget(muteButton, 0, 0);
-    layout->addWidget(soloButton, 1, 0);
+    layout->addWidget(muteButton,0,0);
+    layout->addWidget(soloButton,1,0);
+
+    //SPACING
+    QWidget* space = new QWidget;
+    space->setStyleSheet(QString(" background: transparent;"));
+    space->setFixedWidth(30);
+    space->setFixedHeight(mainHeight/22);
+
+    layout->addWidget(space);
 
     //BUILDING STEP_BUTTONS
     for (int i = 0; i < 16; i++) {
         buttons[i] = new StepButton(this);
-        buttons[i]->setStyleSheet("background: white");
+
+        buttons[i]->setStyleSheet(QString("*{background: white;}"));
+        buttons[i]->setFixedSize(mainWidth/30,mainHeight/32);
         buttons[i]->setPosition(i);
 
         layout->addWidget(buttons[i]);
         layout->setStretchFactor(buttons[i], 1);
     }
-    //SETTING THE LAYOUT
-    this->setLayout(layout);
-}
 
+
+    this->setLayout(layout);                                                                //SETTING THE LAYOUT
+     }
 void DrumWidget::obsUpdate() {
     qDebug() << "Observer Updating";
-    for (int pos = 0; pos < 16; pos++) {
+    for(int pos = 0; pos<16; pos ++){
         if (drum->isChecked(pos))
             buttons[pos]->setBackground(Qt::red);
         else
             buttons[pos]->setBackground(Qt::white);
     }
 }
+
 
 //FIXME implement
 void DrumWidget::on_mute_pressed() {

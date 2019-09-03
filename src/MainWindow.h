@@ -10,6 +10,8 @@
 class QGridLayout;
 class QWidget;
 class DrumKitWidget;
+class MetronomeWidget;
+
 
 class MainWindow : public QMainWindow {
 public:
@@ -17,8 +19,12 @@ public:
 
 private:
     QWidget * mainWidget;
+    QWidget* drumbackWidget;
     DrumKitWidget* drumKitWidget;
+    MetronomeWidget* metronomeWidget;
     QGridLayout* mainLayout;
+
+
 };
 
 

@@ -5,46 +5,32 @@
 #ifndef DRUMMACHINE_METRONOME_H
 #define DRUMMACHINE_METRONOME_H
 
-#include <vector>
-#include <QtCore/QTimer>
+#include "Subject.h"
 
-class Metronome : public QTimer {
+enum State{
+    ON = 1,
+    OFF = 0,
+};
+
+class Metronome: public Subject {
 public:
+    Metronome();
 
-    bool isMute1() const {
-        return isMute;
+    void notify() override;
+    void addObserver(Observer* o) override;
+    void removeObserver(Observer* o) override;
+    bool isActive();
+    void setState(State state) {
+        Metronome::state = state;
+        notify();
     }
-
-    void setIsMute(bool isMute) {
-        Metronome::isMute = isMute;
+    State getState() const {
+        return state;
     }
-
-    const std::vector<int> &getAccents() const {
-        return accents;
-    }
-
-    void setAccents(const std::vector<int> &accents) {
-        Metronome::accents = accents;
-    }
-
-    int getBpm() const {
-        return Bpm;
-    }
-
-    void setBpm(int bpm) {
-        Bpm = bpm;
-    }
-
-    void timerEvent(QTimerEvent *event) override;
-
-    void beep();
 
 private:
-    bool isMute;
-    std::vector<int> accents;
-    int Bpm;
-
-
+    std::list<Observer*> observers;
+    State state;
 };
 
 

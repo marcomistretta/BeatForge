@@ -6,9 +6,9 @@
 
 #include "Subject.h"
 
-#include <QMetaType>
-#include <QMediaPlayer>
 
+#include <QMetaType>
+class QMediaPlayer;
 class Observer;
 
 enum STEP_STATUS{
@@ -34,25 +34,45 @@ public:
     void addObserver(Observer* o) override;
     void removeObserver(Observer* o) override;
     void notify() override;
+
     const std::list<Observer *> &getObservers() const;
 
     bool isChecked(int position);
     void editStep(int step);
 
-    const STEP_STATUS *getGroove() const;
-    SOLO_STATUS getSoloing() const;
-    MUTE_STATUS getMuting() const;
-    void setSoloing(SOLO_STATUS sStatus);
-    void setMuting(MUTE_STATUS mStatus);
+    const STEP_STATUS *getGroove() const {
+        return groove;
+    }
+  
+    SOLO_STATUS getSoloState() const{ 
+         return soloState;
+    };
+    MUTE_STATUS getMuteState() const{
+         return muteState; 
+    };
+    void setSoloState(SOLO_STATUS sStatus){
+         soloState = sStatus;
+    };
+    void setMuteState(MUTE_STATUS mStatus){
+         muteState = mStatus;
+    };
+  
+    QMediaPlayer* getMediaPlayer const(){
+         return mediaPlayer;
+    };  
+  
+    std::list<Observer*> getObservers() const {
+        return observers;
+    };
 
 private:
     std::list<Observer*> observers;
 
     STEP_STATUS groove[16]{};
-    SOLO_STATUS soloing;
-    MUTE_STATUS muting;
+    SOLO_STATUS soloState;
+    MUTE_STATUS muteState;
 
-    QMediaPlayer* mediaplayer; //FIXME
+    QMediaPlayer* mediaPlayer; //FIXME
 };
 Q_DECLARE_METATYPE(Drum)
 Q_DECLARE_METATYPE(Drum*)

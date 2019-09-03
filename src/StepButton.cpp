@@ -8,6 +8,7 @@
 #include <QDebug>
 
 StepButton::StepButton(QWidget *parent): QPushButton(parent) {
+    this->setStyleSheet(QString("background: rgb(255,255,255);"));
     connect(this,SIGNAL(clicked()),this,SLOT(on_clicked()));
 }
 

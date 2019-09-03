@@ -6,15 +6,16 @@
 #include "Observer.h"
 
 #include <QDebug>
+#include <QMediaPlayer>
+
 
 Drum::Drum() {
     qDebug() << "Drum constructed";
-    //FIXME utilizzato auto
     for (auto & i : groove)
         i = OFF;
     mediaplayer = new QMediaPlayer;
-    soloing = NOSOLO;
-    muting = NOMUTED;
+    soloState = NOSOLO;
+    muteState = NOMUTED;
 }
 
 //TODO copy mediaplayer?
@@ -23,8 +24,9 @@ Drum::Drum(const Drum &drum) {
         groove[i] = drum.getGroove()[i];
     observers = drum.getObservers();
     //FIXME
-    soloing = drum.getSoloing();
-    muting = drum.getMuting();
+    mediaplayer = drum.getMediaPlayer();
+    soloState = drum.getSoloState();
+    muteState = drum.getMuteState();
 }
 
 void Drum::addObserver(Observer *o) {
@@ -55,29 +57,5 @@ void Drum::editStep(int step) {
     else
         groove[step] = ON;
     notify();
-}
-
-SOLO_STATUS Drum::getSoloing() const {
-    return soloing;
-}
-
-MUTE_STATUS Drum::getMuting() const {
-    return muting;
-}
-
-void Drum::setSoloing(SOLO_STATUS sStatus) {
-    Drum::soloing = sStatus;
-}
-
-void Drum::setMuting(MUTE_STATUS mStatus) {
-    Drum::muting = mStatus;
-}
-
-const std::list<Observer *> &Drum::getObservers() const {
-    return observers;
-}
-
-const STEP_STATUS *Drum::getGroove() const {
-    return groove;
 }
 
