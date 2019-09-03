@@ -56,14 +56,11 @@ public:
     void setMuteState(MUTE_STATUS mStatus){
          muteState = mStatus;
     };
-  
-    QMediaPlayer* getMediaPlayer const(){
-         return mediaPlayer;
-    };  
-  
-    std::list<Observer*> getObservers() const {
-        return observers;
-    };
+
+    QMediaPlayer *getMediaPlayer() const {
+        return mediaPlayer;
+    }
+
 
 private:
     std::list<Observer*> observers;

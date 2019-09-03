@@ -91,27 +91,27 @@ void DrumWidget::obsUpdate() {
 
 //FIXME implement
 void DrumWidget::on_mute_pressed() {
-    if (drum->getMuting() == NOMUTED) {
-        drum->setMuting(MUTED);
+    if (drum->getMuteState() == NOMUTED) {
+        drum->setMuteState(MUTED);
         muteButton->setStyleSheet("background: #ff4500"); //orangered1
         //drum_info->setStyleSheet(QString("background-color: %1"));
         qDebug() << "Mute Updating to MUTED";
     } else {
-        drum->setMuting(NOMUTED);
+        drum->setMuteState(NOMUTED);
         muteButton->setStyleSheet("background: #698b22");//olivedrab4
         qDebug() << "Mute Updating to NOMUTED";
     }
 }
 
 void DrumWidget::on_solo_pressed() {
-    if (drum->getSoloing() == NOSOLO) {
-        drum->setSoloing(SOLO);
+    if (drum->getSoloState() == NOSOLO) {
+        drum->setSoloState(SOLO);
         soloButton->setStyleSheet("background: #ff4500"); //orangered1
         //drum_info->setStyleSheet(QString("background-color: %1"));
         qDebug() << "Solo Updating to SOLO";
 
     } else {
-        drum->setSoloing(NOSOLO);
+        drum->setSoloState(NOSOLO);
         soloButton->setStyleSheet("background: #698b22");//olivedrab4
         qDebug() << "Solo Updating to NOSOLO";
     }

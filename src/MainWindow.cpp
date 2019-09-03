@@ -8,6 +8,7 @@
 #include "DrumKit.h"
 #include "DrumKitWidget.h"
 #include "MetronomeWidget.h"
+#include <QGridLayout>
 
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 

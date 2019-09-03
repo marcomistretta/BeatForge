@@ -13,7 +13,7 @@ Drum::Drum() {
     qDebug() << "Drum constructed";
     for (auto & i : groove)
         i = OFF;
-    mediaplayer = new QMediaPlayer;
+    mediaPlayer = new QMediaPlayer;
     soloState = NOSOLO;
     muteState = NOMUTED;
 }
@@ -22,9 +22,9 @@ Drum::Drum() {
 Drum::Drum(const Drum &drum) {
     for (int i = 0; i < 16; i++)
         groove[i] = drum.getGroove()[i];
-    observers = drum.getObservers();
+//    observers = drum.getObservers();
     //FIXME
-    mediaplayer = drum.getMediaPlayer();
+    mediaPlayer = drum.getMediaPlayer();
     soloState = drum.getSoloState();
     muteState = drum.getMuteState();
 }
