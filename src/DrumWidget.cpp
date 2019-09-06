@@ -10,7 +10,7 @@
 #include <QSizePolicy>
 #include <QPalette>
 #include <QDebug>
-//#include <QtGui/qopengles2ext.h> //TODO COSAAAAA
+
 
 DrumWidget::~DrumWidget() {
     drum->removeObserver(this);
