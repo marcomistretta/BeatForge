@@ -6,8 +6,8 @@
 
 #include "Subject.h"
 
-
 #include <QMetaType>
+
 class QMediaPlayer;
 class Observer;
 
@@ -35,7 +35,7 @@ public:
     void removeObserver(Observer* o) override;
     void notify() override;
 
-    const std::list<Observer *> &getObservers() const;
+
 
     bool isChecked(int position);
     void editStep(int step);
@@ -43,8 +43,19 @@ public:
     const STEP_STATUS *getGroove() const {
         return groove;
     }
-  
-    SOLO_STATUS getSoloState() const{ 
+
+    //GETTER & SETTER
+    const std::list<Observer *> &getObservers() const;
+
+    void setObservers(const std::list<Observer *> &observers);
+
+    QMediaPlayer *getMediaPlayer() const {
+        return mediaPlayer;
+    }
+
+    void setMediaPlayer(QMediaPlayer *mediaPlayer);
+
+    SOLO_STATUS getSoloState() const {
          return soloState;
     };
     MUTE_STATUS getMuteState() const{
@@ -57,11 +68,6 @@ public:
          muteState = mStatus;
     };
 
-    QMediaPlayer *getMediaPlayer() const {
-        return mediaPlayer;
-    }
-
-
 private:
     std::list<Observer*> observers;
 
@@ -69,8 +75,9 @@ private:
     SOLO_STATUS soloState;
     MUTE_STATUS muteState;
 
-    QMediaPlayer* mediaPlayer; //FIXME
+    QMediaPlayer *mediaPlayer;
 };
+
 Q_DECLARE_METATYPE(Drum)
 Q_DECLARE_METATYPE(Drum*)
 

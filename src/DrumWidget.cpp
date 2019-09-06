@@ -19,7 +19,7 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     int mainWidth = static_cast<QMainWindow*>(this->parent()->parent()->parent())->size().width();
     int mainHeight = static_cast<QMainWindow*>(this->parent()->parent()->parent())->size().height();
 
-    this->setStyleSheet(QString("*{image: url(../res/DrumWidget.png);}"));
+    this->setStyleSheet(QString("*{image: url(../res/icon/DrumWidget.png);}"));
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
     layout->setContentsMargins(0,0,0,0);

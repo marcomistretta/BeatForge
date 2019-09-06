@@ -1,5 +1,5 @@
 PROJECT(MyTest)
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.13)
  set(MySources "src/main.cpp" "src/Observer.h" "src/Subject.h" 
          "src/MainWindow.h" "src/MainWindow.cpp"  "src/StepButton.h" "src/StepButton.cpp"
          "src/Drum.h" "src/Drum.cpp" "src/DrumWidget.h" "src/DrumWidget.cpp" 

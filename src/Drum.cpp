@@ -18,12 +18,10 @@ Drum::Drum() {
     muteState = NOMUTED;
 }
 
-//TODO copy mediaplayer?
 Drum::Drum(const Drum &drum) {
     for (int i = 0; i < 16; i++)
         groove[i] = drum.getGroove()[i];
-//    observers = drum.getObservers();
-    //FIXME
+    observers = drum.getObservers();
     mediaPlayer = drum.getMediaPlayer();
     soloState = drum.getSoloState();
     muteState = drum.getMuteState();
@@ -45,7 +43,6 @@ void Drum::notify() {
     qDebug() << "Observer notified";
 }
 
-//FIXME ho semplificato la funzione isChecked
 bool Drum::isChecked(int position) {
     return groove[position] == ON;
 }
@@ -57,5 +54,17 @@ void Drum::editStep(int step) {
     else
         groove[step] = ON;
     notify();
+}
+
+const std::list<Observer *> &Drum::getObservers() const {
+    return observers;
+}
+
+void Drum::setObservers(const std::list<Observer *> &observers) {
+    Drum::observers = observers;
+}
+
+void Drum::setMediaPlayer(QMediaPlayer *mediaPlayer) {
+    Drum::mediaPlayer = mediaPlayer;
 }
 

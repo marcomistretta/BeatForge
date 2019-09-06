@@ -16,8 +16,9 @@ class Drum;
 class DrumKit: public QAbstractListModel {
     Q_OBJECT
 public:
-    DrumKit(QObject* parent = nullptr);
-    DrumKit(const QVector<Drum*> &drums, QObject* parent = nullptr);
+    explicit DrumKit(QObject *parent = nullptr);
+
+    explicit DrumKit(const QVector<Drum *> &drums, QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent) const override;
 
