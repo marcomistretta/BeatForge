@@ -6,6 +6,7 @@
 #define DRUMMACHINE_METRONOME_H
 
 #include <QtGui/QtGui>
+#include <QtMultimedia/QMediaPlayer>
 #include "Subject.h"
 
 enum STATE {
@@ -13,19 +14,22 @@ enum STATE {
     OFF = 0,
 };
 
-class Metronome: public Subject {
+enum MUTE_STATUS {
+    NOMUTED = 0,
+    MUTED = 1,
+};
 
-/*TODO
-signals
-    void updateLCD(int);
-    */
+class Metronome : public QTimer, public Subject {
+Q_OBJECT
 
 public:
     Metronome();
 
     void notify() override;
-    void addObserver(Observer* o) override;
-    void removeObserver(Observer* o) override;
+
+    void addObserver(Observer *o) override;
+
+    void removeObserver(Observer *o) override;
 
     //GETTER & SETTER
     STATE getState() const;
@@ -36,13 +40,26 @@ public:
 
     void setBpm(int bpm);
 
+    int fromBpmToMillisec();
+
+    //TODO
+public slots:
+
+    void doBeep();
+
+    void startStop();
+
+
+
 private:
-    std::list<Observer*> observers;
+    std::list<Observer *> observers;
     STATE state;
+
     //TODO
     int bpm;
     QTimer *timer;
-
+    MUTE_STATUS mute;
+    QMediaPlayer *mediaPlayer;
 
 };
 
