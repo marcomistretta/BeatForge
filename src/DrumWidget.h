@@ -31,14 +31,12 @@ public:
 private:
     QHBoxLayout *layout;
     QPushButton *drum_info;
-    //FIXME il nome dei bottoni è giusto
     QPushButton *muteButton;
     QPushButton *soloButton;
     Drum *drum;
     StepButton *buttons[16];
 
 private slots:
-    //FIXME da implementare
     void on_mute_pressed();
     void on_solo_pressed();
     void on_drum_info_pressed();

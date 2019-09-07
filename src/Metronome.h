@@ -9,6 +9,7 @@
 #include <QtMultimedia/QMediaPlayer>
 #include "Subject.h"
 
+
 enum STATE {
     ON = 1,
     OFF = 0,
@@ -42,7 +43,6 @@ public:
 
     int fromBpmToMillisec();
 
-    //TODO
 public slots:
 
     void doBeep();

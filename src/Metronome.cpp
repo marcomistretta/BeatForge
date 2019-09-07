@@ -6,18 +6,17 @@
 #include "Metronome.h"
 #include <QDebug>
 
+class MetronomeWidget;
 
 Metronome::Metronome() {
-    timer = new QTimer;
-    connect(timer, SIGNAL(timeout()), this, SLOT(doBeep()));
+    timer = new QTimer(this);
+    timer->stop();
     state = OFF;
     bpm = 60;
-    qDebug() << "Metronome constructed";
-    timer = new QTimer;
     mediaPlayer = new QMediaPlayer;
     mute = NOMUTED;
-
-
+    connect(timer, SIGNAL(timeout()), this, SLOT(doBeep()));
+    qDebug() << "Metronome constructed";
 }
 
 void Metronome::notify() {
@@ -74,5 +73,6 @@ int Metronome::fromBpmToMillisec() {
 void Metronome::doBeep() {
     mediaPlayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/0609/res/beeps/start.wav"));
     mediaPlayer->play();
+    qDebug() << "Beep";
     qDebug() << "Metronome played";
 }

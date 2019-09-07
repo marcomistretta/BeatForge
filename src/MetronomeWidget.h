@@ -18,7 +18,8 @@ public:
     explicit MetronomeWidget(QWidget *parent = nullptr);
     ~MetronomeWidget();
     void obsUpdate() override;
-    void setBackground(QColor color);
+
+    void setBackground(const QColor &color);
 
 private slots:
     void on_pressed();
@@ -27,10 +28,9 @@ private slots:
 private:
     Metronome * metronome;
     //TODO
-    QPushButton *mute_button; //button to start & stop the metronome
     QSlider *vol_slider; //slider for the volume
     QSlider *bpm_slider; //slider for the beats per minute
-    QLCDNumber *lcd; //the lcd display
+
 };
 
 
