@@ -9,13 +9,13 @@
 class MetronomeWidget;
 
 Metronome::Metronome() {
-    timer = new QTimer(this);
-    timer->stop();
+    //timer = new QTimer(this);
+    //timer->stop();
     state = OFF;
-    bpm = 60;
-    mediaPlayer = new QMediaPlayer;
-    mute = NOMUTED;
-    connect(timer, SIGNAL(timeout()), this, SLOT(doBeep()));
+    //bpm = 60;
+    //mediaPlayer = new QMediaPlayer;
+    //mute = NOMUTED;
+    //connect(timer, SIGNAL(timeout()), this, SLOT(doBeep()));
     qDebug() << "Metronome constructed";
 }
 
@@ -52,19 +52,6 @@ void Metronome::setBpm(int bpm) {
     Metronome::bpm = bpm;
 }
 
-void Metronome::startStop() {
-    if (!getState()) {
-        setState(ON);
-        qDebug() << "State to ON";
-        timer->start(fromBpmToMillisec());
-        qDebug() << "Timer Start";
-    } else {
-        setState(OFF);
-        qDebug() << "State to OFF";
-        timer->stop();
-        qDebug() << "Timer Stop";
-    }
-}
 
 int Metronome::fromBpmToMillisec() {
     return (60000 / getBpm());

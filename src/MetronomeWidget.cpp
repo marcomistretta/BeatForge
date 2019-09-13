@@ -10,6 +10,7 @@
 MetronomeWidget::MetronomeWidget(QWidget *parent) : Observer(), metronome(new Metronome()) {
     //adding observer
     metronome->addObserver(this);
+    Player = new Player;
 
     //setting the icon
     QIcon icon;
@@ -61,11 +62,11 @@ void MetronomeWidget::on_pressed() {
     if (metronome->getState() == STATE::ON) {
         // metronome->setState(OFF);
         //this->setText("&stop");
-        metronome->startStop();
+        player->startStop();
     } else {
         //this->setText("&start");
         //metronome->setState(ON);
-        metronome->startStop();
+        player->startStop();
     }
 }
 

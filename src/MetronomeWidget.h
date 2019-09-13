@@ -12,6 +12,8 @@
 
 class Metronome;
 
+class Player;
+
 class MetronomeWidget: public QPushButton, public Observer {
     Q_OBJECT
 public:
@@ -26,7 +28,8 @@ private slots:
 
 
 private:
-    Metronome * metronome;
+    Metronome *metronome;
+    PLayer *player;
     //TODO
     QSlider *vol_slider; //slider for the volume
     QSlider *bpm_slider; //slider for the beats per minute

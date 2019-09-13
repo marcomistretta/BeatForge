@@ -9,16 +9,18 @@
 #include <QtMultimedia/QMediaPlayer>
 #include "Subject.h"
 
+class Player;
 
 enum STATE {
     ON = 1,
     OFF = 0,
 };
 
+/*
 enum MUTE_STATUS {
     NOMUTED = 0,
     MUTED = 1,
-};
+};*/
 
 class Metronome : public QTimer, public Subject {
 Q_OBJECT
@@ -46,21 +48,15 @@ public:
 public slots:
 
     void doBeep();
-
-    void startStop();
+    //void startStop();
 
 
 
 private:
     std::list<Observer *> observers;
     STATE state;
-
-    //TODO
-    int bpm;
-    QTimer *timer;
-    MUTE_STATUS mute;
-    QMediaPlayer *mediaPlayer;
-
+    //MUTE_STATUS mute;
+    Player *player;
 };
 
 

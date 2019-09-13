@@ -25,14 +25,12 @@ DrumWidget::DrumWidget( QWidget *parent): QWidget(parent) {
     layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(10);
     layout->setMargin(0);
+
     //BUILDING INFO BOX
-
     drum_info = new QPushButton();
-
     drum_info->setStyleSheet(QString("*{background: rgb(140,200,255);}"));
     drum_info->setFixedSize(mainWidth/10,mainHeight/31);
     connect(drum_info, SIGNAL(clicked()), this, SLOT(on_drum_info_pressed()));
-
     layout->addWidget(drum_info,Qt::AlignLeft,Qt::AlignVCenter);
 
     //BUILDING PLAY-PAUSE-MUTE-SOLO

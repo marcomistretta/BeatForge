@@ -4,42 +4,57 @@
 
 #include "Player.h"
 
-void Player::play(const Metronome &metronome) {
+
+Player::Player() {
+    timer = new QTimer();
+    timer->stop();
+    state = NO;
+    bpm = 60;
+    mediaPlayer = new QMediaPlayer;
+    connect(timer, SIGNAL(timeout()), this, SLOT(PLAY()));
+    qDebug() << "Metronome constructed";
 
 }
 
-void Player::play(const Pattern &pattern) {
-
+void Player::notify() {
+    for (Observer *observer : observers)
+        observer->obsUpdate();
+    qDebug() << "MetroWidget notified";
 }
 
-void Player::play(const Pattern &pattern, int index) {
-
+void Player::addObserver(Observer *o) {
+    qDebug() << "Observer added";
+    observers.push_back(o);
 }
 
-void Player::play(const Percussions &percussions) {
-
+void Player::removeObserver(Observer *o) {
+    qDebug() << "Observer removed";
+    observers.remove(o);
 }
 
-void Player::stop(const Metronome &metronome) {
-
+STATE Player::getState() const {
+    return OFF;
 }
 
-void Player::stop(const Pattern &pattern) {
-
+void Player::setState(state) {
+    Player::state = state;
 }
 
-void Player::stop(const Pattern &pattern, int index) {
-
+int Player::fromBpmToMillisec() {
+    return 0;
 }
 
-void Player::stop(const Percussions &percussions) {
 
-}
-
-void Player::pause() {
-
-}
-
-void Player::scroll() {
-
+void Player::startStop() {
+    if (!getState()) {
+        setState(ON);
+        qDebug() << "State to ON";
+        timer->start(fromBpmToMillisec());
+        qDebug() << "Timer Start";
+    } else {
+        setState(OFF);
+        qDebug() << "State to OFF";
+        timer->stop();
+        qDebug() << "Timer Stop";
+    }
 }
