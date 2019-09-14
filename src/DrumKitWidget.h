@@ -7,15 +7,19 @@
 
 #include <QWidget>
 #include "Subject.h"
+
 class DrumWidget;
+
 class DrumKit;
+
 class QVBoxLayout;
+
 class QPushButton;
 
 class DrumKitWidget : public QWidget, public Observer {
-    Q_OBJECT
+Q_OBJECT
 public:
-    explicit DrumKitWidget(QWidget* parent = nullptr);
+    explicit DrumKitWidget(QWidget *parent = nullptr);
 
     void obsUpdate() override;
 
@@ -24,14 +28,14 @@ public:
     void setDrumKit(DrumKit *drumKit);
 
 private slots:
+
     void on_add_pressed();
 
 private:
-    QVBoxLayout * layout;
-    DrumKit* drumKit;
-    QPushButton* addbutton;
-    QVector<DrumWidget*> drumWidgets;
-    DrumKit *drumkit;
+    QVBoxLayout *layout;
+    DrumKit *drumKit;
+    QPushButton *addbutton;
+    QVector<DrumWidget *> drumWidgets;
 };
 
 

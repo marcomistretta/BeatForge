@@ -7,7 +7,6 @@
 #include <QDebug>
 #include <QMediaPlayer>
 
-
 Drum::Drum() {
     qDebug() << "Drum constructed";
     for (auto & i : groove)

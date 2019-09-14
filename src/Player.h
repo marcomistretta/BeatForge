@@ -12,8 +12,9 @@
 
 #include "Metronome.h"
 #include "DrumKit.h"
+#include "QObject"
 
-class Player : public Subject, public QTimer {
+class Player : public QObject, public Subject {
 Q_OBJECT
 
 public:
@@ -23,7 +24,6 @@ public:
     void addObserver(Observer *o) override;
     void removeObserver(Observer *o) override;
 
-
     STATUS getStatus() const;
 
     void setStatus(STATUS state);
@@ -31,8 +31,6 @@ public:
     int getBpm() const;
     void setBpm(int bpm);
     int fromBpmToMillisec();
-
-    static const QMetaObject &getStaticMetaObject();
 
     Metronome *getMetronome() const;
 
@@ -46,10 +44,11 @@ public:
 
 public slots:
 
-    void startStopTimer();
-    void PLAY(); /*Global*/
-    void startStop(); /*for instruments*/
-    void startStopMetronome(); /*for Metronome*/
+    void startStopTimer() {};
+
+    void PLAY() {}; /*Global*/
+    void startStop() {}; /*for instruments*/
+    void startStopMetronome() {}; /*for Metronome*/
 
 
 private:
@@ -63,7 +62,5 @@ private:
     Metronome *metronome;
     DrumKit *drumKit;
 };
-
-
 
 #endif //DRUMMACHINE_PLAYER_H

@@ -9,25 +9,33 @@
 #include <QMetaType>
 
 class QMediaPlayer;
+
 class Observer;
 
-class Drum: public Subject{
+class Drum : public Subject {
 public:
     Drum();
-    Drum(const Drum& drum);
 
-    void addObserver(Observer* o) override;
-    void removeObserver(Observer* o) override;
+    Drum(const Drum &drum);
+
+    void addObserver(Observer *o) override;
+
+    void removeObserver(Observer *o) override;
+
     void notify() override;
 
+    void setObservers(const std::list<Observer *> &observers);
+
     bool isChecked(int position);
+
     void editStep(int step);
 
     const STEP_STATUS *getGroove() const;
+
     const std::list<Observer *> &getObservers() const;
-    void setObservers(const std::list<Observer *> &observers);
 
     QMediaPlayer *getMediaPlayer() const;
+
     void setMediaPlayer(QMediaPlayer *mediaPlayer);
 
     SOLO_STATUS getSoloState() const;
@@ -39,7 +47,7 @@ public:
     void setMuteState(MUTE_STATUS mStatus);
 
 private:
-    std::list<Observer*> observers;
+    std::list<Observer *> observers;
 
     STEP_STATUS groove[16]{};
     SOLO_STATUS soloState;
@@ -48,7 +56,10 @@ private:
     QMediaPlayer *mediaPlayer;
 };
 
+
 Q_DECLARE_METATYPE(Drum)
+
 Q_DECLARE_METATYPE(Drum*)
+
 
 #endif //MYTEST_DRUM_H

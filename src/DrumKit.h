@@ -9,12 +9,15 @@
 #include <QVector>
 #include "Subject.h"
 #include "Enum.h"
+
 class QString;
+
 class Observer;
+
 class Drum;
 
 class DrumKit : public QAbstractListModel, public Subject {
-    Q_OBJECT
+Q_OBJECT
 public:
     explicit DrumKit(QObject *parent = nullptr);
 
@@ -25,16 +28,23 @@ public:
     void addObserver(Observer *o) override;
 
     void removeObserver(Observer *o) override;
+
     int rowCount(const QModelIndex &parent) const override;
+
     bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
+
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
-    QVariant data(const QModelIndex & index, int role) const override;
+
+    QVariant data(const QModelIndex &index, int role) const override;
+
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+
     Qt::ItemFlags flags(const QModelIndex &index) const override;
-    const QVector<Drum*> &getDrums() const;
+
+    const QVector<Drum *> &getDrums() const;
 
 private:
-    QVector<Drum*> drums;
+    QVector<Drum *> drums;
     std::list<Observer *> observers;
 
 };

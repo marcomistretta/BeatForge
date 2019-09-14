@@ -11,7 +11,7 @@
 #include <QMetaType>
 #include <QDebug>
 
-DrumKit::DrumKit(QObject *parent): QAbstractListModel(parent) {}
+DrumKit::DrumKit(QObject *parent) : QAbstractListModel(parent) {}
 
 DrumKit::DrumKit(QVector<Drum *> drums, QObject *parent) : QAbstractListModel(parent), drums(std::move(drums)) {}
 
@@ -20,22 +20,23 @@ int DrumKit::rowCount(const QModelIndex &parent) const {
 }
 
 QVariant DrumKit::data(const QModelIndex &index, int role) const {
-    if(!index.isValid())
-        return  QVariant();
-    if(index.row() >= drums.size() || index.row() < 0)
+    if (!index.isValid())
         return QVariant();
-    if(role == Qt::DisplayRole) {
+    if (index.row() >= drums.size() || index.row() < 0)
+        return QVariant();
+    if (role == Qt::DisplayRole) {
         const auto &drum = drums.at(index.row());
         return QVariant::fromValue(drum);
     }
     return QVariant();
 }
+
 bool DrumKit::setData(const QModelIndex &index, const QVariant &value, int role) {
-    if(index.isValid() && role == Qt::EditRole) {
+    if (index.isValid() && role == Qt::EditRole) {
         const int row = index.row();
         auto drum = drums.value(row);
-        drum = value.value<Drum*>();
-        drums.replace(row,drum);
+        drum = value.value<Drum *>();
+        drums.replace(row, drum);
         emit dataChanged(index, index, {Qt::DisplayRole, Qt::EditRole});
         return true;
     }
@@ -44,19 +45,20 @@ bool DrumKit::setData(const QModelIndex &index, const QVariant &value, int role)
 
 bool DrumKit::insertRows(int position, int rows, const QModelIndex &index) {
     Q_UNUSED(index);
-    beginInsertRows(QModelIndex(), position, position + rows -1);
+    beginInsertRows(QModelIndex(), position, position + rows - 1);
 
-    for (int row = 0; row<rows ; ++row)
-        drums.insert(position,new Drum());
+    for (int row = 0; row < rows; ++row)
+        drums.insert(position, new Drum());
 
     endInsertRows();
     return true;
 }
+
 bool DrumKit::removeRows(int position, int rows, const QModelIndex &index) {
     Q_UNUSED(index)
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
 
-    for(int row = 0; row < rows; ++row)
+    for (int row = 0; row < rows; ++row)
         drums.removeAt(position);
 
     endRemoveRows();
@@ -64,12 +66,12 @@ bool DrumKit::removeRows(int position, int rows, const QModelIndex &index) {
 }
 
 Qt::ItemFlags DrumKit::flags(const QModelIndex &index) const {
-    if(!index.isValid())
+    if (!index.isValid())
         return Qt::ItemIsEnabled;
     return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
 }
 
-const QVector<Drum*> &DrumKit::getDrums() const{
+const QVector<Drum *> &DrumKit::getDrums() const {
     return drums;
 }
 

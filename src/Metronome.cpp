@@ -39,7 +39,7 @@ void Metronome::setStatus(STATUS status) {
 }
 
 void Metronome::doBeep() {
-    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/0609/res/beeps/start.wav"));
+    mediaplayer->setMedia(QUrl::fromLocalFile("../res/beeps/start.wav"));
     mediaplayer->play();
     qDebug() << "Beep";
     qDebug() << "Metronome played";

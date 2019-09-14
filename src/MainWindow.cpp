@@ -18,12 +18,13 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
     int mainHeight = this->size().height();
 
     this->setFixedSize(mainWidth,mainHeight);
-    this->setStyleSheet(QString("*{image: url(../res/icon/Background.png);};"));
+    this->setStyleSheet(QString("*{image: url(../res/icons/Background.png);};"));
     this->setContentsMargins(0,0,0,0);
 
     mainWidget = new QWidget(this);
     mainWidget->setContentsMargins(0,0,0,0);
     mainWidget->setStyleSheet(QString("*{background: transparent;}"));
+    mainLayout = new QGridLayout;
     mainWidget->setLayout(mainLayout);
 
     drumKitWidget = new DrumKitWidget(mainWidget);
@@ -44,13 +45,10 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
     playerWidget->setIconSize(QSize(50, 50));
     //TODO 3
     Player *player = playerWidget->getPlayer();
-    //TODO?
-    //player->setDrum();
     player->setDrumKit(addrDrumKit);
     player->setMetronome(addrMetronome);
 
 
-    mainLayout = new QGridLayout();
     mainLayout->setContentsMargins(mainWidth*40/100,mainHeight*1.8,0,0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(metronomeWidget,0,0,Qt::AlignLeft);

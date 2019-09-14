@@ -6,7 +6,7 @@
 
 
 Player::Player() {
-    timer = new QTimer();
+    timer = new QTimer;
     timer->stop();
     state = OFF;
     setBpm(60);
@@ -36,6 +36,7 @@ int Player::fromBpmToMillisec() {
     return 60000 / getBpm();
 }
 
+/*
 void Player::startStopTimer() {
     if (!getStatus()) {
         setStatus(ON);
@@ -48,7 +49,7 @@ void Player::startStopTimer() {
         timer->stop();
         qDebug() << "Timer Stop";
     }
-}
+}*/
 
 int Player::getBpm() const {
     return bpm;
@@ -66,13 +67,9 @@ void Player::setStatus(STATUS state) {
     Player::state = state;
 }
 
+/*
 void Player::PLAY() {
-    //
-}
-
-const QMetaObject &Player::getStaticMetaObject() {
-    return staticMetaObject;
-}
+}*/
 
 Metronome *Player::getMetronome() const {
     return metronome;

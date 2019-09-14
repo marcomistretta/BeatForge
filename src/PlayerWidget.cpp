@@ -44,12 +44,14 @@ void PlayerWidget::setBackground(const QColor &color) {
 }
 
 void PlayerWidget::on_pressed() {
-    qDebug() << "PLayer pressed";
+    qDebug() << "Plyer pressed";
     obsUpdate();
     if (player->getStatus() == STATUS::ON) {
-        player->startStop();
+        //TODO
+        //player->startStop();
     } else {
-        player->startStop();
+        //TODO
+        //player->startStop();
     }
 }
 
