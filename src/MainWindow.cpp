@@ -48,12 +48,12 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
     player->setDrumKit(addrDrumKit);
     player->setMetronome(addrMetronome);
 
-
     mainLayout->setContentsMargins(mainWidth*40/100,mainHeight*1.8,0,0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(metronomeWidget,0,0,Qt::AlignLeft);
     mainLayout->addWidget(drumKitWidget,1,0,Qt::AlignLeft);
-
+    //GIUSTO?
+    mainLayout->addWidget(playerWidget, 55, 55, Qt::AlignLeft);
     this->setCentralWidget(mainWidget);
 }
 
