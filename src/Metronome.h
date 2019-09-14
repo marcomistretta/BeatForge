@@ -8,19 +8,7 @@
 #include <QtGui/QtGui>
 #include <QtMultimedia/QMediaPlayer>
 #include "Subject.h"
-
-class Player;
-
-enum STATE {
-    ON = 1,
-    OFF = 0,
-};
-
-/*
-enum MUTE_STATUS {
-    NOMUTED = 0,
-    MUTED = 1,
-};*/
+#include "Enum.h"
 
 class Metronome : public QTimer, public Subject {
 Q_OBJECT
@@ -29,34 +17,20 @@ public:
     Metronome();
 
     void notify() override;
-
     void addObserver(Observer *o) override;
-
     void removeObserver(Observer *o) override;
 
-    //GETTER & SETTER
-    STATE getState() const;
+    STATUS getStatus() const;
 
-    void setState(STATE state);
-
-    int getBpm() const;
-
-    void setBpm(int bpm);
-
-    int fromBpmToMillisec();
+    void setStatus(STATUS state);
 
 public slots:
-
     void doBeep();
-    //void startStop();
-
-
 
 private:
     std::list<Observer *> observers;
-    STATE state;
-    //MUTE_STATUS mute;
-    Player *player;
+    STATUS status;
+    QMediaPlayer *mediaplayer;
 };
 
 

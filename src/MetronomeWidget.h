@@ -9,19 +9,21 @@
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QSlider>
 #include "Subject.h"
-
-class Metronome;
-
-class Player;
+#include "Metronome.h"
 
 class MetronomeWidget: public QPushButton, public Observer {
     Q_OBJECT
 public:
     explicit MetronomeWidget(QWidget *parent = nullptr);
     ~MetronomeWidget();
+
     void obsUpdate() override;
 
     void setBackground(const QColor &color);
+
+    Metronome *getMetronome() const;
+
+    void setMetronome(Metronome *metronome);
 
 private slots:
     void on_pressed();
@@ -29,10 +31,6 @@ private slots:
 
 private:
     Metronome *metronome;
-    PLayer *player;
-    //TODO
-    QSlider *vol_slider; //slider for the volume
-    QSlider *bpm_slider; //slider for the beats per minute
 
 };
 

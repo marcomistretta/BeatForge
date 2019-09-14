@@ -4,7 +4,6 @@
 
 #include "Drum.h"
 #include "Observer.h"
-
 #include <QDebug>
 #include <QMediaPlayer>
 
@@ -12,7 +11,7 @@
 Drum::Drum() {
     qDebug() << "Drum constructed";
     for (auto & i : groove)
-        i = OFF;
+        i = NOSTEP;
     mediaPlayer = new QMediaPlayer;
     soloState = NOSOLO;
     muteState = NOMUTED;
@@ -44,15 +43,15 @@ void Drum::notify() {
 }
 
 bool Drum::isChecked(int position) {
-    return groove[position] == ON;
+    return groove[position] == STEP;
 }
 
 void Drum::editStep(int step) {
     qDebug() << "editStep";
-    if (groove[step] == ON)
-        groove[step] = OFF;
+    if (groove[step] == STEP)
+        groove[step] = NOSTEP;
     else
-        groove[step] = ON;
+        groove[step] = STEP;
     notify();
 }
 
@@ -60,11 +59,35 @@ const std::list<Observer *> &Drum::getObservers() const {
     return observers;
 }
 
-void Drum::setObservers(const std::list<Observer *> &observers) {
-    Drum::observers = observers;
+void Drum::setObservers(const std::list<Observer *> &obs) {
+    Drum::observers = obs;
 }
 
-void Drum::setMediaPlayer(QMediaPlayer *mediaPlayer) {
-    Drum::mediaPlayer = mediaPlayer;
+void Drum::setMediaPlayer(QMediaPlayer *mPlayer) {
+    Drum::mediaPlayer = mPlayer;
+}
+
+const STEP_STATUS *Drum::getGroove() const {
+    return groove;
+}
+
+QMediaPlayer *Drum::getMediaPlayer() const {
+    return mediaPlayer;
+}
+
+SOLO_STATUS Drum::getSoloState() const {
+    return SOLO;
+}
+
+MUTE_STATUS Drum::getMuteState() const {
+    return NOMUTED;
+}
+
+void Drum::setSoloState(SOLO_STATUS sStatus) {
+    soloState = sStatus;
+}
+
+void Drum::setMuteState(MUTE_STATUS mStatus) {
+    muteState = mStatus;
 }
 

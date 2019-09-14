@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by Guglielmo Fratticioli on 09/07/19.
 //
@@ -9,11 +11,12 @@
 #include <QMetaType>
 #include <QDebug>
 
-DrumKit::DrumKit(QObject *parent):QAbstractListModel(parent) {}
-DrumKit::DrumKit(const QVector<Drum*> &drums, QObject *parent):QAbstractListModel(parent),drums(drums)  {}
+DrumKit::DrumKit(QObject *parent): QAbstractListModel(parent) {}
+
+DrumKit::DrumKit(QVector<Drum *> drums, QObject *parent) : QAbstractListModel(parent), drums(std::move(drums)) {}
 
 int DrumKit::rowCount(const QModelIndex &parent) const {
-    return parent.isValid() ? 0: drums.size();
+    return parent.isValid() ? 0 : drums.size();
 }
 
 QVariant DrumKit::data(const QModelIndex &index, int role) const {
@@ -68,4 +71,20 @@ Qt::ItemFlags DrumKit::flags(const QModelIndex &index) const {
 
 const QVector<Drum*> &DrumKit::getDrums() const{
     return drums;
+}
+
+void DrumKit::notify() {
+    for (Observer *observer : observers)
+        observer->obsUpdate();
+    qDebug() << "DrumKitWidget notified";
+}
+
+void DrumKit::addObserver(Observer *o) {
+    qDebug() << "Observer added";
+    observers.push_back(o);
+}
+
+void DrumKit::removeObserver(Observer *o) {
+    qDebug() << "Observer removed";
+    observers.remove(o);
 }

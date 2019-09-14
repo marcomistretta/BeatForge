@@ -28,16 +28,27 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
     drumKitWidget = new DrumKitWidget(mainWidget);
     drumKitWidget->setFixedSize(mainWidth * 6, mainHeight * 4.4);
+    //TODO 1
+    DrumKit *addrDrumKit = drumKitWidget->getDrumKit();
 
     metronomeWidget = new MetronomeWidget(mainWidget);
     metronomeWidget->obsUpdate();
     metronomeWidget->setFixedSize(mainHeight,mainHeight);
     metronomeWidget->setIconSize(QSize(50,50));
+    //TODO 2
+    Metronome *addrMetronome = metronomeWidget->getMetronome();
 
     playerWidget = new PlayerWidget(mainWidget);
     playerWidget->obsUpdate();
     playerWidget->setFixedSize(mainHeight, mainHeight);
     playerWidget->setIconSize(QSize(50, 50));
+    //TODO 3
+    Player *player = playerWidget->getPlayer();
+    //TODO?
+    //player->setDrum();
+    player->setDrumKit(addrDrumKit);
+    player->setMetronome(addrMetronome);
+
 
     mainLayout = new QGridLayout();
     mainLayout->setContentsMargins(mainWidth*40/100,mainHeight*1.8,0,0);

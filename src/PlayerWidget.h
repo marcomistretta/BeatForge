@@ -6,23 +6,25 @@
 #define MYTEST_PLAYERWIDGET_H
 
 #include <QPushButton>
+#include "Observer.h"
 #include "Subject.h"
+#include "Player.h"
 
-class Player;
-
-class PlayerWidget : public QPushButton {
+class PlayerWidget : public QPushButton, public Observer {
 Q_OBJECT
 public:
     explicit PlayerWidget(QWidget *parent = nullptr);
-
     ~PlayerWidget();
 
     void obsUpdate();
 
     void setBackground(const QColor &color);
 
-private slots:
+    Player *getPlayer() const;
 
+    void setPlayer(Player *player);
+
+private slots:
     void on_pressed();
 
 private:

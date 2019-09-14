@@ -9,13 +9,8 @@
 class MetronomeWidget;
 
 Metronome::Metronome() {
-    //timer = new QTimer(this);
-    //timer->stop();
-    state = OFF;
-    //bpm = 60;
-    //mediaPlayer = new QMediaPlayer;
-    //mute = NOMUTED;
-    //connect(timer, SIGNAL(timeout()), this, SLOT(doBeep()));
+    status = OFF;
+    mediaplayer = new QMediaPlayer;
     qDebug() << "Metronome constructed";
 }
 
@@ -23,7 +18,6 @@ void Metronome::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
     qDebug() << "MetroWidget notified";
-
 }
 
 void Metronome::addObserver(Observer *o) {
@@ -36,30 +30,17 @@ void Metronome::removeObserver(Observer *o) {
     observers.remove(o);
 }
 
-STATE Metronome::getState() const {
-    return state;
+STATUS Metronome::getStatus() const {
+    return status;
 }
 
-void Metronome::setState(STATE state) {
-    Metronome::state = state;
-}
-
-int Metronome::getBpm() const {
-    return bpm;
-}
-
-void Metronome::setBpm(int bpm) {
-    Metronome::bpm = bpm;
-}
-
-
-int Metronome::fromBpmToMillisec() {
-    return (60000 / getBpm());
+void Metronome::setStatus(STATUS status) {
+    Metronome::status = status;
 }
 
 void Metronome::doBeep() {
-    mediaPlayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/0609/res/beeps/start.wav"));
-    mediaPlayer->play();
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/0609/res/beeps/start.wav"));
+    mediaplayer->play();
     qDebug() << "Beep";
     qDebug() << "Metronome played";
 }

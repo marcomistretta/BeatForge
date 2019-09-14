@@ -6,27 +6,30 @@
 #include <QWidget>
 
 class QPushButton;
-
 class QHBoxLayout;
 class StepButton;
 class Drum;
 
 class DrumWidget : public QWidget, public Observer {
-    Q_OBJECT
+Q_OBJECT
 public:
-    ~DrumWidget();
+    explicit DrumWidget(QWidget *parent);
 
-    DrumWidget(QWidget *parent);
+    ~DrumWidget() override;
 
     void obsUpdate() override;
 
-    void setDrum(Drum *drum) {
-        DrumWidget::drum = drum;
-    }
+    Drum *getDrum() const;
 
-    Drum *getDrum() const {
-        return drum;
-    }
+    void setDrum(Drum *drum);
+
+private slots:
+
+    void on_mute_pressed();
+
+    void on_solo_pressed();
+
+    void on_drum_info_pressed();
 
 private:
     QHBoxLayout *layout;
@@ -36,10 +39,6 @@ private:
     Drum *drum;
     StepButton *buttons[16];
 
-private slots:
-    void on_mute_pressed();
-    void on_solo_pressed();
-    void on_drum_info_pressed();
 
 };
 

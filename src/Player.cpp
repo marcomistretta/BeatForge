@@ -8,18 +8,17 @@
 Player::Player() {
     timer = new QTimer();
     timer->stop();
-    state = NO;
-    bpm = 60;
+    state = OFF;
+    setBpm(60);
     mediaPlayer = new QMediaPlayer;
     connect(timer, SIGNAL(timeout()), this, SLOT(PLAY()));
-    qDebug() << "Metronome constructed";
-
+    qDebug() << "Player constructed";
 }
 
 void Player::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
-    qDebug() << "MetroWidget notified";
+    qDebug() << "PlayerWidget notified";
 }
 
 void Player::addObserver(Observer *o) {
@@ -32,29 +31,61 @@ void Player::removeObserver(Observer *o) {
     observers.remove(o);
 }
 
-STATE Player::getState() const {
-    return OFF;
-}
-
-void Player::setState(state) {
-    Player::state = state;
-}
 
 int Player::fromBpmToMillisec() {
-    return 0;
+    return 60000 / getBpm();
 }
 
-
-void Player::startStop() {
-    if (!getState()) {
-        setState(ON);
+void Player::startStopTimer() {
+    if (!getStatus()) {
+        setStatus(ON);
         qDebug() << "State to ON";
         timer->start(fromBpmToMillisec());
         qDebug() << "Timer Start";
     } else {
-        setState(OFF);
+        setStatus(OFF);
         qDebug() << "State to OFF";
         timer->stop();
         qDebug() << "Timer Stop";
     }
+}
+
+int Player::getBpm() const {
+    return bpm;
+}
+
+void Player::setBpm(int bpm) {
+    Player::bpm = bpm;
+}
+
+STATUS Player::getStatus() const {
+    return state;
+}
+
+void Player::setStatus(STATUS state) {
+    Player::state = state;
+}
+
+void Player::PLAY() {
+    //
+}
+
+const QMetaObject &Player::getStaticMetaObject() {
+    return staticMetaObject;
+}
+
+Metronome *Player::getMetronome() const {
+    return metronome;
+}
+
+void Player::setMetronome(Metronome *metronome) {
+    Player::metronome = metronome;
+}
+
+DrumKit *Player::getDrumKit() const {
+    return drumKit;
+}
+
+void Player::setDrumKit(DrumKit *drumKit) {
+    Player::drumKit = drumKit;
 }

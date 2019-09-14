@@ -5,26 +5,11 @@
 #define MYTEST_DRUM_H
 
 #include "Subject.h"
-
+#include "Enum.h"
 #include <QMetaType>
 
 class QMediaPlayer;
 class Observer;
-
-enum STEP_STATUS{
-    OFF = 0,
-    ON = 1,
-};
-
-enum MUTE_STATUS{
-    NOMUTED = 0,
-    MUTED = 1,
-};
-
-enum SOLO_STATUS{
-    NOSOLO = 0,
-    SOLO = 1,
-};
 
 class Drum: public Subject{
 public:
@@ -35,38 +20,23 @@ public:
     void removeObserver(Observer* o) override;
     void notify() override;
 
-
-
     bool isChecked(int position);
     void editStep(int step);
 
-    const STEP_STATUS *getGroove() const {
-        return groove;
-    }
-
-    //GETTER & SETTER
+    const STEP_STATUS *getGroove() const;
     const std::list<Observer *> &getObservers() const;
-
     void setObservers(const std::list<Observer *> &observers);
 
-    QMediaPlayer *getMediaPlayer() const {
-        return mediaPlayer;
-    }
-
+    QMediaPlayer *getMediaPlayer() const;
     void setMediaPlayer(QMediaPlayer *mediaPlayer);
 
-    SOLO_STATUS getSoloState() const {
-         return soloState;
-    };
-    MUTE_STATUS getMuteState() const{
-         return muteState; 
-    };
-    void setSoloState(SOLO_STATUS sStatus){
-         soloState = sStatus;
-    };
-    void setMuteState(MUTE_STATUS mStatus){
-         muteState = mStatus;
-    };
+    SOLO_STATUS getSoloState() const;
+
+    MUTE_STATUS getMuteState() const;
+
+    void setSoloState(SOLO_STATUS sStatus);
+
+    void setMuteState(MUTE_STATUS mStatus);
 
 private:
     std::list<Observer*> observers;

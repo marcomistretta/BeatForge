@@ -11,7 +11,6 @@ class QGridLayout;
 class QWidget;
 class DrumKitWidget;
 class MetronomeWidget;
-
 class PlayerWidget;
 
 class MainWindow : public QMainWindow {
@@ -24,7 +23,6 @@ private:
     DrumKitWidget* drumKitWidget;
     MetronomeWidget* metronomeWidget;
     QGridLayout* mainLayout;
-    //TODO
     PlayerWidget *playerWidget;
 
 

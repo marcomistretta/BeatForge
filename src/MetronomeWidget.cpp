@@ -7,11 +7,9 @@
 #include <QDir>
 #include <QDebug>
 
-MetronomeWidget::MetronomeWidget(QWidget *parent) : Observer(), metronome(new Metronome()) {
-    //adding observer
+MetronomeWidget::MetronomeWidget(QWidget *parent) : Observer() {
+    metronome = new Metronome;
     metronome->addObserver(this);
-    Player = new Player;
-
     //setting the icon
     QIcon icon;
     icon.addFile(QString("../res/icons/metronome.png"));
@@ -19,16 +17,8 @@ MetronomeWidget::MetronomeWidget(QWidget *parent) : Observer(), metronome(new Me
 
     qDebug() << "Metronome Widget constructed";
 
-    //TODO IMPLEMENT
-    /*bpm_slider = new QSlider(this);
-    bpm_slider->setValue( 20 ); //saranno 60 bpm
-    vol_slider = new QSlider(this);
-    vol_slider->setValue(100);*/
-
     //connecting methods
     connect(this, SIGNAL(clicked()), this, SLOT(on_pressed()));
-    //connect( bpm_slider, SIGNAL(valueChanged(int)), this, SLOT(updateBpm(int)));
-    //connect( vol_slider, SIGNAL(valueChanged(int)), this , SLOT(changeVolume(int)));
 }
 
 MetronomeWidget::~MetronomeWidget() {
@@ -38,7 +28,7 @@ MetronomeWidget::~MetronomeWidget() {
 
 void MetronomeWidget::obsUpdate() {
     qDebug() << "MetroWidget Updated";
-    if (metronome->getState()) {
+    if (metronome->getStatus()) {
         //red
         qDebug() << "to Red";
         this->setBackground(QColor(217, 0, 0));
@@ -59,23 +49,18 @@ void MetronomeWidget::setBackground(const QColor &color) {
 void MetronomeWidget::on_pressed() {
     qDebug() << "Metronome pressed";
     obsUpdate();
-    if (metronome->getState() == STATE::ON) {
-        // metronome->setState(OFF);
-        //this->setText("&stop");
-        player->startStop();
+    if (metronome->getStatus() == STATUS::ON) {
+        metronome->setStatus(OFF);
     } else {
-        //this->setText("&start");
-        //metronome->setState(ON);
-        player->startStop();
+        metronome->setStatus(ON);
     }
 }
 
+Metronome *MetronomeWidget::getMetronome() const {
+    return metronome;
+}
 
+void MetronomeWidget::setMetronome(Metronome *metronome) {
+    MetronomeWidget::metronome = metronome;
+}
 
-/*DA FARE
-connect( bpm_slider, SIGNAL(valueChanged(int)), this, SLOT(updateBpm(int)));
-connect( vol_slider, SIGNAL(valueChanged(int)), this , SLOT(changeVolume(int)));
-connect( start_button, SIGNAL(clicked()), this, SLOT(startStop()) );
-connect( mute_button, SIGNAL(clicked()), this, SLOT(muteUnmute()) );
-connect( metr_timer, SIGNAL(timeout()), this, SLOT(doBeep()) );
- */
