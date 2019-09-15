@@ -6,7 +6,7 @@
 
 #include "DrumKit.h"
 #include "Drum.h"
-#include "Observer.h"
+#include "Subject.h"
 
 #include <QMetaType>
 #include <QDebug>

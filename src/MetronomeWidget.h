@@ -14,16 +14,16 @@
 class MetronomeWidget: public QPushButton, public Observer {
     Q_OBJECT
 public:
-    explicit MetronomeWidget(QWidget *parent = nullptr);
+    explicit MetronomeWidget(Metronome* metronome, QWidget *parent = nullptr);
     ~MetronomeWidget();
 
     void obsUpdate() override;
 
-    void setBackground(const QColor &color);
 
-    Metronome *getMetronome() const;
+    Metronome *getMetronome() const {
+        return metronome;
+    }
 
-    void setMetronome(Metronome *metronome);
 
 private slots:
     void on_pressed();

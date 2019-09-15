@@ -7,14 +7,10 @@
 #include <QDir>
 #include <QDebug>
 
-MetronomeWidget::MetronomeWidget(QWidget *parent) : Observer() {
-    metronome = new Metronome;
+MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) : Observer(), metronome(metronome) {
     metronome->addObserver(this);
-    //setting the icon
-    QIcon icon;
-    icon.addFile(QString("../res/icons/metronome.png"));
-    this->setIcon(icon);
-
+    this->setStyleSheet(QString("background: transparent"));
+    metronome->setStatus(OFF);
     qDebug() << "Metronome Widget constructed";
 
     //connecting methods
@@ -28,23 +24,20 @@ MetronomeWidget::~MetronomeWidget() {
 
 void MetronomeWidget::obsUpdate() {
     qDebug() << "MetroWidget Updated";
+    QIcon metronomeicon;
     if (metronome->getStatus()) {
         //red
+        metronomeicon.addFile(QString("../res/icons/Metronome-ON"));
         qDebug() << "to Red";
-        this->setBackground(QColor(217, 0, 0));
     } else {
         //light-green
+        metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));
         qDebug() << "to light green";
-        this->setBackground(QColor(132, 176, 132));
     }
+    this->setIcon(metronomeicon);
+    this->setIconSize(this->size());
 }
 
-void MetronomeWidget::setBackground(const QColor &color) {
-    qDebug() << "Backgroud changed";
-    this->setStyleSheet(QString("background-color: %1").arg(color.name()));
-
-
-}
 
 void MetronomeWidget::on_pressed() {
     qDebug() << "Metronome pressed";
@@ -56,11 +49,4 @@ void MetronomeWidget::on_pressed() {
     }
 }
 
-Metronome *MetronomeWidget::getMetronome() const {
-    return metronome;
-}
-
-void MetronomeWidget::setMetronome(Metronome *metronome) {
-    MetronomeWidget::metronome = metronome;
-}
 

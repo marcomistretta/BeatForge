@@ -24,27 +24,41 @@ public:
 
     void notify() override;
 
-    void setObservers(const std::list<Observer *> &observers);
-
     bool isChecked(int position);
 
     void editStep(int step);
 
-    const STEP_STATUS *getGroove() const;
+    const std::list<Observer *> &getObservers() const {
+        return observers;
+    }
 
-    const std::list<Observer *> &getObservers() const;
+    const STEP_STATUS *getGroove() const {
+        return groove;
+    }
 
-    QMediaPlayer *getMediaPlayer() const;
+    QMediaPlayer *getMediaPlayer() const {
+        return mediaPlayer;
+    }
 
-    void setMediaPlayer(QMediaPlayer *mediaPlayer);
+    SOLO_STATUS getSoloState() const {
+        return soloState;
+    }
 
-    SOLO_STATUS getSoloState() const;
+    MUTE_STATUS getMuteState() const {
+        return muteState;
+    }
 
-    MUTE_STATUS getMuteState() const;
+    void setMediaPlayer(QMediaPlayer *mPlayer) {
+        Drum::mediaPlayer = mPlayer;
+    }
+    
+    void setSoloState(SOLO_STATUS sStatus) {
+        soloState = sStatus;
+    }
 
-    void setSoloState(SOLO_STATUS sStatus);
-
-    void setMuteState(MUTE_STATUS mStatus);
+    void setMuteState(MUTE_STATUS mStatus) {
+        muteState = mStatus;
+    }
 
 private:
     std::list<Observer *> observers;

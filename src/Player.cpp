@@ -3,15 +3,15 @@
 //
 
 #include "Player.h"
+#include <QTimer>
+#include <QMediaPlayer>
 
+Player::Player(): QObject(), timer(new QTimer()), mediaPlayer(new QMediaPlayer()), actualStep(0) {
 
-Player::Player() {
-    timer = new QTimer;
     timer->stop();
     state = OFF;
     setBpm(60);
-    mediaPlayer = new QMediaPlayer;
-    connect(timer, SIGNAL(timeout()), this, SLOT(PLAY()));
+    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(PLAY()));
     qDebug() << "Player constructed";
 }
 
@@ -51,38 +51,9 @@ void Player::startStopTimer() {
     }
 }*/
 
-int Player::getBpm() const {
-    return bpm;
-}
-
-void Player::setBpm(int bpm) {
-    Player::bpm = bpm;
-}
-
-STATUS Player::getStatus() const {
-    return state;
-}
-
-void Player::setStatus(STATUS state) {
-    Player::state = state;
-}
-
 /*
 void Player::PLAY() {
 }*/
 
-Metronome *Player::getMetronome() const {
-    return metronome;
-}
 
-void Player::setMetronome(Metronome *metronome) {
-    Player::metronome = metronome;
-}
 
-DrumKit *Player::getDrumKit() const {
-    return drumKit;
-}
-
-void Player::setDrumKit(DrumKit *drumKit) {
-    Player::drumKit = drumKit;
-}

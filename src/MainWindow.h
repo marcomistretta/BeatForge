@@ -9,9 +9,15 @@
 
 class QGridLayout;
 class QWidget;
+class DrumKit;
 class DrumKitWidget;
+class Metronome;
 class MetronomeWidget;
+class Player;
 class PlayerWidget;
+class Timeline;
+
+
 
 class MainWindow : public QMainWindow {
 public:
@@ -19,11 +25,15 @@ public:
 
 private:
     QWidget * mainWidget;
-    QWidget* drumbackWidget;
+    DrumKit* drumKit;
     DrumKitWidget* drumKitWidget;
+    Metronome* metronome;
     MetronomeWidget* metronomeWidget;
-    QGridLayout* mainLayout;
+    Player* player;
     PlayerWidget *playerWidget;
+
+    QGridLayout* mainLayout;
+    Timeline *timeline;
 
 
 };

@@ -4,20 +4,31 @@
 
 #include "Player.h"
 #include "PlayerWidget.h"
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QDebug>
 
+PlayerWidget::PlayerWidget(Player * player,QWidget *parent): QWidget(parent), player(player) {
 
-PlayerWidget::PlayerWidget(QWidget *parent) : Observer() {
-    player = new Player;
     player->addObserver(this);
-    //setting the icon
-    QIcon icon;
-    icon.addFile(QString("../res/icons/player1.png"));
-    this->setIcon(icon);
+    boxLayout = new QHBoxLayout(this);
+    playButton = new QPushButton(this);
+    stopButton = new QPushButton(this);
+    boxLayout->addWidget(playButton);
+    boxLayout->addWidget(stopButton);
 
-    qDebug() << "Player Widget constructed";
 
-    //connecting methods
-    connect(this, SIGNAL(clicked()), this, SLOT(on_pressed()));
+    //setting the Status
+    player->setStatus(OFF);
+
+    QIcon stopIcon;
+    stopIcon.addFile(QString("../res/icons/stop.png"));
+    stopButton->setIcon(stopIcon);
+
+
+    connect(playButton, SIGNAL(clicked()), this, SLOT(on_Play_pressed()));
+    connect(stopButton,SIGNAL(clicked()), this, SLOT(on_Stop_pressed()));
+    obsUpdate();
 }
 
 PlayerWidget::~PlayerWidget() {
@@ -26,39 +37,34 @@ PlayerWidget::~PlayerWidget() {
 }
 
 void PlayerWidget::obsUpdate() {
-    qDebug() << "Player Widget Updated";
-    if (player->getStatus()) {
+    QIcon playicon;
+    if (player->getStatus() == OFF) {
         //red
-        qDebug() << "to Red";
-        this->setBackground(QColor(217, 0, 0));
+        playicon.addFile(QString("../res/icons/Play.png"));
+        qDebug() << "Player GUI to ON ";
+
     } else {
         //light-green
-        qDebug() << "to light green";
-        this->setBackground(QColor(132, 176, 132));
+        playicon.addFile(QString("../res/icons/Pause.png"));
+        qDebug() << "Player GUI to OFF ";
     }
+    playButton->setIcon(playicon);
+    qDebug() << "Player Widget Updated";
 }
 
-void PlayerWidget::setBackground(const QColor &color) {
-    qDebug() << "Backgroud changed";
-    this->setStyleSheet(QString("background-color: %1").arg(color.name()));
-}
-
-void PlayerWidget::on_pressed() {
-    qDebug() << "Plyer pressed";
-    obsUpdate();
+void PlayerWidget::on_Play_pressed() {
+    qDebug() << "Player pressed";
     if (player->getStatus() == STATUS::ON) {
         //TODO
         //player->startStop();
+        player->setStatus(OFF);
     } else {
         //TODO
         //player->startStop();
+        player->setStatus(ON);
     }
+    obsUpdate();
 }
 
-Player *PlayerWidget::getPlayer() const {
-    return player;
-}
+void PlayerWidget::on_Stop_pressed() {}
 
-void PlayerWidget::setPlayer(Player *play) {
-    PlayerWidget::player = play;
-}

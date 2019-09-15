@@ -8,8 +8,10 @@
 #include "DrumKit.h"
 #include "DrumKitWidget.h"
 #include "MetronomeWidget.h"
-#include <QGridLayout>
 #include "PlayerWidget.h"
+#include "Player.h"
+#include "Timeline.h"
+#include <QGridLayout>
 
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
@@ -23,37 +25,45 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
     mainWidget = new QWidget(this);
     mainWidget->setContentsMargins(0,0,0,0);
-    mainWidget->setStyleSheet(QString("*{background: transparent;}"));
+    mainWidget->setStyleSheet(QString("*{image: url(../res/icons/transparence.png);}"));
     mainLayout = new QGridLayout;
     mainWidget->setLayout(mainLayout);
 
-    drumKitWidget = new DrumKitWidget(mainWidget);
+
+    drumKit = new DrumKit();
+
+    drumKitWidget = new DrumKitWidget(drumKit,mainWidget);
     drumKitWidget->setFixedSize(mainWidth * 6, mainHeight * 4.4);
-    //TODO 1
     DrumKit *addrDrumKit = drumKitWidget->getDrumKit();
 
-    metronomeWidget = new MetronomeWidget(mainWidget);
+    metronome = new Metronome();
+
+    metronomeWidget = new MetronomeWidget(metronome,mainWidget);
+    metronomeWidget->setFixedSize(mainHeight,mainHeight/1.18);
     metronomeWidget->obsUpdate();
-    metronomeWidget->setFixedSize(mainHeight,mainHeight);
-    metronomeWidget->setIconSize(QSize(50,50));
-    //TODO 2
-    Metronome *addrMetronome = metronomeWidget->getMetronome();
 
-    playerWidget = new PlayerWidget(mainWidget);
+
+    Player *player = new Player();
+
+    playerWidget = new PlayerWidget(player,mainWidget);
+    playerWidget->getplayButton()->setFixedSize(mainHeight/2,mainWidth/34*10);
+    playerWidget->getstopButton()->setFixedSize(mainHeight/2,mainWidth/34*10);
+    playerWidget->getplayButton()->setIconSize(playerWidget->getplayButton()->size());
+    playerWidget->getstopButton()->setIconSize(playerWidget->getstopButton()->size());
     playerWidget->obsUpdate();
-    playerWidget->setFixedSize(mainHeight, mainHeight);
-    playerWidget->setIconSize(QSize(50, 50));
-    //TODO 3
-    Player *player = playerWidget->getPlayer();
-    player->setDrumKit(addrDrumKit);
-    player->setMetronome(addrMetronome);
 
-    mainLayout->setContentsMargins(mainWidth*40/100,mainHeight*1.8,0,0);
+    timeline = new Timeline(player,mainWidget);
+    timeline->setFixedSize(mainHeight*10.8,mainWidth/8);
+
+    player->setDrumKit(addrDrumKit);
+    player->setMetronome(metronome);
+
+    mainLayout->setContentsMargins(mainWidth*40/100,mainHeight*1.8,mainHeight*10,0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(metronomeWidget,0,0,Qt::AlignLeft);
-    mainLayout->addWidget(drumKitWidget,1,0,Qt::AlignLeft);
-    //GIUSTO?
-    mainLayout->addWidget(playerWidget, 55, 55, Qt::AlignLeft);
+    mainLayout->addWidget(playerWidget, 0, 1,Qt::AlignRight);
+    mainLayout->addWidget(timeline,1,1,Qt::AlignBaseline);
+    mainLayout->addWidget(drumKitWidget,2,0,Qt::AlignLeft);
     this->setCentralWidget(mainWidget);
 }
 

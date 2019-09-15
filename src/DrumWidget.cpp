@@ -17,10 +17,12 @@ DrumWidget::~DrumWidget() {
 }
 
 DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
+
     int mainWidth = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().width();
     int mainHeight = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().height();
 
     this->setStyleSheet(QString("*{image: url(../res/icons/DrumWidget.png);}"));
+
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
@@ -40,7 +42,6 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     playicon.addFile(QString("../res/icons/MuteButton-OFF.png"));
     muteButton->setFixedSize(mainHeight / 35, mainHeight / 35);
     muteButton->setIcon(playicon);
-    muteButton->setStyleSheet("background: #ff4500"); //orangered1
     connect(muteButton, SIGNAL(clicked()), this, SLOT(on_mute_pressed()));
 
     soloButton = new QPushButton();
@@ -48,7 +49,6 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     soloicon.addFile(QString("../res/icons/SoloButton-OFF.png"));
     soloButton->setFixedSize(mainHeight / 35, mainHeight / 35);
     soloButton->setIcon(soloicon);
-    soloButton->setStyleSheet("background: #ff4500"); //orangered1
     connect(soloButton, SIGNAL(clicked()), this, SLOT(on_solo_pressed()));
 
     layout->addWidget(muteButton, 0, 0);
@@ -89,29 +89,32 @@ void DrumWidget::obsUpdate() {
 }
 
 void DrumWidget::on_mute_pressed() {
+    QIcon muteicon;
     if (drum->getMuteState() == NOMUTED) {
         drum->setMuteState(MUTED);
-        muteButton->setStyleSheet("background: #698b22");//olivedrab4
+        muteicon.addFile(QString("../res/icons/MuteButton-ON.png"));
         qDebug() << "Mute Updating to MUTED";
     } else {
         drum->setMuteState(NOMUTED);
-        muteButton->setStyleSheet("background: #ff4500"); //orangered1
+        muteicon.addFile(QString("../res/icons/MuteButton-OFF.png"));
         qDebug() << "Mute Updating to NOMUTED";
     }
+    muteButton->setIcon(muteicon);
 }
 
 void DrumWidget::on_solo_pressed() {
+    QIcon soloicon;
     if (drum->getSoloState() == NOSOLO) {
         drum->setSoloState(SOLO);
-        soloButton->setStyleSheet("background: #698b22");//olivedrab4
-        //drum_info->setStyleSheet(QString("background-color: %1"));
+        soloicon.addFile("../res/icons/SoloButton-ON.png");
         qDebug() << "Solo Updating to SOLO";
 
     } else {
         drum->setSoloState(NOSOLO);
-        soloButton->setStyleSheet("background: #ff4500"); //orangered1
+        soloicon.addFile("../res/icons/SoloButton-OFF.png");
         qDebug() << "Solo Updating to NOSOLO";
     }
+    soloButton->setIcon(soloicon);
 }
 
 //TODO IMPLEMENT

@@ -6,7 +6,7 @@
 #define MYTEST_DRUMKITWIDGET_H
 
 #include <QWidget>
-#include "Subject.h"
+#include "Observer.h"
 
 class DrumWidget;
 
@@ -19,13 +19,13 @@ class QPushButton;
 class DrumKitWidget : public QWidget, public Observer {
 Q_OBJECT
 public:
-    explicit DrumKitWidget(QWidget *parent = nullptr);
+    explicit DrumKitWidget(DrumKit* drumkit, QWidget *parent = nullptr);
 
     void obsUpdate() override;
+    DrumKit *getDrumKit() const {
+        return drumKit;
+    }
 
-    DrumKit *getDrumKit() const;
-
-    void setDrumKit(DrumKit *drumKit);
 
 private slots:
 

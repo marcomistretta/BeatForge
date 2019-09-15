@@ -54,39 +54,5 @@ void Drum::editStep(int step) {
     notify();
 }
 
-const std::list<Observer *> &Drum::getObservers() const {
-    return observers;
-}
 
-void Drum::setObservers(const std::list<Observer *> &obs) {
-    Drum::observers = obs;
-}
-
-void Drum::setMediaPlayer(QMediaPlayer *mPlayer) {
-    Drum::mediaPlayer = mPlayer;
-}
-
-const STEP_STATUS *Drum::getGroove() const {
-    return groove;
-}
-
-QMediaPlayer *Drum::getMediaPlayer() const {
-    return mediaPlayer;
-}
-
-SOLO_STATUS Drum::getSoloState() const {
-    return SOLO;
-}
-
-MUTE_STATUS Drum::getMuteState() const {
-    return NOMUTED;
-}
-
-void Drum::setSoloState(SOLO_STATUS sStatus) {
-    soloState = sStatus;
-}
-
-void Drum::setMuteState(MUTE_STATUS mStatus) {
-    muteState = mStatus;
-}
 
