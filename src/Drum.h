@@ -37,7 +37,7 @@ public:
     }
 
     QMediaPlayer *getMediaPlayer() const {
-        return mediaPlayer;
+        return mediaplayer;
     }
 
     SOLO_STATUS getSoloState() const {
@@ -49,7 +49,7 @@ public:
     }
 
     void setMediaPlayer(QMediaPlayer *mPlayer) {
-        Drum::mediaPlayer = mPlayer;
+        Drum::mediaplayer = mPlayer;
     }
     
     void setSoloState(SOLO_STATUS sStatus) {
@@ -60,14 +60,20 @@ public:
         muteState = mStatus;
     }
 
+    bool isActive(int step){
+        return groove[step] == STEP;
+    }
+
+    void playDrum();
+
 private:
     std::list<Observer *> observers;
 
-    STEP_STATUS groove[16]{};
+    STEP_STATUS groove[16];
     SOLO_STATUS soloState;
     MUTE_STATUS muteState;
 
-    QMediaPlayer *mediaPlayer;
+    QMediaPlayer *mediaplayer;
 };
 
 

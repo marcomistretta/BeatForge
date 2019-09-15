@@ -11,7 +11,7 @@ Drum::Drum() {
     qDebug() << "Drum constructed";
     for (auto & i : groove)
         i = NOSTEP;
-    mediaPlayer = new QMediaPlayer;
+    mediaplayer = new QMediaPlayer;
     soloState = NOSOLO;
     muteState = NOMUTED;
 }
@@ -20,7 +20,7 @@ Drum::Drum(const Drum &drum) {
     for (int i = 0; i < 16; i++)
         groove[i] = drum.getGroove()[i];
     observers = drum.getObservers();
-    mediaPlayer = drum.getMediaPlayer();
+    mediaplayer = drum.getMediaPlayer();
     soloState = drum.getSoloState();
     muteState = drum.getMuteState();
 }
@@ -52,6 +52,14 @@ void Drum::editStep(int step) {
     else
         groove[step] = STEP;
     notify();
+}
+
+void Drum::playDrum() {
+    if(getMuteState() == NOMUTED) {
+        mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1509/res/samples/Kick-01.wav"));
+        mediaplayer->play();
+        qDebug() << "Drum played";
+    } else qDebug() << "Drum is muted";
 }
 
 

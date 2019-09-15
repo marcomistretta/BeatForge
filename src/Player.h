@@ -4,11 +4,12 @@
 
 #ifndef DRUMMACHINE_PLAYER_H
 #define DRUMMACHINE_PLAYER_H
-class Metronome;
-class DrumKit;
+#include "Drum.h"
+#include "DrumKit.h"
 class QMediaPlayer;
 class QTimer;
 
+#include "Metronome.h"
 #include "Subject.h"
 #include "Enum.h"
 #include <QObject>
@@ -27,29 +28,36 @@ public:
         return bpm;
     }
     void setBpm(int bpm) {
-        bpm = bpm;
+        this->bpm = bpm;
     }
     int fromBpmToMillisec();
+
     STATUS getStatus() const {
         return state;
     }
     int getactualStep() const {
         return actualStep;
     }
+
+    void setActualStep(int actualStep) {
+        this->actualStep = actualStep;
+        notify();
+    }
+
     void setStatus(STATUS state) {
         this->state = state;
     }
     void setMetronome(Metronome *metronome) {
-        metronome = metronome;
+        this->metronome = metronome;
     }
     void setDrumKit(DrumKit *drumKit) {
-        Player::drumKit = drumKit;
+        this->drumKit = drumKit;
     }
 
 public slots:
-
-    void startStopTimer() {};
-    void PLAY() {}; /*Global*/
+    void stopTimer();
+    void playPauseTimer();
+    void PLAY(); /*Global*/
     void startStop() {}; /*for instruments*/
     void startStopMetronome() {}; /*for Metronome*/
 

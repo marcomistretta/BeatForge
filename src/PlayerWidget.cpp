@@ -8,7 +8,7 @@
 #include <QPushButton>
 #include <QDebug>
 
-PlayerWidget::PlayerWidget(Player * player,QWidget *parent): QWidget(parent), player(player) {
+PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), player(player) {
 
     player->addObserver(this);
     boxLayout = new QHBoxLayout(this);
@@ -27,7 +27,7 @@ PlayerWidget::PlayerWidget(Player * player,QWidget *parent): QWidget(parent), pl
 
 
     connect(playButton, SIGNAL(clicked()), this, SLOT(on_Play_pressed()));
-    connect(stopButton,SIGNAL(clicked()), this, SLOT(on_Stop_pressed()));
+    connect(stopButton, SIGNAL(clicked()), this, SLOT(on_Stop_pressed()));
     obsUpdate();
 }
 
@@ -53,18 +53,14 @@ void PlayerWidget::obsUpdate() {
 }
 
 void PlayerWidget::on_Play_pressed() {
-    qDebug() << "Player pressed";
-    if (player->getStatus() == STATUS::ON) {
-        //TODO
-        //player->startStop();
-        player->setStatus(OFF);
-    } else {
-        //TODO
-        //player->startStop();
-        player->setStatus(ON);
-    }
+    qDebug() << "Play/Pause pressed";
+    player->playPauseTimer();
     obsUpdate();
 }
 
-void PlayerWidget::on_Stop_pressed() {}
+void PlayerWidget::on_Stop_pressed() {
+    qDebug() << "Stop pressed";
+    player->stopTimer();
+    obsUpdate();
+}
 

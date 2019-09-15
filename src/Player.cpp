@@ -6,10 +6,9 @@
 #include <QTimer>
 #include <QMediaPlayer>
 
-Player::Player(): QObject(), timer(new QTimer()), mediaPlayer(new QMediaPlayer()), actualStep(0) {
-
+Player::Player(): QObject(), metronome(new Metronome()), timer(new QTimer()), mediaPlayer(new QMediaPlayer()), actualStep(0) {
     timer->stop();
-    state = OFF;
+    setStatus(OFF);
     setBpm(60);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(PLAY()));
     qDebug() << "Player constructed";
@@ -36,8 +35,8 @@ int Player::fromBpmToMillisec() {
     return 60000 / getBpm();
 }
 
-/*
-void Player::startStopTimer() {
+
+void Player::playPauseTimer() {
     if (!getStatus()) {
         setStatus(ON);
         qDebug() << "State to ON";
@@ -49,11 +48,25 @@ void Player::startStopTimer() {
         timer->stop();
         qDebug() << "Timer Stop";
     }
-}*/
+}
 
-/*
+void Player::stopTimer() {
+    setStatus(OFF);
+    qDebug() << "State to OFF";
+    timer->stop();
+    setActualStep(1);
+}
+
 void Player::PLAY() {
-}*/
+    if(metronome->getStatus())
+        metronome->doBeep();
+
+    for (int i = 0; i < drumKit->getDrums().size(); ++i) {
+        if((drumKit->getDrums()[i])->isActive(actualStep))
+            drumKit->getDrums()[i]->playDrum();
+    }
+    setActualStep(((this->actualStep+1)%16));
+}
 
 
 

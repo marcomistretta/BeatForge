@@ -40,10 +40,10 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
     metronomeWidget = new MetronomeWidget(metronome,mainWidget);
     metronomeWidget->setFixedSize(mainHeight,mainHeight/1.18);
-    metronomeWidget->obsUpdate();
+    //metronomeWidget->obsUpdate();
 
 
-    Player *player = new Player();
+    player = new Player();
 
     playerWidget = new PlayerWidget(player,mainWidget);
     playerWidget->getplayButton()->setFixedSize(mainHeight/2,mainWidth/34*10);
