@@ -5,7 +5,7 @@
 #ifndef MYTEST_ENUM_H
 #define MYTEST_ENUM_H
 
-enum STATUS {
+enum ACTIVE_STATUS {
     ON = 1,
     OFF = 0,
 };
@@ -15,14 +15,19 @@ enum MUTE_STATUS {
     MUTED = 1,
 };
 
-enum STEP_STATUS {
-    NOSTEP = 0,
-    STEP = 1,
-};
-
 enum SOLO_STATUS {
     NOSOLO = 0,
     SOLO = 1,
 };
 
+enum DRUM_TYPE{
+    KICK = 0,
+    SNARE = 1,
+    HAT = 2,
+    TOM = 3,
+};
+
+enum DRUM_STYLE{
+    POP = 0,
+};
 #endif //MYTEST_ENUM_H

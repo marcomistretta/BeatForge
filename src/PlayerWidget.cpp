@@ -9,7 +9,7 @@
 #include <QDebug>
 
 PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), player(player) {
-
+    setStyleSheet(QString("*{background: transparent}"));
     player->addObserver(this);
     boxLayout = new QHBoxLayout(this);
     playButton = new QPushButton(this);

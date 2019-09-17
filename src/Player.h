@@ -32,7 +32,7 @@ public:
     }
     int fromBpmToMillisec();
 
-    STATUS getStatus() const {
+    ACTIVE_STATUS getStatus() const {
         return state;
     }
     int getactualStep() const {
@@ -44,7 +44,7 @@ public:
         notify();
     }
 
-    void setStatus(STATUS state) {
+    void setStatus(ACTIVE_STATUS state) {
         this->state = state;
     }
     void setMetronome(Metronome *metronome) {
@@ -63,7 +63,7 @@ public slots:
 
 private:
     std::list<Observer *> observers;
-    STATUS state;
+    ACTIVE_STATUS state;
 
     int bpm;
     int actualStep;

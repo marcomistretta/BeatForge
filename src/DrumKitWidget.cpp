@@ -10,12 +10,12 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDebug>
-
+#include <QMainWindow>
 DrumKitWidget::DrumKitWidget(DrumKit* drumkit, QWidget *parent) : QWidget(parent), drumKit(drumkit) {
-
     drumKit->addObserver(this);
+
     addbutton = new QPushButton(this);
-    addbutton->setStyleSheet(QString("*{background: rgba(196,237,255);}"));
+    addbutton->setStyleSheet(QString("*{background: rgba(136,155,97);}"));
     addbutton->setText(QString("Add"));
     connect(addbutton, SIGNAL(clicked()), this, SLOT(on_add_pressed()));
 

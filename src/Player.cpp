@@ -54,7 +54,7 @@ void Player::stopTimer() {
     setStatus(OFF);
     qDebug() << "State to OFF";
     timer->stop();
-    setActualStep(1);
+    setActualStep(0);
 }
 
 void Player::PLAY() {

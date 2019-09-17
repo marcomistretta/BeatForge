@@ -6,14 +6,14 @@
 #include "Observer.h"
 #include <QDebug>
 #include <QMediaPlayer>
+#include <QAction>
+#include <QMenu>
+Drum::Drum(): drumStyle(POP),mediaplayer(new QMediaPlayer()), muteState(NOMUTED),soloState(NOSOLO), volume(100){
 
-Drum::Drum() {
-    qDebug() << "Drum constructed";
     for (auto & i : groove)
-        i = NOSTEP;
-    mediaplayer = new QMediaPlayer;
-    soloState = NOSOLO;
-    muteState = NOMUTED;
+        i = OFF;
+
+    qDebug() << "Drum constructed";
 }
 
 Drum::Drum(const Drum &drum) {
@@ -29,38 +29,65 @@ void Drum::addObserver(Observer *o) {
     observers.push_back(o);
     qDebug() << "Observer pushed";
 }
-
 void Drum::removeObserver(Observer *o) {
     observers.remove(o);
     qDebug() << "Observer removed";
 }
-
 void Drum::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
     qDebug() << "Observer notified";
 }
 
-bool Drum::isChecked(int position) {
-    return groove[position] == STEP;
-}
-
 void Drum::editStep(int step) {
     qDebug() << "editStep";
-    if (groove[step] == STEP)
-        groove[step] = NOSTEP;
+    if (groove[step] == ON)
+        groove[step] = OFF;
     else
-        groove[step] = STEP;
+        groove[step] = ON;
     notify();
 }
-
 void Drum::playDrum() {
     if(getMuteState() == NOMUTED) {
-        mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1509/res/samples/Kick-01.wav"));
         mediaplayer->play();
         qDebug() << "Drum played";
     } else qDebug() << "Drum is muted";
 }
+void Drum::updatePath() {
+    QString strType;
+    QString strStyle;
+    switch (drumType){
+        case KICK: {strType = QString("KICK");}
+        //.......
+    }
+    switch(drumStyle){
+        case POP: {strStyle = QString("POP");}
+        //.......
+    }
+    mediaplayer->setMedia(QUrl::fromLocalFile(QString("/home/gege/Scrivania/Drum-Machine/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
+} //TODO GENERAL PATH
+//NB Uso di %1 e %2 per composizione del nome del file
 
 
-
+void Drum::setMuteState(MUTE_STATUS mStatus) {
+    muteState = mStatus;
+    notify();
+}
+void Drum::setSoloState(SOLO_STATUS sStatus) {
+    soloState = sStatus;
+    notify();
+}
+void Drum::setDrumStyle(DRUM_STYLE style) {
+    drumStyle = style;
+    updatePath();
+}
+void Drum::setDrumType(DRUM_TYPE type) {
+    drumType = type;
+    updatePath();
+    this->notify();
+    qDebug()<< "Type changed";
+}
+void Drum::setVolume(int volume) {
+    this->volume = volume;
+    notify();
+}

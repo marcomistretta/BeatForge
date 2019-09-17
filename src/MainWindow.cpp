@@ -33,14 +33,14 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
     drumKit = new DrumKit();
 
     drumKitWidget = new DrumKitWidget(drumKit,mainWidget);
-    drumKitWidget->setFixedSize(mainWidth * 6, mainHeight * 4.4);
+    drumKitWidget->setFixedSize(mainWidth * 6.12, mainHeight * 4.4);
     DrumKit *addrDrumKit = drumKitWidget->getDrumKit();
 
     metronome = new Metronome();
 
     metronomeWidget = new MetronomeWidget(metronome,mainWidget);
     metronomeWidget->setFixedSize(mainHeight,mainHeight/1.18);
-    //metronomeWidget->obsUpdate();
+    metronomeWidget->obsUpdate();
 
 
     player = new Player();
@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
     playerWidget->obsUpdate();
 
     timeline = new Timeline(player,mainWidget);
-    timeline->setFixedSize(mainHeight*10.8,mainWidth/8);
+
 
     player->setDrumKit(addrDrumKit);
     player->setMetronome(metronome);

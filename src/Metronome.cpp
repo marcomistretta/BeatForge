@@ -8,8 +8,9 @@
 
 class MetronomeWidget;
 
-Metronome::Metronome() {
+Metronome::Metronome(): status(OFF) {
     mediaplayer = new QMediaPlayer;
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/gege/Scrivania/Drum-Machine/res/beeps/start.wav"));
     qDebug() << "Metronome constructed";
 }
 
@@ -29,17 +30,16 @@ void Metronome::removeObserver(Observer *o) {
     observers.remove(o);
 }
 
-STATUS Metronome::getStatus() const {
+ACTIVE_STATUS Metronome::getStatus() const {
     return status;
 }
 
-void Metronome::setStatus(STATUS status) {
+void Metronome::setStatus(ACTIVE_STATUS status) {
     Metronome::status = status;
     notify();
 }
 
 void Metronome::doBeep() {
-    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1509/res/beeps/start.wav"));
     mediaplayer->play();
     qDebug() << "Beep";
     qDebug() << "Metronome played";

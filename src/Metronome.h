@@ -20,16 +20,16 @@ public:
     void addObserver(Observer *o) override;
     void removeObserver(Observer *o) override;
 
-    STATUS getStatus() const;
+    ACTIVE_STATUS getStatus() const;
 
-    void setStatus(STATUS state);
+    void setStatus(ACTIVE_STATUS state);
 
 public slots:
     void doBeep();
 
 private:
     std::list<Observer *> observers;
-    STATUS status;
+    ACTIVE_STATUS status;
     QMediaPlayer *mediaplayer;
 };
 

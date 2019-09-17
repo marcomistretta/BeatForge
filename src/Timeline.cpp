@@ -16,17 +16,21 @@ Timeline::Timeline(Player * player,QWidget *parent): QWidget(parent), Observer()
     int mainWidth = static_cast<QMainWindow *>(this->parent())->size().width();
     int mainHeight = static_cast<QMainWindow *>(this->parent())->size().height();
 
+    this->setFixedSize(mainHeight*36,mainWidth/4);
+
     player->addObserver(this);
     boxLayout = new QHBoxLayout(this);
 
     QWidget * space = new QWidget(this);
-    space->setFixedSize(mainHeight*2.3,mainWidth/8);
+    space->setFixedWidth(mainWidth/1.2);
+    space->setFixedHeight(mainHeight/4);
     boxLayout->addWidget(space);
 
     for(int i = 0; i<16; i++){
         QWidget* step = new QWidget(this);
         step->setStyleSheet(QString("*{image: url(../res/icons/Led-OFF.png);}"));
-        step->setFixedSize(mainHeight,mainWidth/8);
+        step->setFixedWidth(mainWidth/4);
+        step->setFixedHeight(mainHeight/3);
         steps.push_back(step);
         boxLayout->addWidget(step, Qt::AlignBottom);
     }

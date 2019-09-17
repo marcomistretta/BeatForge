@@ -8,13 +8,13 @@
 #include <QDebug>
 
 MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) : Observer(), metronome(metronome) {
-    this->setStyleSheet(QString("background: transparent"));
-    metronome->addObserver(this);
-    metronome->setStatus(ON);
-    qDebug() << "Metronome Widget constructed";
 
+    this->setStyleSheet(QString("{background: transparent}"));
+    metronome->addObserver(this);
+    qDebug() << "Metronome Widget constructed";
     //connecting methods
     connect(this, SIGNAL(clicked()), this, SLOT(on_pressed()));
+    obsUpdate();
 }
 
 MetronomeWidget::~MetronomeWidget() {
@@ -25,13 +25,13 @@ MetronomeWidget::~MetronomeWidget() {
 void MetronomeWidget::obsUpdate() {
     qDebug() << "MetroWidget Updated";
     QIcon metronomeicon;
-    if (metronome->getStatus()) {
+    if (metronome->getStatus() == ON) {
         //red
-        metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));
+        metronomeicon.addFile(QString("../res/icons/Metronome-ON"));
         qDebug() << "to Red";
     } else {
         //light-green
-        metronomeicon.addFile(QString("../res/icons/Metronome-ON"));
+        metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));
         qDebug() << "to Green";
     }
     this->setIcon(metronomeicon);
@@ -41,7 +41,7 @@ void MetronomeWidget::obsUpdate() {
 
 void MetronomeWidget::on_pressed() {
     qDebug() << "Metronome pressed";
-    if (metronome->getStatus() == STATUS::ON) {
+    if (metronome->getStatus() == ACTIVE_STATUS::ON) {
         metronome->setStatus(OFF);
     } else {
         metronome->setStatus(ON);
