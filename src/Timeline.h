@@ -8,6 +8,7 @@ class QHBoxLayout;
 class Player;
 #include "Observer.h"
 #include <QWidget>
+#include "Player.h"
 
 
 class Timeline: public QWidget, public Observer {
@@ -23,6 +24,7 @@ private:
     Player* player;
     QHBoxLayout * boxLayout;
     std::vector<QWidget*> steps;
+
 };
 
 

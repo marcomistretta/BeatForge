@@ -35,15 +35,9 @@ public:
     ACTIVE_STATUS getStatus() const {
         return state;
     }
-    int getactualStep() const {
+    int getActualStep() const {
         return actualStep;
     }
-
-    void setActualStep(int actualStep) {
-        this->actualStep = actualStep;
-        notify();
-    }
-
     void setStatus(ACTIVE_STATUS state) {
         this->state = state;
     }
@@ -53,13 +47,25 @@ public:
     void setDrumKit(DrumKit *drumKit) {
         this->drumKit = drumKit;
     }
+    void setActualStep(int actualStep) {
+        this->actualStep = actualStep;
+        notify();
+    }
+
+    bool isFirstStep() const {
+        return firstStep;
+    }
+
+    void setFirstStep(bool firstStep) {
+        Player::firstStep = firstStep;
+    }
 
 public slots:
     void stopTimer();
     void playPauseTimer();
     void PLAY(); /*Global*/
-    void startStop() {}; /*for instruments*/
-    void startStopMetronome() {}; /*for Metronome*/
+    //void startStop() {}; for instruments
+    //void startStopMetronome() {}; for Metronome
 
 private:
     std::list<Observer *> observers;
@@ -69,6 +75,7 @@ private:
     int actualStep;
     QTimer *timer;
     QMediaPlayer *mediaPlayer;
+    bool firstStep;
 
     Metronome *metronome;
     DrumKit *drumKit;

@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
     int mainHeight = this->size().height();
 
     this->setFixedSize(mainWidth,mainHeight);
+    //TODO PATH
     this->setStyleSheet(QString("*{image: url(../res/icons/Background.png);};"));
     this->setContentsMargins(0,0,0,0);
 

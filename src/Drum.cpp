@@ -8,12 +8,15 @@
 #include <QMediaPlayer>
 #include <QAction>
 #include <QMenu>
-Drum::Drum(): drumStyle(POP),mediaplayer(new QMediaPlayer()), muteState(NOMUTED),soloState(NOSOLO), volume(100){
 
-    for (auto & i : groove)
+Drum::Drum() : drumType(KICK), drumStyle(POP), mediaplayer(new QMediaPlayer()), muteState(NOMUTED), soloState(NOSOLO),
+               volume(100) {
+    for (auto &i : groove)
         i = OFF;
-
     qDebug() << "Drum constructed";
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/KICK-POP.wav"));
+    mediaplayer->setVolume(getVolume());
+    notify();
 }
 
 Drum::Drum(const Drum &drum) {
@@ -29,10 +32,12 @@ void Drum::addObserver(Observer *o) {
     observers.push_back(o);
     qDebug() << "Observer pushed";
 }
+
 void Drum::removeObserver(Observer *o) {
     observers.remove(o);
     qDebug() << "Observer removed";
 }
+
 void Drum::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
@@ -47,24 +52,43 @@ void Drum::editStep(int step) {
         groove[step] = ON;
     notify();
 }
+
 void Drum::playDrum() {
-    if(getMuteState() == NOMUTED) {
+    if (getMuteState() == NOMUTED) {
         mediaplayer->play();
         qDebug() << "Drum played";
-    } else qDebug() << "Drum is muted";
+    } else
+        qDebug() << "Drum is muted";
 }
+
 void Drum::updatePath() {
     QString strType;
     QString strStyle;
-    switch (drumType){
-        case KICK: {strType = QString("KICK");}
-        //.......
+    switch (drumType) {
+        case KICK: {
+            strType = QString("KICK");
+        }
+        case SNARE: {
+            strType = QString("SNARE");
+        }
+        case HAT: {
+            strType = QString("HAT");
+        }
+        case TOM: {
+            strType = QString("TOM");
+        }
     }
-    switch(drumStyle){
-        case POP: {strStyle = QString("POP");}
-        //.......
-    }
-    mediaplayer->setMedia(QUrl::fromLocalFile(QString("/home/gege/Scrivania/Drum-Machine/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
+    switch (drumStyle) {
+        case POP: {
+            strStyle = QString("POP");
+        }
+            //.......
+    }//TODO PATH
+    //mediaplayer->setMedia(QUrl::fromLocalFile(QString("/home/misterm/Scrivania/DrumMachine/1709/res/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
+    QString path1 = "/home/misterm/Scrivania/DrumMachine/1709/res/res/samples/";
+    QString path2 = strType +"-"+ strStyle;
+    QString path = path1+path2;
+    mediaplayer->setMedia(QUrl::fromLocalFile(path));
 } //TODO GENERAL PATH
 //NB Uso di %1 e %2 per composizione del nome del file
 
@@ -73,20 +97,24 @@ void Drum::setMuteState(MUTE_STATUS mStatus) {
     muteState = mStatus;
     notify();
 }
+
 void Drum::setSoloState(SOLO_STATUS sStatus) {
     soloState = sStatus;
     notify();
 }
+
 void Drum::setDrumStyle(DRUM_STYLE style) {
     drumStyle = style;
     updatePath();
 }
+
 void Drum::setDrumType(DRUM_TYPE type) {
     drumType = type;
     updatePath();
     this->notify();
-    qDebug()<< "Type changed";
+    qDebug() << "Type changed";
 }
+
 void Drum::setVolume(int volume) {
     this->volume = volume;
     notify();

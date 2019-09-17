@@ -10,7 +10,8 @@ class MetronomeWidget;
 
 Metronome::Metronome(): status(OFF) {
     mediaplayer = new QMediaPlayer;
-    mediaplayer->setMedia(QUrl::fromLocalFile("/home/gege/Scrivania/Drum-Machine/res/beeps/start.wav"));
+    //TODO PATH
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/beeps/start.wav"));
     qDebug() << "Metronome constructed";
 }
 

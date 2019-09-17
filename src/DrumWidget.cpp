@@ -43,6 +43,7 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
 
     setFixedWidth(mainWidth/1.1);
     setFixedHeight(mainHeight/21);
+    //TODO PATH
     this->setStyleSheet(QString("*{image: url(../res/icons/DrumWidget.png);}"));
 
 
