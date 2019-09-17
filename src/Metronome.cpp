@@ -41,6 +41,7 @@ void Metronome::setStatus(ACTIVE_STATUS status) {
 }
 
 void Metronome::doBeep() {
+    mediaplayer->stop();
     mediaplayer->play();
     qDebug() << "Beep";
     qDebug() << "Metronome played";

@@ -11,6 +11,7 @@ class StepButton;
 class Drum;
 class QMenu;
 class QLabel;
+
 class MyDial : public QDial {
 public:
     MyDial(QWidget* parent);
@@ -22,6 +23,7 @@ public:
 private:
     QLabel* volumeLabel;
 };
+
 
 class DrumWidget : public QWidget, public Observer {
 Q_OBJECT

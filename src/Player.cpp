@@ -6,11 +6,12 @@
 #include <QTimer>
 #include <QMediaPlayer>
 
-Player::Player() : QObject(), metronome(new Metronome()), timer(new QTimer()), mediaPlayer(new QMediaPlayer()), actualStep(0) {
+Player::Player()
+        : QObject(), metronome(new Metronome()), timer(new QTimer()), mediaPlayer(new QMediaPlayer()), actualStep(0) {
     firstStep = true;
     timer->stop();
     setStatus(OFF);
-    setBpm(60);
+    setBpm(120);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(PLAY()));
     qDebug() << "Player constructed";
 }
@@ -33,7 +34,7 @@ void Player::removeObserver(Observer *o) {
 
 
 int Player::fromBpmToMillisec() {
-    return 60000 / getBpm();
+    return (60000 / getBpm()) / 4;
 }
 
 
@@ -61,12 +62,26 @@ void Player::stopTimer() {
 
 void Player::PLAY() {
     //int temp = getActualStep();
+
+    bool foundSolo = false;
     for (auto i : drumKit->getDrums()) {
-        if (i->isActive(actualStep))
-            i->playDrum();
+        if (i->getSoloState() == SOLO) {
+            foundSolo = true;
+        }
+        break;
     }
-    if (metronome->getStatus())
-        metronome->doBeep();
+    if (foundSolo)
+        playDrumSolo();
+    else {
+        for (auto i : drumKit->getDrums()) {
+            if (i->isActive(actualStep))
+                i->playDrum();
+        }
+
+        if ((actualStep % 4) == 0 && metronome->getStatus())
+            metronome->doBeep();
+    }
+
     setActualStep(((this->actualStep + 1) % 16));
     /*if (!isFirstStep())
         setActualStep(((this->actualStep + 1) % 16));
@@ -74,6 +89,13 @@ void Player::PLAY() {
         setFirstStep(false);
         actualStep = actualStep + 1;
     }*/
+}
+
+void Player::playDrumSolo() {
+    for (auto i : drumKit->getDrums()) {
+        if (i->isActive(actualStep) && (i->getSoloState() == SOLO))
+            i->playDrum();
+    }
 }
 
 

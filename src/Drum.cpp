@@ -55,6 +55,8 @@ void Drum::editStep(int step) {
 
 void Drum::playDrum() {
     if (getMuteState() == NOMUTED) {
+        //DOVREBBE ESSERE SUPERFLUO
+        mediaplayer->stop();
         mediaplayer->play();
         qDebug() << "Drum played";
     } else
@@ -66,56 +68,72 @@ void Drum::updatePath() {
     QString strStyle;
     switch (drumType) {
         case KICK: {
-            strType = QString("KICK");
+            //strType = QString("KICK");
+            //mediaplayer->stop();
+            mediaplayer->setMedia(
+                    QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/KICK-POP.wav"));
+            break;
         }
         case SNARE: {
             strType = QString("SNARE");
+            //mediaplayer->stop();
+            //mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/SNARE-POP.wav"));
+            break;
         }
         case HAT: {
             strType = QString("HAT");
+            //mediaplayer->stop();
+            //mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/HAT-POP.wav"));
+            break;
         }
         case TOM: {
             strType = QString("TOM");
+            //mediaplayer->stop();
+            //mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/TOM-POP.wav"));
+            break;
         }
     }
+
     switch (drumStyle) {
         case POP: {
             strStyle = QString("POP");
+            break;
         }
-            //.......
-    }//TODO PATH
-    //mediaplayer->setMedia(QUrl::fromLocalFile(QString("/home/misterm/Scrivania/DrumMachine/1709/res/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
-    QString path1 = "/home/misterm/Scrivania/DrumMachine/1709/res/res/samples/";
-    QString path2 = strType +"-"+ strStyle;
-    QString path = path1+path2;
-    mediaplayer->setMedia(QUrl::fromLocalFile(path));
-} //TODO GENERAL PATH
-//NB Uso di %1 e %2 per composizione del nome del file
-
-
-void Drum::setMuteState(MUTE_STATUS mStatus) {
-    muteState = mStatus;
-    notify();
+    }
+    mediaplayer->setMedia(QUrl::fromLocalFile(QString("/home/misterm/Scrivania/DrumMachine/1709/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
 }
+//mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/"+strType+"-"+strStyle+".waw"));
+/*QString path1 = "/home/misterm/Scrivania/DrumMachine/1709/res/samples/";
+QString path2 = strType +"-"+ strStyle;
+QString path = path1+path2+".waw";
+ mediaplayer->setMedia(QUrl::fromLocalFile(path));*/
 
-void Drum::setSoloState(SOLO_STATUS sStatus) {
-    soloState = sStatus;
-    notify();
-}
+    void Drum::setMuteState(MUTE_STATUS mStatus) {
+        muteState = mStatus;
+        notify();
+    }
 
-void Drum::setDrumStyle(DRUM_STYLE style) {
-    drumStyle = style;
-    updatePath();
-}
+    void Drum::setSoloState(SOLO_STATUS sStatus) {
+        soloState = sStatus;
+        notify();
+    }
 
-void Drum::setDrumType(DRUM_TYPE type) {
-    drumType = type;
-    updatePath();
-    this->notify();
-    qDebug() << "Type changed";
-}
+    void Drum::setDrumStyle(DRUM_STYLE style) {
+        drumStyle = style;
+        updatePath();
+        notify();
+    }
 
-void Drum::setVolume(int volume) {
-    this->volume = volume;
-    notify();
-}
+    void Drum::setDrumType(DRUM_TYPE type) {
+        drumType = type;
+        updatePath();
+        notify();
+        qDebug() << "Type changed";
+        qDebug() << drumType;
+    }
+
+    void Drum::setVolume(int volume) {
+        this->volume = volume;
+        mediaplayer->setVolume(volume);
+        notify();
+    }

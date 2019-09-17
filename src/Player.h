@@ -59,6 +59,7 @@ public:
     void setFirstStep(bool firstStep) {
         Player::firstStep = firstStep;
     }
+    void playDrumSolo();
 
 public slots:
     void stopTimer();

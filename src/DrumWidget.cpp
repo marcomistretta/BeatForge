@@ -40,12 +40,11 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
 
     int mainWidth = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().width();
     int mainHeight = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().height();
-
     setFixedWidth(mainWidth/1.1);
     setFixedHeight(mainHeight/21);
+
     //TODO PATH
     this->setStyleSheet(QString("*{image: url(../res/icons/DrumWidget.png);}"));
-
 
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
@@ -62,22 +61,27 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     //BUILDING MENU
     menu = new QMenu();
     menu->setFixedWidth(mainWidth / 10);
+
     QAction * kickPressed = new QAction(QString("KICK"),this);
     connect(kickPressed,SIGNAL(triggered()),this,SLOT(on_kick_pressed()));
+
     QAction * SnarePressed = new QAction(QString("SNARE"),this);
     connect(SnarePressed,SIGNAL(triggered()),this,SLOT(on_snare_pressed()));
+
     QAction * HatPressed = new QAction(QString("HAT"),this);
     connect(HatPressed,SIGNAL(triggered()),this,SLOT(on_hat_pressed()));
+
     QAction * TomPressed = new QAction(QString("TOM"),this);
     connect(TomPressed,SIGNAL(triggered()),this,SLOT(on_tom_pressed()));
+
     //....
+
     menu->addAction(kickPressed);
     menu->addAction(SnarePressed);
     menu->addAction(HatPressed);
     menu->addAction(TomPressed);
     drum_info->setMenu(menu);
     layout->addWidget(drum_info, Qt::AlignLeft, Qt::AlignVCenter);
-
 
     //BUILDING PLAY-PAUSE-MUTE-SOLO
     muteButton = new QPushButton();
@@ -86,7 +90,6 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     muteButton->setFixedSize(mainHeight / 35, mainHeight / 35);
     muteButton->setIcon(playicon);
     connect(muteButton, SIGNAL(clicked()), this, SLOT(on_mute_pressed()));
-
     soloButton = new QPushButton();
     QIcon soloicon;
     soloicon.addFile(QString("../res/icons/SoloButton-OFF.png"));
@@ -102,31 +105,29 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     space->setStyleSheet(QString(" background: transparent;"));
     space->setFixedWidth(mainWidth/25);
     space->setFixedHeight(0);
-
     layout->addWidget(space);
 
     //BUILDING STEP_BUTTONS
     for (int i = 0; i < 16; i++) {
         buttons[i] = new StepButton(this);
-
         buttons[i]->setStyleSheet(QString("*{background: white;}"));
-        buttons[i]->setFixedSize(mainWidth / 30, mainHeight / 32);
+        buttons[i]->setFixedSize(mainWidth/30, mainHeight/32);
         buttons[i]->setPosition(i);
-
         layout->addWidget(buttons[i]);
         layout->setStretchFactor(buttons[i], 1);
     }
+
     //BUILDING VOLUME DIAL
     volumeDial = new MyDial(this);
     volumeDial->setRange(0,100);
     connect(volumeDial,SIGNAL(valueChanged(int)),this,SLOT(on_volume_changed()));
-    volumeDial->setFixedSize(mainWidth / 40,mainWidth / 40);
+    volumeDial->setFixedSize(mainWidth/40, mainWidth/40);
     layout->addWidget(volumeDial);
-
 
     //SETTING THE LAYOUT
     this->setLayout(layout);
 }
+
 void DrumWidget::obsUpdate() {
     qDebug() << "Observer Updating";
 
@@ -140,13 +141,6 @@ void DrumWidget::obsUpdate() {
     volumeDial->setValue(drum->getVolume());
     volumeDial->getvolumeLabel()->setText(QString::number(drum->getVolume()));
 
-    QIcon muteicon;
-    if(drum->getMuteState() == MUTED)
-        muteicon.addFile(QString("../res/icons/MuteButton-ON.png"));
-    else
-        muteicon.addFile(QString("../res/icons/MuteButton-OFF.png"));
-    muteButton->setIcon(muteicon);
-
     QString drumType;
     switch (drum->getDrumType()){
         case KICK : { drumType = QString("KICK");} break;
@@ -156,16 +150,22 @@ void DrumWidget::obsUpdate() {
     }
     drum_info->setText(drumType);
 }
-
+//TODO RIMETTILI NELL'OBS
 void DrumWidget::on_mute_pressed() {
+    QIcon muteicon;
     if (drum->getMuteState() == NOMUTED) {
         drum->setMuteState(MUTED);
+        muteicon.addFile("../res/icons/MuteButton-ON.png");
+        qDebug() << "Mute Updating to MUTED";
 
     } else {
         drum->setMuteState(NOMUTED);
+        muteicon.addFile(QString("../res/icons/MuteButton-OFF.png"));
+        qDebug() << "Mute Updating to NOMUTED";
     }
-
+    muteButton->setIcon(muteicon);
 }
+
 void DrumWidget::on_solo_pressed() {
     QIcon soloicon;
     if (drum->getSoloState() == NOSOLO) {
@@ -180,7 +180,7 @@ void DrumWidget::on_solo_pressed() {
     }
     soloButton->setIcon(soloicon);
 }
-//TODO IMPLEMENT
+
 void DrumWidget::on_drum_info_pressed() {
     qDebug() << "Infobox clicked";
 }
