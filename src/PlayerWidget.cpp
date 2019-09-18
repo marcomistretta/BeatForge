@@ -22,7 +22,7 @@ PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), p
     player->setStatus(OFF);
 
     QIcon stopIcon;
-    stopIcon.addFile(QString("../res/icons/stop.png"));
+    stopIcon.addFile(QString("../res/icons/StopButton.png"));
     stopButton->setIcon(stopIcon);
 
 

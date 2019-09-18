@@ -15,19 +15,10 @@
 
 MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
-    /*My try
-    this->showNormal();*/
-
     this->showMaximized();
     int mainWidth = this->size().width();
     int mainHeight = this->size().height();
     this->setFixedSize(mainWidth,mainHeight);
-
-    /*My try
-    this->setMaximumSize(mainWidth,mainHeight);
-    this->setMinimumSize(1/2*mainWidth,1/2*mainHeight);*/
-
-    //this->setStyleSheet(QString("{background: transparent}"));
 
     //TODO PATH
     //TODO TROVATO 0x55dad65ae800in
@@ -38,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
 
     mainWidget = new QWidget(this);
     mainWidget->setContentsMargins(0,0,0,0);
-    mainWidget->setStyleSheet(QString("*{image: url(../res/icons/transparence.png);}"));
+    mainWidget->setStyleSheet(QString("*{image: url(../res/icons/Transparency.png);}"));
     mainLayout = new QGridLayout;
     mainWidget->setLayout(mainLayout);
 

@@ -9,12 +9,10 @@
 #include "Observer.h"
 
 class DrumWidget;
-
 class DrumKit;
-
 class QVBoxLayout;
-
 class QPushButton;
+
 
 class DrumKitWidget : public QWidget, public Observer {
 Q_OBJECT
@@ -25,8 +23,6 @@ public:
     DrumKit *getDrumKit() const {
         return drumKit;
     }
-
-
 private slots:
 
     void on_add_pressed();
@@ -37,6 +33,5 @@ private:
     QPushButton *addbutton;
     QVector<DrumWidget *> drumWidgets;
 };
-
 
 #endif //MYTEST_DRUMKITWIDGET_H

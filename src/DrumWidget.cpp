@@ -25,6 +25,7 @@ MyDial::MyDial(QWidget* parent): QDial(parent){
     volumeLabel->setStyleSheet(QString("*{background: rgba(255,255,255,210)}"));
     volumeLabel->hide();
 }
+
 void MyDial::mousePressEvent(QMouseEvent *me) {
     volumeLabel->show();
 }
@@ -36,6 +37,7 @@ void MyDial::mouseReleaseEvent(QMouseEvent *me) {
 DrumWidget::~DrumWidget() {
     drum->removeObserver(this);
 }
+
 DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
 
     int mainWidth = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().width();

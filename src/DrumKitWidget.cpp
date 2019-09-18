@@ -11,7 +11,8 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QMainWindow>
-DrumKitWidget::DrumKitWidget(DrumKit* drumkit, QWidget *parent) : QWidget(parent), drumKit(drumkit) {
+
+DrumKitWidget::DrumKitWidget(DrumKit *drumkit, QWidget *parent) : QWidget(parent), drumKit(drumkit) {
     drumKit->addObserver(this);
 
     addbutton = new QPushButton(this);
@@ -29,24 +30,27 @@ DrumKitWidget::DrumKitWidget(DrumKit* drumkit, QWidget *parent) : QWidget(parent
     this->setLayout(layout);
 }
 
-//TODO OBSERVER!!!
+//TODO OBSERVER
 void DrumKitWidget::on_add_pressed() {
-                                                            //!!DRUM HAS BEEN CONSTRUCTED BY QT!!
+    //DRUM HAS BEEN CONSTRUCTED BY QT
     drumKit->insertRows(0, 1, QModelIndex());
-                                                            //GETTING THE DRUM ADDRESS
+
+    //GETTING THE DRUM ADDRESS
     Drum *drum = drumKit->data(drumKit->index(0, 0, QModelIndex()), Qt::DisplayRole).value<Drum *>();
-                                                            //SETTING THE WIDTH AS OBSERVER AND DRUM AS SUBJ
+
+    //SETTING THE WIDTH AS OBSERVER AND DRUM AS SUBJ
     DrumWidget *drumWidget = new DrumWidget(this);
     drumWidget->setDrum(drum);
     drum->addObserver(drumWidget);
     drumWidgets.push_back(drumWidget);
-                                                             //FIRST NOTIFY
+
+    //FIRST NOTIFY
     drum->notify();
-                                                            //SETTING THE LAYOUT
+
+    //SETTING THE LAYOUT
     layout->addWidget(drumWidget);
 
 }
-
 
 
 void DrumKitWidget::obsUpdate() {
