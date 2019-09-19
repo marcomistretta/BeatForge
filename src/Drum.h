@@ -8,6 +8,7 @@
 #include "Enum.h"
 #include <QMetaType>
 #include <QObject>
+#include <QDir>
 
 class QMediaPlayer;
 
@@ -91,6 +92,8 @@ public:
 private:
     std::list<Observer *> observers;
     QMediaPlayer *mediaplayer;
+    QDir *dir;
+    QString path;
     int volume;
 
     ACTIVE_STATUS groove[16];

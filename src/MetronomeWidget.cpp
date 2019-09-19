@@ -8,6 +8,11 @@
 #include <QDebug>
 
 MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) : Observer(), metronome(metronome) {
+    //TODO PATH
+    dir = new QDir(QDir::currentPath());
+    dir->cdUp();
+    path = dir->absoluteFilePath("res/icons/");
+
     //SETTING DEFAULT BACKGROUND
     this->setStyleSheet(QString("{background: transparent}"));
 
@@ -33,11 +38,15 @@ void MetronomeWidget::obsUpdate() {
     QIcon metronomeicon;
     if (metronome->getStatus() == ON) {
         //red
-        metronomeicon.addFile(QString("../res/icons/Metronome-ON"));
+        //TODO CHECK
+        /*metronomeicon.addFile(QString("../res/icons/Metronome-ON"));*/
+        metronomeicon.addFile(QString(path + "Metronome-ON.png"));
         qDebug() << "to Red";
     } else {
         //light-green
-        metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));
+        //TODO CHECK
+        /*metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));*/
+        metronomeicon.addFile(QString(path + "Metronome-OFF.png"));
         qDebug() << "to Green";
     }
     this->setIcon(metronomeicon);

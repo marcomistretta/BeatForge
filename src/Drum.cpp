@@ -1,7 +1,6 @@
 //
 // Created by Guglielmo Fratticioli on 17/08/19.
 //
-//sono arrivato a main window.h escluso
 
 #include "Drum.h"
 #include "Observer.h"
@@ -17,7 +16,13 @@ Drum::Drum() : drumType(KICK), drumStyle(POP), mediaplayer(new QMediaPlayer()), 
         i = OFF;
     qDebug() << "Drum constructed";
 
+    //SETTING DEFAULT SAMPLES PATH
+    //TODO PATH
+    dir = new QDir(QDir::currentPath());
+    dir->cdUp();
+    path = dir->absoluteFilePath("res/samples/");
     updatePath();
+
     mediaplayer->setVolume(getVolume());
     notify();
 }
@@ -98,8 +103,8 @@ void Drum::updatePath() {
         }
     }
     //LOAD AUDIO.WAW
-    mediaplayer->setMedia(QUrl::fromLocalFile(
-            QString("/home/misterm/Scrivania/DrumMachine/1709/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
+    //TODO CHECK
+    mediaplayer->setMedia(QUrl::fromLocalFile(QString(path + "%1-%2.wav").arg(strType).arg(strStyle)));
 }
 
 //SETTER (NOTIFY THE OBSERVER)

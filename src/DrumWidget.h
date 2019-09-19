@@ -3,7 +3,7 @@
 #define TESTQTGUI_DRUMWIDGET_H
 
 #include "Observer.h"
-
+#include <QDir>
 #include <QWidget>
 #include <QDial>
 
@@ -88,6 +88,8 @@ private:
     StepButton *buttons[16];
     QMenu *menu;
     MyDial *volumeDial;
+    QDir *dir;
+    QString path;
 
 };
 

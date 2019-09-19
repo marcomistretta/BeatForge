@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QSlider>
+#include <QDir>
 #include "Subject.h"
 #include "Metronome.h"
 
@@ -33,6 +34,8 @@ private slots:
 
 private:
     Metronome *metronome;
+    QDir *dir;
+    QString path;
 };
 
 #endif //DRUM_MACHINE_METRONOMEWIDGET_H

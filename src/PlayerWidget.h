@@ -11,6 +11,7 @@ class Player;
 
 #include "Observer.h"
 #include <QWidget>
+#include <QDir>
 
 class PlayerWidget : public QWidget, public Observer {
 Q_OBJECT
@@ -46,6 +47,8 @@ private slots:
     void on_Stop_pressed();
 
 private:
+    QDir *dir;
+    QString path;
     Player *player;
     QPushButton * playButton;
     QPushButton * stopButton;

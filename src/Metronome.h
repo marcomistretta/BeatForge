@@ -7,6 +7,7 @@
 
 #include <QtGui/QtGui>
 #include <QtMultimedia/QMediaPlayer>
+#include <QDir>
 #include "Subject.h"
 #include "Enum.h"
 
@@ -36,6 +37,8 @@ private:
     std::list<Observer *> observers;
     ACTIVE_STATUS status;
     QMediaPlayer *mediaplayer;
+    QDir *dir;
+    QString path;
 };
 
 

@@ -9,6 +9,12 @@
 #include <QDebug>
 
 PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), player(player) {
+
+    //TODO PATH
+    dir = new QDir(QDir::currentPath());
+    dir->cdUp();
+    path = dir->absoluteFilePath("res/icons/");
+
     setStyleSheet(QString("*{background: transparent}"));
     player->addObserver(this);
     boxLayout = new QHBoxLayout(this);
@@ -21,7 +27,9 @@ PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), p
     player->setStatus(OFF);
 
     QIcon stopIcon;
-    stopIcon.addFile(QString("../res/icons/StopButton.png"));
+    //TODO CHECK
+    /*stopIcon.addFile(QString("../res/icons/StopButton.png"));*/
+    stopIcon.addFile(QString(path + "StopButton.png"));
     stopButton->setIcon(stopIcon);
 
     //CONNECTING METHODS
@@ -43,12 +51,16 @@ void PlayerWidget::obsUpdate() {
     QIcon playicon;
     if (player->getStatus() == OFF) {
         //red
-        playicon.addFile(QString("../res/icons/Play.png"));
+        //TODO CHECK
+        /*playicon.addFile(QString("../res/icons/Play.png"));*/
+        playicon.addFile(QString(path + "Play.png"));
         qDebug() << "Player GUI to ON ";
 
     } else {
         //light-green
-        playicon.addFile(QString("../res/icons/Pause.png"));
+        //TODO CHECK
+        /*playicon.addFile(QString("../res/icons/Pause.png"));*/
+        playicon.addFile(QString(path + "Pause.png"));
         qDebug() << "Player GUI to OFF ";
     }
     playButton->setIcon(playicon);
