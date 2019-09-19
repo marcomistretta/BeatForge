@@ -23,7 +23,7 @@ MetronomeWidget::~MetronomeWidget() {
 }
 
 void MetronomeWidget::obsUpdate() {
-    qDebug() << "MetroWidget Updated";
+    qDebug() << "MetronomeWidget Updated";
     QIcon metronomeicon;
     if (metronome->getStatus() == ON) {
         //red

@@ -19,10 +19,12 @@ class Drum;
 class DrumKit : public QAbstractListModel, public Subject {
 Q_OBJECT
 public:
+    //CONSTRUCTORS
     explicit DrumKit(QObject *parent = nullptr);
 
     explicit DrumKit(QVector<Drum *> drums, QObject *parent = nullptr);
 
+    //SUBJECT
     void notify() override;
 
     void addObserver(Observer *o) override;
@@ -37,16 +39,16 @@ public:
 
     QVariant data(const QModelIndex &index, int role) const override;
 
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
-
     Qt::ItemFlags flags(const QModelIndex &index) const override;
+
+    //GETTER & SETTER
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
     const QVector<Drum *> &getDrums() const;
 
 private:
     QVector<Drum *> drums;
     std::list<Observer *> observers;
-
 };
 
 #endif //MYTEST_DRUMKIT_H

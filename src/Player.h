@@ -59,14 +59,12 @@ public:
     void setFirstStep(bool firstStep) {
         Player::firstStep = firstStep;
     }
-    void playDrumSolo();
 
 public slots:
     void stopTimer();
     void playPauseTimer();
     void PLAY(); /*Global*/
-    //void startStop() {}; for instruments
-    //void startStopMetronome() {}; for Metronome
+
 
 private:
     std::list<Observer *> observers;

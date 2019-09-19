@@ -47,7 +47,6 @@ void Timeline::obsUpdate() {
     if (player->isFirstStep()) {
         steps[player->getActualStep()]->setStyleSheet(QString("*{image: url(../res/icons/Led-ON.png);}"));
         player->setFirstStep(false);
-        //steps[(player->getActualStep()-1+16)%16]->setStyleSheet(QString("*{image: url(../res/icons/Led-OFF.png);}"));
     } else
         steps[(player->getActualStep() - 1 + 16) % 16]->setStyleSheet(
                 QString("*{image: url(../res/icons/Led-ON.png);}"));

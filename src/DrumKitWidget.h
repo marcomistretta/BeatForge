@@ -9,22 +9,30 @@
 #include "Observer.h"
 
 class DrumWidget;
-class DrumKit;
-class QVBoxLayout;
-class QPushButton;
 
+class DrumKit;
+
+class QVBoxLayout;
+
+class QPushButton;
 
 class DrumKitWidget : public QWidget, public Observer {
 Q_OBJECT
 public:
-    explicit DrumKitWidget(DrumKit* drumkit, QWidget *parent = nullptr);
+    //CONSTRUCTOR
+    explicit DrumKitWidget(DrumKit *drumkit, QWidget *parent = nullptr);
 
+    //OBSERVER
     void obsUpdate() override;
+
+    //GETTER
     DrumKit *getDrumKit() const {
         return drumKit;
     }
+
 private slots:
 
+    //WHEN YOU CLICK ADD TO ADD A DRUM
     void on_add_pressed();
 
 private:

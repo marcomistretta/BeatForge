@@ -1,9 +1,8 @@
-#include <utility>
-
 //
 // Created by Guglielmo Fratticioli on 09/07/19.
 //
 
+#include <utility>
 #include "DrumKit.h"
 #include "Drum.h"
 #include "Subject.h"
@@ -11,6 +10,7 @@
 #include <QMetaType>
 #include <QDebug>
 
+//CONSTRUCTORS
 DrumKit::DrumKit(QObject *parent) : QAbstractListModel(parent) {}
 
 DrumKit::DrumKit(QVector<Drum *> drums, QObject *parent) : QAbstractListModel(parent), drums(std::move(drums)) {}
@@ -78,15 +78,15 @@ const QVector<Drum *> &DrumKit::getDrums() const {
 void DrumKit::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
-    qDebug() << "DrumKitWidget notified";
+    qDebug() << "DrumKit Observer notified";
 }
 
 void DrumKit::addObserver(Observer *o) {
-    qDebug() << "Observer added";
+    qDebug() << "DrumKit Observer added";
     observers.push_back(o);
 }
 
 void DrumKit::removeObserver(Observer *o) {
-    qDebug() << "Observer removed";
+    qDebug() << "DrumKit Observer removed";
     observers.remove(o);
 }

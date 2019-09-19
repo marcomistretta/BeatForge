@@ -61,8 +61,6 @@ void Player::stopTimer() {
 }
 
 void Player::PLAY() {
-    //int temp = getActualStep();
-
     bool foundSolo = false;
     for (auto i : drumKit->getDrums()) {
         if (i->getSoloState() == SOLO) {
@@ -70,9 +68,13 @@ void Player::PLAY() {
         }
         break;
     }
-    if (foundSolo)
-        playDrumSolo();
-    else {
+
+    if (foundSolo) {
+        for (auto i : drumKit->getDrums()) {
+            if (i->isActive(actualStep) && (i->getSoloState() == SOLO))
+                i->playDrum();
+        }
+    } else {
         for (auto i : drumKit->getDrums()) {
             if (i->isActive(actualStep))
                 i->playDrum();
@@ -83,20 +85,8 @@ void Player::PLAY() {
     }
 
     setActualStep(((this->actualStep + 1) % 16));
-    /*if (!isFirstStep())
-        setActualStep(((this->actualStep + 1) % 16));
-    else {
-        setFirstStep(false);
-        actualStep = actualStep + 1;
-    }*/
 }
 
-void Player::playDrumSolo() {
-    for (auto i : drumKit->getDrums()) {
-        if (i->isActive(actualStep) && (i->getSoloState() == SOLO))
-            i->playDrum();
-    }
-}
 
 
 

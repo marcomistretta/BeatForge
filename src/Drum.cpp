@@ -1,6 +1,7 @@
 //
 // Created by Guglielmo Fratticioli on 17/08/19.
 //
+//sono arrivato a main window.h escluso
 
 #include "Drum.h"
 #include "Observer.h"
@@ -9,16 +10,19 @@
 #include <QAction>
 #include <QMenu>
 
+//CONSTRUCTOR
 Drum::Drum() : drumType(KICK), drumStyle(POP), mediaplayer(new QMediaPlayer()), muteState(NOMUTED), soloState(NOSOLO),
                volume(100) {
     for (auto &i : groove)
         i = OFF;
     qDebug() << "Drum constructed";
-    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/KICK-POP.wav"));
+
+    updatePath();
     mediaplayer->setVolume(getVolume());
     notify();
 }
 
+//COPY CONSTRUCTOR
 Drum::Drum(const Drum &drum) {
     for (int i = 0; i < 16; i++)
         groove[i] = drum.getGroove()[i];
@@ -26,26 +30,29 @@ Drum::Drum(const Drum &drum) {
     mediaplayer = drum.getMediaPlayer();
     soloState = drum.getSoloState();
     muteState = drum.getMuteState();
+    volume = drum.getVolume();
+    drumStyle = getDrumStyle();
+    drumType = getDrumType();
 }
 
 void Drum::addObserver(Observer *o) {
     observers.push_back(o);
-    qDebug() << "Observer pushed";
+    qDebug() << "Drum Observer pushed";
 }
 
 void Drum::removeObserver(Observer *o) {
     observers.remove(o);
-    qDebug() << "Observer removed";
+    qDebug() << "Drum Observer removed";
 }
 
 void Drum::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
-    qDebug() << "Observer notified";
+    qDebug() << "Drum Observer notified";
 }
 
 void Drum::editStep(int step) {
-    qDebug() << "editStep";
+    qDebug() << "Drum:: Step edited";
     if (groove[step] == ON)
         groove[step] = OFF;
     else
@@ -54,9 +61,9 @@ void Drum::editStep(int step) {
 }
 
 void Drum::playDrum() {
+    //HELP DECREASING LATENCY
+    mediaplayer->stop();
     if (getMuteState() == NOMUTED) {
-        //DOVREBBE ESSERE SUPERFLUO
-        mediaplayer->stop();
         mediaplayer->play();
         qDebug() << "Drum played";
     } else
@@ -68,72 +75,60 @@ void Drum::updatePath() {
     QString strStyle;
     switch (drumType) {
         case KICK: {
-            //strType = QString("KICK");
-            //mediaplayer->stop();
-            mediaplayer->setMedia(
-                    QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/KICK-POP.wav"));
+            strType = QString("KICK");
             break;
         }
         case SNARE: {
             strType = QString("SNARE");
-            //mediaplayer->stop();
-            //mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/SNARE-POP.wav"));
             break;
         }
         case HAT: {
             strType = QString("HAT");
-            //mediaplayer->stop();
-            //mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/HAT-POP.wav"));
             break;
         }
         case TOM: {
             strType = QString("TOM");
-            //mediaplayer->stop();
-            //mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/TOM-POP.wav"));
             break;
         }
     }
-
     switch (drumStyle) {
         case POP: {
             strStyle = QString("POP");
             break;
         }
     }
-    mediaplayer->setMedia(QUrl::fromLocalFile(QString("/home/misterm/Scrivania/DrumMachine/1709/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
+    //LOAD AUDIO.WAW
+    mediaplayer->setMedia(QUrl::fromLocalFile(
+            QString("/home/misterm/Scrivania/DrumMachine/1709/res/samples/%1-%2.wav").arg(strType).arg(strStyle)));
 }
-//mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/samples/"+strType+"-"+strStyle+".waw"));
-/*QString path1 = "/home/misterm/Scrivania/DrumMachine/1709/res/samples/";
-QString path2 = strType +"-"+ strStyle;
-QString path = path1+path2+".waw";
- mediaplayer->setMedia(QUrl::fromLocalFile(path));*/
 
-    void Drum::setMuteState(MUTE_STATUS mStatus) {
-        muteState = mStatus;
-        notify();
-    }
+//SETTER (NOTIFY THE OBSERVER)
+void Drum::setMuteState(MUTE_STATUS mStatus) {
+    muteState = mStatus;
+    notify();
+}
 
-    void Drum::setSoloState(SOLO_STATUS sStatus) {
-        soloState = sStatus;
-        notify();
-    }
+void Drum::setSoloState(SOLO_STATUS sStatus) {
+    soloState = sStatus;
+    notify();
+}
 
-    void Drum::setDrumStyle(DRUM_STYLE style) {
-        drumStyle = style;
-        updatePath();
-        notify();
-    }
+void Drum::setDrumStyle(DRUM_STYLE style) {
+    drumStyle = style;
+    updatePath();
+    notify();
+    qDebug() << "DrumStyle changed to: " << drumStyle;
+}
 
-    void Drum::setDrumType(DRUM_TYPE type) {
-        drumType = type;
-        updatePath();
-        notify();
-        qDebug() << "Type changed";
-        qDebug() << drumType;
-    }
+void Drum::setDrumType(DRUM_TYPE type) {
+    drumType = type;
+    updatePath();
+    notify();
+    qDebug() << "DrumType changed to: " << drumType;
+}
 
-    void Drum::setVolume(int volume) {
-        this->volume = volume;
-        mediaplayer->setVolume(volume);
-        notify();
-    }
+void Drum::setVolume(int volume) {
+    this->volume = volume;
+    mediaplayer->setVolume(volume);
+    notify();
+}

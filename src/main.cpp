@@ -1,9 +1,8 @@
 #include <iostream>
-
 #include <QPaintEvent>
 #include <QtWidgets>
-#include "MainWindow.h"
 
+#include "MainWindow.h"
 
 int main(int argc, char *argv[]) {
 

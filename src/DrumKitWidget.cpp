@@ -14,12 +14,12 @@
 
 DrumKitWidget::DrumKitWidget(DrumKit *drumkit, QWidget *parent) : QWidget(parent), drumKit(drumkit) {
     drumKit->addObserver(this);
-
+    //ADD BUTTON
     addbutton = new QPushButton(this);
     addbutton->setStyleSheet(QString("*{background: rgba(136,155,97);}"));
     addbutton->setText(QString("Add"));
     connect(addbutton, SIGNAL(clicked()), this, SLOT(on_add_pressed()));
-
+    //LAYOUT
     layout = new QVBoxLayout(this);
     layout->setDirection(QBoxLayout::BottomToTop);
     layout->addStretch(0);
@@ -49,9 +49,8 @@ void DrumKitWidget::on_add_pressed() {
 
     //SETTING THE LAYOUT
     layout->addWidget(drumWidget);
-
 }
 
-
+//TODO OBSERVER
 void DrumKitWidget::obsUpdate() {
 }
