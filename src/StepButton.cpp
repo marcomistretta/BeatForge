@@ -21,3 +21,7 @@ void StepButton::on_clicked() {
     qDebug()<<"clicked";
     static_cast<DrumWidget*>(parent())->getDrum()->editStep(position);
 }
+
+StepButton::~StepButton() {
+    //TODO IMPLEMENT destructor
+}

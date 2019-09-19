@@ -24,6 +24,9 @@ public:
 
     explicit DrumKit(QVector<Drum *> drums, QObject *parent = nullptr);
 
+    //DESTRUCTOR
+    virtual ~DrumKit();
+
     //SUBJECT
     void notify() override;
 

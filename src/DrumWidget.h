@@ -43,9 +43,10 @@ private:
 class DrumWidget : public QWidget, public Observer {
 Q_OBJECT
 public:
-    //CONSTRUCTOR & DESTRUCTOR
+    //CONSTRUCTOR
     DrumWidget(QWidget *parent = nullptr);
 
+    //DESTRUCTOR
     ~DrumWidget() override;
 
     void paintEvent(QPaintEvent *event) override;

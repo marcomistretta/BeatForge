@@ -17,6 +17,9 @@ public:
     //CONSTRUCTOR
     Metronome();
 
+    //DESTRUCTOR
+    virtual ~Metronome();
+
     //SUBJECT
     void notify() override;
     void addObserver(Observer *o) override;

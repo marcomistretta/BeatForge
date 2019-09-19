@@ -90,3 +90,7 @@ void DrumKit::removeObserver(Observer *o) {
     qDebug() << "DrumKit Observer removed";
     observers.remove(o);
 }
+
+DrumKit::~DrumKit() {
+    //TODO IMPLEMENT destructor
+}

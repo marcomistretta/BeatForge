@@ -13,6 +13,9 @@ public:
     //CONSTRUCTOR
     explicit StepButton(QWidget * parent = nullptr);
 
+    //DESTRUCTOR
+    virtual ~StepButton();
+
     void setBackground(QColor color);
 
     //SETTER

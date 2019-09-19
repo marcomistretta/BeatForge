@@ -88,7 +88,11 @@ void Player::PLAY() {
 }
 
 Player::~Player() {
-
+    //TODO IMPLEMENT destructor
+    delete (timer);
+    delete (mediaPlayer);
+    delete (metronome);
+    delete (drumKit);
 }
 
 

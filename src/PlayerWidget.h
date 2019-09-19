@@ -15,9 +15,11 @@ class Player;
 class PlayerWidget : public QWidget, public Observer {
 Q_OBJECT
 public:
-    //CONSTRUCTOR & DESTRUCTOR
+    //CONSTRUCTOR &
     explicit PlayerWidget(Player* player, QWidget *parent = nullptr);
-    ~PlayerWidget();
+
+    //DESTRUCTOR
+    virtual ~PlayerWidget();
 
     //OBSERVER
     void obsUpdate();

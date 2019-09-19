@@ -22,6 +22,9 @@ public:
     //CONSTRUCTOR
     explicit MainWindow(QWidget *parent = nullptr);
 
+    //DESTRUCTOR
+    virtual ~MainWindow();
+
 private:
     QWidget * mainWidget;
     DrumKit* drumKit;

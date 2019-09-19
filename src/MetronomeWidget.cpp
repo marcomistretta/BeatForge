@@ -23,6 +23,7 @@ MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) : Observe
 }
 
 MetronomeWidget::~MetronomeWidget() {
+    //TODO IMPLEMENT destructor
     delete (metronome);
     qDebug() << "Metronome deleted";
 }

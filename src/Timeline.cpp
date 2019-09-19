@@ -41,6 +41,7 @@ Timeline::Timeline(Player *player, QWidget *parent) : QWidget(parent), Observer(
 }
 
 Timeline::~Timeline() {
+    //TODO IMPLEMENT destructor
     player->removeObserver(this);
     delete (player);
     delete (boxLayout);

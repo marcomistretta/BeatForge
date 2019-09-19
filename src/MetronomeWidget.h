@@ -16,7 +16,9 @@ class MetronomeWidget: public QPushButton, public Observer {
 public:
     //CONSTRUCTOR
     explicit MetronomeWidget(Metronome* metronome, QWidget *parent = nullptr);
-    ~MetronomeWidget();
+
+    //DESTRUCTOR
+    virtual ~MetronomeWidget();
 
     //OBSERVER
     void obsUpdate() override;

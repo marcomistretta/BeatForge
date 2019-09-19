@@ -22,6 +22,9 @@ public:
     //CONSTRUCTOR
     explicit DrumKitWidget(DrumKit *drumkit, QWidget *parent = nullptr);
 
+    //DESTRUCTOR
+    virtual ~DrumKitWidget();
+
     //OBSERVER
     void obsUpdate() override;
 

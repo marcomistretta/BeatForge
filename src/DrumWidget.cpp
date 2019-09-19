@@ -35,10 +35,6 @@ void MyDial::mouseReleaseEvent(QMouseEvent *me) {
 }
 
 //DRUMWIDGET
-DrumWidget::~DrumWidget() {
-    drum->removeObserver(this);
-}
-
 DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     //SETTING FIXED SIZE
     int mainWidth = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().width();
@@ -123,6 +119,19 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
 
     //SETTING THE LAYOUT
     this->setLayout(layout);
+}
+
+DrumWidget::~DrumWidget() {
+    //TODO IMPLEMENT
+    drum->removeObserver(this);
+    delete (layout);
+    delete (drum_info);
+    delete (muteButton);
+    delete (soloButton);
+    delete (drum);
+    //delete[](buttons);
+    delete (menu);
+    delete (volumeDial);
 }
 
 void DrumWidget::obsUpdate() {

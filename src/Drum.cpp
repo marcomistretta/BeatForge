@@ -134,5 +134,6 @@ void Drum::setVolume(int volume) {
 }
 
 Drum::~Drum() {
+    //TODO IMPLEMENT destructor
     delete (mediaplayer);
 }
