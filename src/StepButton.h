@@ -10,13 +10,15 @@
 class StepButton: public QPushButton{
     Q_OBJECT
 public:
+    //CONSTRUCTOR
     explicit StepButton(QWidget * parent = nullptr);
+
     void setBackground(QColor color);
 
+    //SETTER
     void setPosition(int position) {
         StepButton::position = position;
     }
-
 
 private slots:
     void on_clicked();
@@ -24,6 +26,5 @@ private slots:
 private:
     int position;
 };
-
 
 #endif //TESTQTGUI_STEPBUTTON_H

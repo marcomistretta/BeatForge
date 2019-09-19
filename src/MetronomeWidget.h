@@ -14,25 +14,23 @@
 class MetronomeWidget: public QPushButton, public Observer {
     Q_OBJECT
 public:
+    //CONSTRUCTOR
     explicit MetronomeWidget(Metronome* metronome, QWidget *parent = nullptr);
     ~MetronomeWidget();
 
+    //OBSERVER
     void obsUpdate() override;
 
-
+    //GETTER
     Metronome *getMetronome() const {
         return metronome;
     }
 
-
 private slots:
     void on_pressed();
 
-
 private:
     Metronome *metronome;
-
 };
-
 
 #endif //DRUM_MACHINE_METRONOMEWIDGET_H

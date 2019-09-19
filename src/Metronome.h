@@ -14,14 +14,16 @@ class Metronome : public QTimer, public Subject {
 Q_OBJECT
 
 public:
+    //CONSTRUCTOR
     Metronome();
 
+    //SUBJECT
     void notify() override;
     void addObserver(Observer *o) override;
     void removeObserver(Observer *o) override;
 
+    //GETTER & SETTER
     ACTIVE_STATUS getStatus() const;
-
     void setStatus(ACTIVE_STATUS state);
 
 public slots:

@@ -8,12 +8,17 @@
 #include <QDebug>
 
 MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) : Observer(), metronome(metronome) {
-
+    //SETTING DEFAULT BACKGROUND
     this->setStyleSheet(QString("{background: transparent}"));
+
+    //CONNECTING SUBJECT-OBSERVER
     metronome->addObserver(this);
     qDebug() << "Metronome Widget constructed";
-    //connecting methods
+
+    //CONNECTING METHODS
     connect(this, SIGNAL(clicked()), this, SLOT(on_pressed()));
+
+    //UPDATE VIEW
     obsUpdate();
 }
 

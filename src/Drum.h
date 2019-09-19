@@ -20,6 +20,9 @@ public:
 
     Drum(const Drum &drum);
 
+    //DESTRUCTOR
+    virtual ~Drum();
+
     //SUBJECT
     void addObserver(Observer *o) override;
 

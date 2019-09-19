@@ -87,6 +87,10 @@ void Player::PLAY() {
     setActualStep(((this->actualStep + 1) % 16));
 }
 
+Player::~Player() {
+
+}
+
 
 
 

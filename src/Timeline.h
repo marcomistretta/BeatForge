@@ -4,19 +4,27 @@
 
 #ifndef MYTEST_TIMELINE_H
 #define MYTEST_TIMELINE_H
-class QHBoxLayout;
-class Player;
-#include "Observer.h"
-#include <QWidget>
-#include "Player.h"
 
+#include "Observer.h"
+#include "Player.h"
+#include <QWidget>
+
+class QHBoxLayout;
+
+class Player;
 
 class Timeline: public QWidget, public Observer {
 public:
-    ~Timeline() override;
-    void obsUpdate() override;
-    Timeline(Player* player, QWidget* parent);
+    //CONSTRUCTOR
+    Timeline(Player *player, QWidget *parent);
 
+    //DESTRUCTOR
+    ~Timeline() override;
+
+    //OBSERVER
+    void obsUpdate() override;
+
+    //SETTER
     void setPlayer(Player* player){
         this->player = player;
     }

@@ -17,10 +17,9 @@ class Player;
 class PlayerWidget;
 class Timeline;
 
-
-
 class MainWindow : public QMainWindow {
 public:
+    //CONSTRUCTOR
     explicit MainWindow(QWidget *parent = nullptr);
 
 private:
@@ -31,7 +30,6 @@ private:
     MetronomeWidget* metronomeWidget;
     Player* player;
     PlayerWidget *playerWidget;
-
     QGridLayout* mainLayout;
     Timeline *timeline;
 

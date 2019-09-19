@@ -17,15 +17,14 @@ PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), p
     boxLayout->addWidget(playButton);
     boxLayout->addWidget(stopButton);
 
-
-    //setting the Status
+    //SETTING DEFAULT STATUS
     player->setStatus(OFF);
 
     QIcon stopIcon;
     stopIcon.addFile(QString("../res/icons/StopButton.png"));
     stopButton->setIcon(stopIcon);
 
-
+    //CONNECTING METHODS
     connect(playButton, SIGNAL(clicked()), this, SLOT(on_Play_pressed()));
     connect(stopButton, SIGNAL(clicked()), this, SLOT(on_Stop_pressed()));
     obsUpdate();

@@ -132,3 +132,7 @@ void Drum::setVolume(int volume) {
     mediaplayer->setVolume(volume);
     notify();
 }
+
+Drum::~Drum() {
+    delete (mediaplayer);
+}

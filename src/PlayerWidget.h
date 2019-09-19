@@ -12,14 +12,17 @@ class Player;
 #include "Observer.h"
 #include <QWidget>
 
-
 class PlayerWidget : public QWidget, public Observer {
 Q_OBJECT
 public:
+    //CONSTRUCTOR & DESTRUCTOR
     explicit PlayerWidget(Player* player, QWidget *parent = nullptr);
     ~PlayerWidget();
+
+    //OBSERVER
     void obsUpdate();
 
+    //GETTER
     Player *getPlayer() const {
         return player;
     }
@@ -30,10 +33,12 @@ public:
         return stopButton;
     };
 
+    //SETTEDR
     void setPlayer(Player *play) {
         PlayerWidget::player = play;
     }
 
+    //SLOTS
 private slots:
     void on_Play_pressed();
     void on_Stop_pressed();
