@@ -13,4 +13,4 @@ Choose your drum style and then sequence more than 30 samples.
  
 ## Authors
 
-* [Fratticioli Guglielmo]() & [Mistretta Marco]() 
+* Fratticioli Guglielmo(guglielmo.fratticioli@stud.unifi.it) & Mistretta Marco(marco.mistretta@stud.unifi.it) 
