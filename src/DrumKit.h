@@ -34,6 +34,7 @@ public:
 
     void removeObserver(Observer *o) override;
 
+    //DRUMKIT
     int rowCount(const QModelIndex &parent) const override;
 
     bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;

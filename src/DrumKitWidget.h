@@ -34,7 +34,6 @@ public:
     }
 
 private slots:
-
     //WHEN YOU CLICK ADD TO ADD A DRUM
     void on_add_pressed();
 

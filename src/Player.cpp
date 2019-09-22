@@ -65,8 +65,8 @@ void Player::PLAY() {
     for (auto i : drumKit->getDrums()) {
         if (i->getSoloState() == SOLO) {
             foundSolo = true;
+            break;
         }
-        break;
     }
 
     if (foundSolo) {

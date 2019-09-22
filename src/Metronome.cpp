@@ -15,8 +15,8 @@ Metronome::Metronome(): status(OFF) {
     dir->cdUp();
     path = dir->absoluteFilePath("res/beeps/");
     //TODO (NOT WORKING)
-    /*mediaplayer->setMedia(QUrl::fromLocalFile("../res/beeps/start.wav"));*/
-    mediaplayer->setMedia(QUrl::fromLocalFile(QString(path + "start.waw")));
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1909/res/beeps/start.wav"));
+    //mediaplayer->setMedia(QUrl::fromLocalFile(QString(path + "start.waw")));
     qDebug() << "Metronome constructed";
 }
 

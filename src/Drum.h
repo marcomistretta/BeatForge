@@ -31,6 +31,7 @@ public:
 
     void notify() override;
 
+    //DRUM
     void playDrum();
 
     void editStep(int step);
