@@ -10,6 +10,9 @@ Choose your drum style and then sequence more than 30 samples.
 
 * [Qt](https://www.qt.io) - The Cross-platform SDK
 * [Clion](https://www.jetbrains.com) - The Cross-platform IDE
+
+![](README%20images/DrumMachineUML.png)
+
  
 ## Authors
 
