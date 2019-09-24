@@ -31,12 +31,14 @@ enum DRUM_TYPE {
     TOM = 3,
     //TODO ADD TYPE
     //...
-
 };
 
 //DRUM STYLE
 enum DRUM_STYLE {
-    POP = 0,
+
+    JAZZ = 0,
+    ROCK = 1,
+    POP = 2,
     //TODO ADD STYLE
     //...
 };

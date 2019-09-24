@@ -64,6 +64,12 @@ class BpmSpinBox: public QWidget {
 public:
     BpmSpinBox(QWidget* parent = nullptr);
     void updateBpm(int Bpm);
+    QPushButton* getupBpm(){
+        return upBpm;
+    }
+    QPushButton* getdownBpm(){
+        return downBpm;
+    }
 private:
     QLabel* bpmLabel;
     QPushButton* upBpm;
@@ -83,9 +89,11 @@ public:
     ~DisplayWidget();
     DisplayWidget(Player* player,DrumKit* drumKit, QWidget* parent = nullptr);
     void obsUpdate() override;
+
 private slots:
 
-    void on_bpm_changed();
+    void on_downBpm_clicked();
+    void on_upBpm_clicked();
     void on_save_pressed();
     void on_load_pressed();
     void on_leftStyle_pressed();

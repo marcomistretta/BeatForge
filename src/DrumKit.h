@@ -31,6 +31,8 @@ public:
 
     void removeObserver(Observer *o) override;
 
+    void setDrumStyle(DRUM_STYLE style);
+
     int rowCount(const QModelIndex &parent) const override;
 
     bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
@@ -46,9 +48,14 @@ public:
 
     const QVector<Drum *> &getDrums() const;
 
+    DRUM_STYLE getDrumStyle(){
+        return drumStyle;
+    };
+
 private:
     QVector<Drum *> drums;
     std::list<Observer *> observers;
+    DRUM_STYLE drumStyle;
 };
 
 #endif //MYTEST_DRUMKIT_H

@@ -11,7 +11,7 @@
 #include <QDebug>
 
 //CONSTRUCTORS
-DrumKit::DrumKit(QObject *parent) : QAbstractListModel(parent) {}
+DrumKit::DrumKit(QObject *parent) : QAbstractListModel(parent), drumStyle(JAZZ) {}
 
 DrumKit::DrumKit(QVector<Drum *> drums, QObject *parent) : QAbstractListModel(parent), drums(std::move(drums)) {}
 
@@ -89,4 +89,10 @@ void DrumKit::addObserver(Observer *o) {
 void DrumKit::removeObserver(Observer *o) {
     qDebug() << "DrumKit Observer removed";
     observers.remove(o);
+}
+
+void DrumKit::setDrumStyle(DRUM_STYLE style) {
+    drumStyle = style;
+    notify();
+    qDebug()<< style;
 }

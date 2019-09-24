@@ -10,19 +10,15 @@
 
 #define WHEEL_SCROLL_OFFSET 50000.0
 
-AbstractWheelWidget::AbstractWheelWidget(bool touch, QWidget *parent)
-        : QWidget(parent)
-        , m_currentItem(0)
-        , m_itemOffset(0)
+AbstractWheelWidget::AbstractWheelWidget(bool touch, QWidget *parent): QWidget(parent), m_currentItem(0), m_itemOffset(0)
 {
 // ![0]
-    QScroller::grabGesture(this, touch ? QScroller::TouchGesture : QScroller::LeftMouseButtonGesture);
+//NON HO TROVATO UN SIGNAL PER IL TOUCH SCROLL
+    //QScroller::grabGesture(this, touch ? QScroller::TouchGesture : QScroller::LeftMouseButtonGesture);
 // ![0]
 }
-
 AbstractWheelWidget::~AbstractWheelWidget()
 { }
-
 int AbstractWheelWidget::currentIndex() const
 {
     return m_currentItem;
@@ -134,9 +130,10 @@ void AbstractWheelWidget::paintEvent(QPaintEvent* event)
 */
 void AbstractWheelWidget::scrollTo(int index)
 {
+
     QScroller *scroller = QScroller::scroller(this);
 
-    scroller->scrollTo(QPointF(0, WHEEL_SCROLL_OFFSET + index * itemWidth()), 5000);
+    scroller->scrollTo(QPointF(50000.0 + index * itemWidth(),0 ), 2500);
 }
 
 /*!
@@ -178,7 +175,7 @@ BpmSpinBox::BpmSpinBox(QWidget *parent): QWidget(parent), boxLayout(new QHBoxLay
     QFont serifFont("EditUndoBRK", this->height()/2);
     bpmLabel->setFont(serifFont);
     bpmLabel->setFixedHeight(this->height());
-    bpmLabel->setText(QString("60 BPM"));
+
     bpmLabel->setAlignment(Qt::AlignRight);
     leftWidget->setLayout(leftLayout);
 
@@ -190,9 +187,12 @@ void BpmSpinBox::updateBpm(int Bpm) {
     bpmLabel->setText(QString("%1 BPM").arg(Bpm));
 }
 
+
 StringWheelWidget::StringWheelWidget(bool touch, QWidget* parent)
         : AbstractWheelWidget(touch,parent)
-{ }
+{
+    setCurrentIndex(2);
+}
 QStringList StringWheelWidget::items() const
 {
     return m_items;
@@ -230,12 +230,20 @@ int StringWheelWidget::itemCount() const {
     return m_items.count();
 }
 
+
+
 DisplayWidget::DisplayWidget(Player* player, DrumKit* drumKit, QWidget *parent): Observer(), QWidget(parent),player(player), drumKit(drumKit),
 leftWidget(new QWidget(this)), rightWidget(new QWidget(this)),
 boxLayout(new QHBoxLayout(this))
 {
 
+    player->addObserver(this);
+    drumKit->addObserver(this);
+
     bpmBox = new BpmSpinBox(leftWidget);
+    bpmBox->updateBpm(120);
+    connect(bpmBox->getupBpm(), SIGNAL(clicked()), this, SLOT(on_upBpm_clicked()));
+    connect(bpmBox->getdownBpm(), SIGNAL(clicked()), this, SLOT(on_downBpm_clicked()));
     saveButton = new QPushButton(leftWidget);
     loadButton = new QPushButton(leftWidget);
     leftLayout = new QVBoxLayout(leftWidget);
@@ -243,8 +251,11 @@ boxLayout(new QHBoxLayout(this))
     styleButtonWidget = new QWidget(rightWidget);
     styleButtonWidget->setStyleSheet(QString("*{ background-color: #6B8046; }"));
     stylesWheel = new StringWheelWidget(false,rightWidget);
+    connect(stylesWheel,SIGNAL(stopped()),this,SLOT(on_style_changed()));
+
     rightLayout = new QVBoxLayout(rightWidget);
     leftStyle = new QPushButton(styleButtonWidget);
+    connect(leftStyle,SIGNAL(clicked()),this,SLOT(on_leftStyle_pressed()));
 
     QIcon leftIcon;
     leftIcon.addFile(QString("../res/icons/leftStyle.png"));
@@ -253,6 +264,7 @@ boxLayout(new QHBoxLayout(this))
     leftStyle->setIcon(leftIcon);
     leftStyle->setIconSize(leftStyle->size());
     rightStyle = new QPushButton(styleButtonWidget);
+    connect(rightStyle,SIGNAL(clicked()),this,SLOT(on_rightStyle_pressed()));
 
     QIcon rightIcon;
     rightIcon.addFile(QString("../res/icons/rightStyle.png"));
@@ -298,11 +310,40 @@ boxLayout(new QHBoxLayout(this))
 
 }
 DisplayWidget::~DisplayWidget() {}
-void DisplayWidget::obsUpdate() {}
-void DisplayWidget::on_bpm_changed(){}
+void DisplayWidget::obsUpdate() {
+    bpmBox->updateBpm(player->getBpm());
+    stylesWheel->scrollTo(drumKit->getDrumStyle());
+}
+void DisplayWidget::on_downBpm_clicked() {
+    player->setBpm(player->getBpm()-1);
+}
+void DisplayWidget::on_upBpm_clicked() {
+    player->setBpm(player->getBpm()+1);
+}
+
 void DisplayWidget::on_save_pressed(){}
 void DisplayWidget::on_load_pressed(){}
-void DisplayWidget::on_leftStyle_pressed(){}
-void DisplayWidget::on_rightStyle_pressed(){}
+void DisplayWidget::on_leftStyle_pressed(){
+    if(drumKit->getDrumStyle() != JAZZ) {
+        DRUM_STYLE style;
+        switch(drumKit->getDrumStyle() -1){
+            case 0:  style = JAZZ; break;
+            case 1: style = ROCK; break;
+            case 2: style = POP; break;
+        }
+        drumKit->setDrumStyle( style );
+    }
+}
+void DisplayWidget::on_rightStyle_pressed(){
+    if(drumKit->getDrumStyle() != POP) {
+        DRUM_STYLE style;
+        switch(drumKit->getDrumStyle() +1){
+            case 0:  style = JAZZ; break;
+            case 1: style = ROCK; break;
+            case 2: style = POP; break;
+        }
+        drumKit->setDrumStyle( style );
+    }
+}
 void DisplayWidget::on_style_changed(){}
 
