@@ -5,6 +5,7 @@
 #include "MetronomeWidget.h"
 #include "Metronome.h"
 #include "MyDial.h"
+#include <QLabel>
 #include <QDir>
 #include <QDebug>
 #include <QHBoxLayout>
@@ -46,6 +47,8 @@ void MetronomeWidget::obsUpdate() {
     metronomeButton->setIcon(metronomeicon);
     metronomeButton->setIconSize(metronomeButton->size());
     volumeDial->setValue(metronome->getVolume());
+
+    volumeDial->getvolumeLabel()->setText(QString("%1").arg(metronome->getVolume()));
 }
 
 

@@ -8,7 +8,7 @@
 
 class MetronomeWidget;
 
-Metronome::Metronome(): status(OFF) {
+Metronome::Metronome(): status(OFF),volume(100) {
     mediaplayer = new QMediaPlayer;
     //TODO PATH
     mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/beeps/start.wav"));
