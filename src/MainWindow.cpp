@@ -8,42 +8,79 @@
 #include "DrumKit.h"
 #include "DrumKitWidget.h"
 #include "MetronomeWidget.h"
+#include "PlayerWidget.h"
+#include "Player.h"
+#include "Timeline.h"
+#include "DisplayWidget.h"
 #include <QGridLayout>
-MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent) {
+#include <QSpacerItem>
 
-    this->showMaximized();
-    int mainWidth = this->size().width();
-    int mainHeight = this->size().height();
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), mainWidget(new QWidget(this)), drumKit(new DrumKit()),
+metronome(new Metronome()), player(new Player())
+{
+    player->setMetronome(metronome);
+    player->setDrumKit(drumKit);
 
-    this->setFixedSize(mainWidth,mainHeight);
-    this->setStyleSheet(QString("*{image: url(/home/gege/Scrivania/DrumMachine/res/Background.png);};"));
-    this->setContentsMargins(0,0,0,0);
+    verticalLayout = new QVBoxLayout(mainWidget);
+    upperWidget = new QWidget(mainWidget);
+    midWidget = new QWidget(mainWidget);
+    bottomWidget = new QWidget(mainWidget);
 
-    mainWidget = new QWidget(this);
+    upperLayout = new QHBoxLayout(upperWidget);
+    midLayout = new QHBoxLayout(midWidget);
+    bottomLayout = new QHBoxLayout(bottomWidget);
 
-    mainWidget->setContentsMargins(0,0,0,0);
-    mainWidget->setStyleSheet(QString("*{background: transparent;}"));
+    metronomeWidget = new MetronomeWidget(metronome,upperWidget);
+    playerWidget = new PlayerWidget(player, upperWidget);
+    displayWidget = new DisplayWidget(player,drumKit, upperWidget);
 
-
-    drumKitWidget = new DrumKitWidget(mainWidget);
-    metronomeWidget = new MetronomeWidget(mainWidget);
-    metronomeWidget->obsUpdate();
-
-    drumKitWidget->setFixedSize(mainWidth*6,mainHeight*4.4);
-    metronomeWidget->setFixedSize(mainHeight,mainHeight);
-
-    metronomeWidget->setIconSize(QSize(50,50));
-
+    timeline = new Timeline(player, midWidget);
+    drumKitWidget = new DrumKitWidget(drumKit, bottomWidget);
 
 
-    mainLayout = new QGridLayout();
-    mainLayout->setContentsMargins(mainWidth*40/100,mainHeight*1.8,0,0);
-    mainLayout->setSpacing(0);
-    mainLayout->addWidget(metronomeWidget,0,0,Qt::AlignLeft);
-    mainLayout->addWidget(drumKitWidget,1,0,Qt::AlignLeft);
-
-
-    mainWidget->setLayout(mainLayout);
-    this->setCentralWidget(mainWidget);
+    setUpGui();
 }
 
+void MainWindow::setUpGui(){
+
+    QDesktopWidget dw;
+    this->setStyleSheet(QString("*{image: url(../res/icons/Background.png);};"));
+    this->height = dw.size().width()*0.9;
+    this->width = dw.size().height()*0.9;
+    this->setFixedSize(height, width);
+    this->setContentsMargins(0,0,0,0);
+    mainWidget->setStyleSheet(QString("*{image: url(../res/icons/Transparency.png);};"));
+    mainWidget->setContentsMargins(0,height/62,0,0);
+    upperWidget->setFixedSize(width*1.67, height/6);
+    upperLayout->addItem(new QSpacerItem(width*10/100,0));
+    metronomeWidget->setFixedSize(width*35/100,height*23/100);
+    upperLayout->addWidget(metronomeWidget);
+    playerWidget->setFixedSize(width*20/100,height*22.5/100);
+    upperLayout->addItem(new QSpacerItem(width*10/100,0));
+    upperLayout->addWidget(playerWidget);
+    upperLayout->addItem(new QSpacerItem(width*50/100,0));
+    displayWidget->setFixedSize(width/2.1,height/5.5);
+    upperLayout->addWidget(displayWidget);
+    upperWidget->setLayout(upperLayout);
+
+    midWidget->setFixedSize(width*1.67,height/40);
+    midLayout->addItem(new QSpacerItem(width*35/100,0));
+    timeline->setFixedSize(width*1.22,height*2.3/100);
+    midLayout->addWidget(timeline,Qt::AlignTop);
+    midWidget->setLayout(midLayout);
+
+
+    bottomWidget->setFixedSize(width*1.69,height/3);
+
+    bottomLayout->addItem(new QSpacerItem(width*7.5/100,0));
+    drumKitWidget->setFixedSize(width*1.59,height/3);
+    bottomLayout->addWidget(drumKitWidget, Qt::AlignTop);
+    bottomWidget->setLayout(bottomLayout);
+
+    verticalLayout->addWidget(upperWidget);
+    verticalLayout->addWidget(midWidget);
+    verticalLayout->addWidget(bottomWidget);
+    mainWidget->setLayout(verticalLayout);
+    this->setCentralWidget(mainWidget);
+
+}

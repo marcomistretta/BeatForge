@@ -6,26 +6,47 @@
 #define MYTEST_DRUMKITWIDGET_H
 
 #include <QWidget>
+#include "Observer.h"
 
 class DrumWidget;
+
 class DrumKit;
+
 class QVBoxLayout;
+
 class QPushButton;
 
-class DrumKitWidget: public QWidget {
-    Q_OBJECT
+class DrumKitWidget : public QWidget, public Observer {
+Q_OBJECT
 public:
-    explicit DrumKitWidget(QWidget* parent = nullptr);
+    //CONSTRUCTOR
+    explicit DrumKitWidget(DrumKit *drumkit, QWidget *parent = nullptr);
+
+    //OBSERVER
+    void obsUpdate() override;
+
+    //GETTER
+    DrumKit *getDrumKit() const {
+        return drumKit;
+    }
+    QPushButton *getAddbutton() const {
+        return addbutton;
+    }
 
 private slots:
+
+    //WHEN YOU CLICK ADD TO ADD A DRUM
     void on_add_pressed();
 
 private:
-    QVBoxLayout * layout;
-    DrumKit* drumKit;
-    QPushButton* addbutton;
-    QVector<DrumWidget*> drumWidgets;
-};
+    QVBoxLayout *layout;
 
+
+
+private:
+    DrumKit *drumKit;
+    QPushButton *addbutton;
+    QVector<DrumWidget *> drumWidgets;
+};
 
 #endif //MYTEST_DRUMKITWIDGET_H

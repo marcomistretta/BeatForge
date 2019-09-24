@@ -10,33 +10,51 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QMainWindow>
 
-DrumKitWidget::DrumKitWidget(QWidget* parent): QWidget(parent), drumKit(new DrumKit(this)) {
-
+DrumKitWidget::DrumKitWidget(DrumKit *drumkit, QWidget *parent) : QWidget(parent), drumKit(drumkit) {
+    this->setStyleSheet(QString("*{background-color: black);};"));
+    drumKit->addObserver(this);
+    //ADD BUTTON
     addbutton = new QPushButton(this);
-    addbutton->setStyleSheet(QString("*{background: rgba(196,237,255);}"));
+    addbutton->setStyleSheet(QString("*{background: rgba(136,155,97);}"));
     addbutton->setText(QString("Add"));
-    connect(addbutton, SIGNAL(clicked()), this, SLOT(on_add_pressed()));
 
+    connect(addbutton, SIGNAL(clicked()), this, SLOT(on_add_pressed()));
+    //LAYOUT
     layout = new QVBoxLayout(this);
     layout->setDirection(QBoxLayout::BottomToTop);
     layout->addStretch(0);
     layout->setSpacing(0);
-    layout->setContentsMargins(0,17,0,0);
-    layout->addWidget(addbutton,Qt::AlignHCenter);
-    layout->setAlignment(addbutton,Qt::AlignHCenter);
+    layout->setContentsMargins(0, this->height()/9.5, 0, 0);
+    layout->addWidget(addbutton, Qt::AlignHCenter);
+    layout->setAlignment(addbutton, Qt::AlignHCenter);
     this->setLayout(layout);
 }
-void DrumKitWidget::on_add_pressed(){
-    drumKit->insertRows(0,1, QModelIndex());                                                            //DRUM HAS BEEN CONSTRUCTED
-    Drum* drum = drumKit->data(drumKit->index(0,0, QModelIndex()), Qt::DisplayRole).value<Drum*>();     //GETTING THE DRUM ADDRESS
 
-    DrumWidget* drumWidget = new DrumWidget(this);                                                      //SETTING THE WIDGT AS OBSERVER AND DRUM AS SUBJ
+//TODO OBSERVER
+void DrumKitWidget::on_add_pressed() {
+    //DRUM HAS BEEN CONSTRUCTED BY QT
+    drumKit->insertRows(0, 1, QModelIndex());
+
+    //GETTING THE DRUM ADDRESS
+    Drum *drum = drumKit->data(drumKit->index(0, 0, QModelIndex()), Qt::DisplayRole).value<Drum *>();
+
+    //SETTING THE WIDTH AS OBSERVER AND DRUM AS SUBJ
+    DrumWidget *drumWidget = new DrumWidget(this);
+    drumWidget->setFixedHeight(this->height()/8.2);
+    drumWidget->setFixedWidth(this->width());
     drumWidget->setDrum(drum);
     drum->addObserver(drumWidget);
     drumWidgets.push_back(drumWidget);
-    drum->notify();                                                                                     //FIRST NOTIFY
 
-    layout->addWidget(drumWidget);                                                                      //SETTING THE LAYOUT
+    //FIRST NOTIFY
+    drum->notify();
 
+    //SETTING THE LAYOUT
+    layout->addWidget(drumWidget);
+}
+
+//TODO OBSERVER
+void DrumKitWidget::obsUpdate() {
 }

@@ -9,20 +9,43 @@
 
 class QGridLayout;
 class QWidget;
+class DrumKit;
 class DrumKitWidget;
+class Metronome;
 class MetronomeWidget;
-
+class Player;
+class PlayerWidget;
+class Timeline;
+class DisplayWidget;
+class QHBoxLayout;
+class QVBoxLayout;
 
 class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    void setUpGui();
 
 private:
-    QWidget * mainWidget;
-    QWidget* drumbackWidget;
+    int height;
+    int width;
+    DrumKit* drumKit;
     DrumKitWidget* drumKitWidget;
+    Metronome* metronome;
     MetronomeWidget* metronomeWidget;
-    QGridLayout* mainLayout;
+    Player* player;
+    PlayerWidget *playerWidget;
+    DisplayWidget* displayWidget;
+
+    Timeline *timeline;
+    QHBoxLayout* upperLayout;
+    QHBoxLayout* midLayout;
+    QHBoxLayout* bottomLayout;
+    QVBoxLayout* verticalLayout;
+
+    QWidget* upperWidget;
+    QWidget* midWidget;
+    QWidget* bottomWidget;
+    QWidget * mainWidget;
 
 
 };

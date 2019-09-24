@@ -6,28 +6,46 @@
 #include "Metronome.h"
 #include <QDebug>
 
+class MetronomeWidget;
 
-Metronome::Metronome(): state(OFF){
-
-    qDebug()<<"Metronome constructed";
+Metronome::Metronome(): status(OFF) {
+    mediaplayer = new QMediaPlayer;
+    //TODO PATH
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1709/res/beeps/start.wav"));
+    qDebug() << "Metronome constructed";
 }
+
 void Metronome::notify() {
-    for(Observer * observer : observers)
+    for (Observer *observer : observers)
         observer->obsUpdate();
-    qDebug()<<"MetroWidgt notified";
-
+    qDebug() << "MetroWidget notified";
 }
+
 void Metronome::addObserver(Observer *o) {
-    qDebug()<<"Observer added";
+    qDebug() << "Observer added";
     observers.push_back(o);
 }
+
 void Metronome::removeObserver(Observer *o) {
-    qDebug()<<"Observer removed";
+    qDebug() << "Observer removed";
     observers.remove(o);
 }
-bool Metronome::isActive() {
-    if(this->state == ON)
-        return true;
-    else
-        return false;
+
+ACTIVE_STATUS Metronome::getStatus() const {
+    return status;
+}
+
+void Metronome::setStatus(ACTIVE_STATUS status) {
+    Metronome::status = status;
+    notify();
+}
+void Metronome::setVolume(int volume) {
+    this->volume = volume;
+    notify();
+}
+void Metronome::doBeep() {
+    mediaplayer->stop();
+    mediaplayer->play();
+    qDebug() << "Beep";
+    qDebug() << "Metronome played";
 }

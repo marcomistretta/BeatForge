@@ -5,32 +5,38 @@
 #ifndef DRUMMACHINE_METRONOME_H
 #define DRUMMACHINE_METRONOME_H
 
+#include <QtGui/QtGui>
+#include <QtMultimedia/QMediaPlayer>
 #include "Subject.h"
+#include "Enum.h"
 
-enum State{
-    ON = 1,
-    OFF = 0,
-};
+class Metronome : public QTimer, public Subject {
+Q_OBJECT
 
-class Metronome: public Subject {
 public:
     Metronome();
 
     void notify() override;
-    void addObserver(Observer* o) override;
-    void removeObserver(Observer* o) override;
-    bool isActive();
-    void setState(State state) {
-        Metronome::state = state;
-        notify();
+    void addObserver(Observer *o) override;
+    void removeObserver(Observer *o) override;
+
+    ACTIVE_STATUS getStatus() const;
+
+    int getVolume() const {
+        return volume;
     }
-    State getState() const {
-        return state;
-    }
+    void setVolume(int volume);
+    void setStatus(ACTIVE_STATUS state);
+
+public slots:
+    void doBeep();
 
 private:
-    std::list<Observer*> observers;
-    State state;
+    std::list<Observer *> observers;
+    ACTIVE_STATUS status;
+    QMediaPlayer *mediaplayer;
+    int volume;
+
 };
 
 

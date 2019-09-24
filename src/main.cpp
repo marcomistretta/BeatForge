@@ -1,9 +1,8 @@
 #include <iostream>
-
 #include <QPaintEvent>
 #include <QtWidgets>
-#include "MainWindow.h"
 
+#include "MainWindow.h"
 
 int main(int argc, char *argv[]) {
 
@@ -12,5 +11,5 @@ int main(int argc, char *argv[]) {
     MainWindow *main = new MainWindow();
     main->show();
 
-    return app.exec();
+    return QApplication::exec();
 }
