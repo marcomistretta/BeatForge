@@ -11,7 +11,9 @@
 #include <QDebug>
 
 //CONSTRUCTORS
-DrumKit::DrumKit(QObject *parent) : QAbstractListModel(parent) {}
+DrumKit::DrumKit(QObject *parent) : QAbstractListModel(parent) {
+    setDrumStyle(POP);
+}
 
 DrumKit::DrumKit(QVector<Drum *> drums, QObject *parent) : QAbstractListModel(parent), drums(std::move(drums)) {}
 
