@@ -6,9 +6,10 @@
 #include <QtWidgets>
 
 MyDial::MyDial(QWidget *parent) : QDial(parent) {
+    this->setStyleSheet(QString("{color: red;}"));
     this->setNotchesVisible(true);
     volumeLabel = new QLabel(this);
-    volumeLabel->setStyleSheet(QString("*{background: rgba(255,255,255,210)}"));
+    volumeLabel->setStyleSheet(QString("*{background: rgba(255,255,255,210);}"));
     volumeLabel->hide();
 }
 

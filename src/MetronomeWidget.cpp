@@ -14,7 +14,6 @@
 MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) :QWidget(parent), Observer(),metronome(metronome),
 volumeDial(new MyDial(this)), boxLayout(new QHBoxLayout(this)), metronomeButton(new QPushButton(this))
 {
-    //TODO PATH
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
@@ -40,14 +39,10 @@ void MetronomeWidget::obsUpdate() {
     QIcon metronomeicon;
     if (metronome->getStatus() == ON) {
         //red
-        //TODO CHECK
-        //metronomeicon.addFile(QString("../res/icons/Metronome-ON"));
         metronomeicon.addFile(QString(path + "Metronome-ON.png"));
         qDebug() << "to Red";
     } else {
         //light-green
-        //TODO CHECK
-        //metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));
         metronomeicon.addFile(QString(path + "Metronome-OFF.png"));
         qDebug() << "to Green";
     }

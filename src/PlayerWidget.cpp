@@ -10,7 +10,6 @@
 
 PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), player(player) {
 
-    //TODO PATH
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
@@ -29,8 +28,6 @@ PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), p
     player->setStatus(OFF);
 
     QIcon stopIcon;
-    //TODO CHECK
-    /*stopIcon.addFile(QString("../res/icons/StopButton.png"));*/
     stopIcon.addFile(QString(path + "StopButton.png"));
     stopButton->setIcon(stopIcon);
     stopButton->setIconSize(stopButton->size());
@@ -53,15 +50,11 @@ void PlayerWidget::obsUpdate() {
     QIcon playicon;
     if (player->getStatus() == OFF) {
         //red
-        //TODO CHECK
-        /*playicon.addFile(QString("../res/icons/Play.png"));*/
         playicon.addFile(QString(path + "Play.png"));
         qDebug() << "Player GUI to ON ";
 
     } else {
         //light-green
-        //TODO CHECK
-        /*playicon.addFile(QString("../res/icons/Pause.png"));*/
         playicon.addFile(QString(path + "Pause.png"));
         qDebug() << "Player GUI to OFF ";
     }

@@ -17,7 +17,6 @@ Drum::Drum() : drumType(KICK), drumStyle(POP), mediaplayer(new QMediaPlayer()), 
     qDebug() << "Drum constructed";
 
     //SETTING DEFAULT SAMPLES PATH
-    //TODO PATH
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/samples/");
@@ -103,7 +102,6 @@ void Drum::updatePath() {
         }
     }
     //LOAD AUDIO.WAW
-    //TODO CHECK
     mediaplayer->setMedia(QUrl::fromLocalFile(QString(path + "%1-%2.wav").arg(strType).arg(strStyle)));
 }
 

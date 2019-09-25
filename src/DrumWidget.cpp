@@ -21,7 +21,7 @@
 
 
 DrumWidget::~DrumWidget() {
-    //TODO IMPLEMENT
+    //TODO IMPLEMENT destructor
     drum->removeObserver(this);
     delete (layout);
     delete (drum_info);
@@ -35,7 +35,6 @@ DrumWidget::~DrumWidget() {
 
 
 DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
-      //TODO PATH
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
@@ -55,6 +54,7 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     //BUILDING MENU
     //TODO IMPLEMENT QDIR FOR EACH
     menu = new QMenu();
+    menu->setStyleSheet(QString("*{background: rgb(136,155,97);}"));
     menu->setFixedWidth(this->width()*1.5);
     QAction *kickPressed = new QAction(QString("KICK"), this);
     connect(kickPressed, SIGNAL(triggered()), this, SLOT(on_kick_pressed()));
@@ -75,16 +75,12 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     //BUILDING PLAY-PAUSE-MUTE-SOLO
     muteButton = new QPushButton();
     QIcon playicon;
-    //TODO CHECK
-    /*playicon.addFile(QString("../res/icons/MuteButton-OFF.png"));*/
     playicon.addFile(QString(path + "/MuteButton-OFF.png"));
     muteButton->setFixedSize(this->height()/2 , this->height()/2 );
     muteButton->setIcon(playicon);
     connect(muteButton, SIGNAL(clicked()), this, SLOT(on_mute_pressed()));
     soloButton = new QPushButton();
     QIcon soloicon;
-    //TODO CHECK
-    /*soloicon.addFile(QString("../res/icons/SoloButton-OFF.png"));*/
     soloicon.addFile(QString(path + "/SoloButton-OFF.png"));
     soloButton->setFixedSize(this->height()/2 , this->height()/2 );
     soloButton->setIcon(soloicon);
@@ -164,15 +160,11 @@ void DrumWidget::on_mute_pressed() {
     QIcon muteicon;
     if (drum->getMuteState() == NOMUTED) {
         drum->setMuteState(MUTED);
-        //TODO CHECK
-        /*muteicon.addFile("../res/icons/MuteButton-ON.png");*/
         muteicon.addFile(QString(path + "MuteButton-ON.png"));
         qDebug() << "Mute Updating to MUTED";
 
     } else {
         drum->setMuteState(NOMUTED);
-        //TODO CHECK
-        /*muteicon.addFile(QString("../res/icons/MuteButton-OFF.png"));*/
         muteicon.addFile(QString(path + "MuteButton-OFF.png"));
         qDebug() << "Mute Updating to NOMUTED";
     }
@@ -184,14 +176,10 @@ void DrumWidget::on_solo_pressed() {
     QIcon soloicon;
     if (drum->getSoloState() == NOSOLO) {
         drum->setSoloState(SOLO);
-        //TODO CHECK
-        /*soloicon.addFile("../res/icons/SoloButton-ON.png");*/
         soloicon.addFile(QString(path + "SoloButton-ON.png"));
         qDebug() << "Solo Updating to SOLO";
     } else {
         drum->setSoloState(NOSOLO);
-        //TODO CHECK
-        /*soloicon.addFile("../res/icons/SoloButton-OFF.png");*/
         soloicon.addFile(QString(path + "SoloButton-OFF.png"));
         qDebug() << "Solo Updating to NOSOLO";
     }
@@ -230,7 +218,6 @@ void DrumWidget::setDrum(Drum *drum) {
     DrumWidget::drum = drum;
 }
 
-//TODO PAINT EVENT
 void DrumWidget::paintEvent(QPaintEvent *) {
     QStyleOption opt;
     opt.init(this);
