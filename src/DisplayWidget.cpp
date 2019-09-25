@@ -122,25 +122,14 @@ void AbstractWheelWidget::paintEvent(QPaintEvent* event)
     }
 
 }
-/*!
-    Rotates the wheel widget to a given index.
-    You can also give an index greater than itemCount or less than zero in which
-    case the wheel widget will scroll in the given direction and end up with
-    (index % itemCount)
-*/
 void AbstractWheelWidget::scrollTo(int index)
 {
 
     QScroller *scroller = QScroller::scroller(this);
 
-    scroller->scrollTo(QPointF(50000.0 + index * itemWidth(),0 ), 2500);
+    scroller->scrollTo(QPointF(50000.0 + index * itemWidth(),0 ), 1000);
 }
 
-/*!
-    \class StringWheelWidget
-    \brief The StringWheelWidget class is an implementation of the AbstractWheelWidget class that draws QStrings as items.
-    \sa AbstractWheelWidget
-*/
 
 BpmSpinBox::BpmSpinBox(QWidget *parent): QWidget(parent), boxLayout(new QHBoxLayout(this)), leftWidget( new QWidget(this)), rightWidget(new QWidget(this))
 {
@@ -307,7 +296,7 @@ boxLayout(new QHBoxLayout(this))
     boxLayout->addWidget(leftWidget);
     boxLayout->addWidget(rightWidget);
 
-
+    obsUpdate();
 }
 DisplayWidget::~DisplayWidget() {}
 void DisplayWidget::obsUpdate() {

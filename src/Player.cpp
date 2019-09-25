@@ -35,6 +35,7 @@ void Player::removeObserver(Observer *o) {
 
 void Player::setBpm(int bpm) {
     this->bpm = bpm;
+    dialBpm();
     notify();
     qDebug()<< bpm;
 }
@@ -43,6 +44,19 @@ int Player::fromBpmToMillisec() {
     return (60000 / getBpm()) / 4;
 }
 
+void Player::dialBpm(){
+    if (getStatus()) {
+        setStatus(ON);
+        qDebug() << "State to ON";
+        timer->start(fromBpmToMillisec());
+        qDebug() << "Timer Start";
+    } else {
+        setStatus(OFF);
+        qDebug() << "State to OFF";
+        timer->stop();
+        qDebug() << "Timer Stop";
+    }
+}
 
 void Player::playPauseTimer() {
     if (!getStatus()) {

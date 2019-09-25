@@ -63,6 +63,8 @@ public:
         Player::firstStep = firstStep;
     }
 
+    void dialBpm();
+
     //CONVERT BPM IN MILLISECONDS
     int fromBpmToMillisec();
 
