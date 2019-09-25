@@ -27,6 +27,10 @@ public:
     void removeObserver(Observer *o) override;
 
     //GETTER & SETTER
+    int getVolume() const {
+        return volume;
+    }
+    void setVolume(int volume);
     ACTIVE_STATUS getStatus() const;
     void setStatus(ACTIVE_STATUS state);
 
@@ -39,6 +43,7 @@ private:
     QMediaPlayer *mediaplayer;
     QDir *dir;
     QString path;
+    int volume;
 };
 
 

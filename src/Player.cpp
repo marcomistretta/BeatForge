@@ -32,6 +32,11 @@ void Player::removeObserver(Observer *o) {
     observers.remove(o);
 }
 
+void Player::setBpm(int bpm) {
+    this->bpm = bpm;
+    notify();
+    qDebug()<< bpm;
+}
 
 int Player::fromBpmToMillisec() {
     return (60000 / getBpm()) / 4;

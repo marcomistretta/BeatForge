@@ -91,6 +91,11 @@ void DrumKit::removeObserver(Observer *o) {
     observers.remove(o);
 }
 
+void DrumKit::setDrumStyle(DRUM_STYLE style) {
+    drumStyle = style;
+    notify();
+    qDebug()<< style;
+}
 DrumKit::~DrumKit() {
     //TODO IMPLEMENT destructor
 }

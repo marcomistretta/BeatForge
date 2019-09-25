@@ -22,15 +22,15 @@ public:
     //CONSTRUCTOR
     explicit DrumKitWidget(DrumKit *drumkit, QWidget *parent = nullptr);
 
-    //DESTRUCTOR
-    virtual ~DrumKitWidget();
-
     //OBSERVER
     void obsUpdate() override;
 
     //GETTER
     DrumKit *getDrumKit() const {
         return drumKit;
+    }
+    QPushButton *getAddbutton() const {
+        return addbutton;
     }
 
 private slots:

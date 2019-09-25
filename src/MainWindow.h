@@ -16,25 +16,40 @@ class MetronomeWidget;
 class Player;
 class PlayerWidget;
 class Timeline;
+class DisplayWidget;
+class QHBoxLayout;
+class QVBoxLayout;
 
 class MainWindow : public QMainWindow {
 public:
     //CONSTRUCTOR
     explicit MainWindow(QWidget *parent = nullptr);
+    void setUpGui();
 
     //DESTRUCTOR
     virtual ~MainWindow();
 
 private:
-    QWidget * mainWidget;
+    int height;
+    int width;
     DrumKit* drumKit;
     DrumKitWidget* drumKitWidget;
     Metronome* metronome;
     MetronomeWidget* metronomeWidget;
     Player* player;
     PlayerWidget *playerWidget;
-    QGridLayout* mainLayout;
+    DisplayWidget* displayWidget;
+
     Timeline *timeline;
+    QHBoxLayout* upperLayout;
+    QHBoxLayout* midLayout;
+    QHBoxLayout* bottomLayout;
+    QVBoxLayout* verticalLayout;
+
+    QWidget* upperWidget;
+    QWidget* midWidget;
+    QWidget* bottomWidget;
+    QWidget * mainWidget;
 
 
 };

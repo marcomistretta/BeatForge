@@ -8,45 +8,21 @@
 #include <QDial>
 
 class QPushButton;
-
+class MyDial;
 class QHBoxLayout;
 
 class StepButton;
 
 class Drum;
-
 class QMenu;
-
 class QLabel;
 
-//DIAL RE-IMPLEMENTATION
-class MyDial : public QDial {
-public:
-    //CONSTRUCTOR
-    MyDial(QWidget *parent);
-
-    //SLOTS OVERRIDE
-    void mousePressEvent(QMouseEvent *me) override;
-
-    void mouseReleaseEvent(QMouseEvent *me) override;
-
-    //GETTER
-    QLabel *getvolumeLabel() const {
-        return volumeLabel;
-    }
-
-private:
-    QLabel *volumeLabel;
-};
-
-//DRUM WIDGET
 class DrumWidget : public QWidget, public Observer {
 Q_OBJECT
 public:
-    //CONSTRUCTOR
+    //CONSTRUCTOR & DESTRUCTOR
     DrumWidget(QWidget *parent = nullptr);
 
-    //DESTRUCTOR
     ~DrumWidget() override;
 
     void paintEvent(QPaintEvent *event) override;

@@ -20,6 +20,8 @@ PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), p
     boxLayout = new QHBoxLayout(this);
     playButton = new QPushButton(this);
     stopButton = new QPushButton(this);
+    playButton->setFixedSize(width()/2,height()*1.5);
+    stopButton->setFixedSize(width()/2,height()*1.5);
     boxLayout->addWidget(playButton);
     boxLayout->addWidget(stopButton);
 
@@ -31,7 +33,7 @@ PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), p
     /*stopIcon.addFile(QString("../res/icons/StopButton.png"));*/
     stopIcon.addFile(QString(path + "StopButton.png"));
     stopButton->setIcon(stopIcon);
-
+    stopButton->setIconSize(stopButton->size());
     //CONNECTING METHODS
     connect(playButton, SIGNAL(clicked()), this, SLOT(on_Play_pressed()));
     connect(stopButton, SIGNAL(clicked()), this, SLOT(on_Stop_pressed()));
@@ -64,6 +66,7 @@ void PlayerWidget::obsUpdate() {
         qDebug() << "Player GUI to OFF ";
     }
     playButton->setIcon(playicon);
+    playButton->setIconSize(playButton->size());
     qDebug() << "Player Widget Updated";
 }
 

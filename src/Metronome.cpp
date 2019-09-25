@@ -51,7 +51,10 @@ void Metronome::doBeep() {
     mediaplayer->play();
     qDebug() << "Metronome played";
 }
-
+void Metronome::setVolume(int volume) {
+    this->volume = volume;
+    notify();
+}
 Metronome::~Metronome() {
     //TODO IMPLEMENT destructor
     //delete(observers);

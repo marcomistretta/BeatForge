@@ -35,8 +35,9 @@ public:
     int getBpm() const {
         return bpm;
     }
-    void setBpm(int bpm) {
-        this->bpm = bpm;
+
+    short getActualBeat() const {
+        return actualBeat;
     }
     ACTIVE_STATUS getStatus() const {
         return state;

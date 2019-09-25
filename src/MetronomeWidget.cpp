@@ -4,27 +4,31 @@
 
 #include "MetronomeWidget.h"
 #include "Metronome.h"
+#include "MyDial.h"
+#include <QLabel>
 #include <QDir>
 #include <QDebug>
-
-MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) : Observer(), metronome(metronome) {
+#include <QHBoxLayout>
+#include <QSpacerItem>
+#include <QMainWindow>
+MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) :QWidget(parent), Observer(),metronome(metronome),
+volumeDial(new MyDial(this)), boxLayout(new QHBoxLayout(this)), metronomeButton(new QPushButton(this))
+{
     //TODO PATH
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
 
-    //SETTING DEFAULT BACKGROUND
-    this->setStyleSheet(QString("{background: transparent}"));
-
-    //CONNECTING SUBJECT-OBSERVER
     metronome->addObserver(this);
-    qDebug() << "Metronome Widget constructed";
-
-    //CONNECTING METHODS
-    connect(this, SIGNAL(clicked()), this, SLOT(on_pressed()));
-
-    //UPDATE VIEW
+    metronomeButton->setFixedSize(this->width(),this->height()*2.8);
+    connect(metronomeButton, SIGNAL(clicked()), this, SLOT(on_pressed()));
     obsUpdate();
+    connect(volumeDial,SIGNAL(valueChanged(int)),this,SLOT(on_volume_changed()));
+    boxLayout->addWidget(metronomeButton);
+    boxLayout->addItem(new QSpacerItem(this->width()*20/100,height()));
+    volumeDial->setFixedSize(this->width()*40/100,this->width()*40/100);
+    boxLayout->addWidget(volumeDial);
+
 }
 
 MetronomeWidget::~MetronomeWidget() {
@@ -49,8 +53,11 @@ void MetronomeWidget::obsUpdate() {
         metronomeicon.addFile(QString(path + "Metronome-OFF.png"));
         qDebug() << "to Green";
     }
-    this->setIcon(metronomeicon);
-    this->setIconSize(this->size());
+    metronomeButton->setIcon(metronomeicon);
+    metronomeButton->setIconSize(this->size());
+    volumeDial->setValue(metronome->getVolume());
+
+    volumeDial->getvolumeLabel()->setText(QString("%1").arg(metronome->getVolume()));
 }
 
 
@@ -63,4 +70,6 @@ void MetronomeWidget::on_pressed() {
     }
 }
 
-
+void MetronomeWidget::on_volume_changed() {
+    metronome->setVolume(volumeDial->value());
+}

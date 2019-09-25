@@ -11,64 +11,81 @@
 #include "PlayerWidget.h"
 #include "Player.h"
 #include "Timeline.h"
+#include "DisplayWidget.h"
 #include <QGridLayout>
+#include <QSpacerItem>
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-
-    //SETTING MAIN WINDOW
-    this->showMaximized();
-    int mainWidth = this->size().width();
-    int mainHeight = this->size().height();
-    this->setFixedSize(mainWidth, mainHeight);
-    //TODO PATH
-    //TODO TROVATO 0x55dad65ae800in
-    qDebug() << "0x55dad65ae800in";
-    this->setStyleSheet(QString("*{image: url(../res/icons/Background.png);};"));
-    qDebug() << "0x55dad65ae800out";
-    this->setContentsMargins(0, 0, 0, 0);
-    mainWidget = new QWidget(this);
-    mainWidget->setContentsMargins(0, 0, 0, 0);
-    mainWidget->setStyleSheet(QString("*{image: url(../res/icons/Transparency.png);}"));
-    mainLayout = new QGridLayout;
-    mainWidget->setLayout(mainLayout);
-
-    //DRUMKIT
-    drumKit = new DrumKit();
-    drumKitWidget = new DrumKitWidget(drumKit, mainWidget);
-    drumKitWidget->setFixedSize(mainWidth * 6.12, mainHeight * 4.4);
-    DrumKit *addrDrumKit = drumKitWidget->getDrumKit();
-
-    //METRONOME
-    metronome = new Metronome();
-    metronomeWidget = new MetronomeWidget(metronome, mainWidget);
-    metronomeWidget->setFixedSize(mainHeight, mainHeight / 1.18);
-    metronomeWidget->obsUpdate();
-
-    //PLAYER & TIMELINE
-    player = new Player();
-    playerWidget = new PlayerWidget(player, mainWidget);
-    playerWidget->getplayButton()->setFixedSize(mainHeight / 2, mainWidth / 34 * 10);
-    playerWidget->getstopButton()->setFixedSize(mainHeight / 2, mainWidth / 34 * 10);
-    playerWidget->getplayButton()->setIconSize(playerWidget->getplayButton()->size());
-    playerWidget->getstopButton()->setIconSize(playerWidget->getstopButton()->size());
-    playerWidget->obsUpdate();
-    timeline = new Timeline(player, mainWidget);
-    player->setDrumKit(addrDrumKit);
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), mainWidget(new QWidget(this)), drumKit(new DrumKit()),
+metronome(new Metronome()), player(new Player())
+{
     player->setMetronome(metronome);
+    player->setDrumKit(drumKit);
 
-    //SETTING LAYOUT
-    mainLayout->setContentsMargins(mainWidth * 40 / 100, mainHeight * 1.8, mainHeight * 10, 0);
-    mainLayout->setSpacing(0);
-    mainLayout->addWidget(metronomeWidget, 0, 0, Qt::AlignLeft);
-    mainLayout->addWidget(playerWidget, 0, 1, Qt::AlignRight);
-    mainLayout->addWidget(timeline, 1, 1, Qt::AlignBaseline);
-    mainLayout->addWidget(drumKitWidget, 2, 0, Qt::AlignLeft);
-    this->setCentralWidget(mainWidget);
+    verticalLayout = new QVBoxLayout(mainWidget);
+    upperWidget = new QWidget(mainWidget);
+    midWidget = new QWidget(mainWidget);
+    bottomWidget = new QWidget(mainWidget);
+
+    upperLayout = new QHBoxLayout(upperWidget);
+    midLayout = new QHBoxLayout(midWidget);
+    bottomLayout = new QHBoxLayout(bottomWidget);
+
+    metronomeWidget = new MetronomeWidget(metronome,upperWidget);
+    playerWidget = new PlayerWidget(player, upperWidget);
+    displayWidget = new DisplayWidget(player,drumKit, upperWidget);
+
+    timeline = new Timeline(player, midWidget);
+    drumKitWidget = new DrumKitWidget(drumKit, bottomWidget);
+
+
+    setUpGui();
 }
+
+void MainWindow::setUpGui(){
+
+    QDesktopWidget dw;
+    this->setStyleSheet(QString("*{image: url(../res/icons/Background.png);};"));
+    this->height = dw.size().width()*0.9;
+    this->width = dw.size().height()*0.9;
+    this->setFixedSize(height, width);
+    this->setContentsMargins(0,0,0,0);
+    mainWidget->setStyleSheet(QString("*{image: url(../res/icons/Transparency.png);};"));
+    mainWidget->setContentsMargins(0,height/62,0,0);
+    upperWidget->setFixedSize(width*1.67, height/6);
+    upperLayout->addItem(new QSpacerItem(width*10/100,0));
+    metronomeWidget->setFixedSize(width*35/100,height*23/100);
+    upperLayout->addWidget(metronomeWidget);
+    playerWidget->setFixedSize(width*20/100,height*22.5/100);
+    upperLayout->addItem(new QSpacerItem(width*10/100,0));
+    upperLayout->addWidget(playerWidget);
+    upperLayout->addItem(new QSpacerItem(width*50/100,0));
+    displayWidget->setFixedSize(width/2.1,height/5.5);
+    upperLayout->addWidget(displayWidget);
+    upperWidget->setLayout(upperLayout);
+
+    midWidget->setFixedSize(width*1.67,height/40);
+    midLayout->addItem(new QSpacerItem(width*35/100,0));
+    timeline->setFixedSize(width*1.22,height*2.3/100);
+    midLayout->addWidget(timeline,Qt::AlignTop);
+    midWidget->setLayout(midLayout);
+
+
+    bottomWidget->setFixedSize(width*1.69,height/3);
+
+    bottomLayout->addItem(new QSpacerItem(width*7.5/100,0));
+    drumKitWidget->setFixedSize(width*1.59,height/3);
+    bottomLayout->addWidget(drumKitWidget, Qt::AlignTop);
+    bottomWidget->setLayout(bottomLayout);
+
+    verticalLayout->addWidget(upperWidget);
+    verticalLayout->addWidget(midWidget);
+    verticalLayout->addWidget(bottomWidget);
+    mainWidget->setLayout(verticalLayout);
+    this->setCentralWidget(mainWidget);
 
 MainWindow::~MainWindow() {
     //TODO IMPLEMENT destructor
-    delete (mainWidget);
+    /*delete (mainWidget);
     delete (drumKit);
     delete (drumKitWidget);
     delete (metronome);
@@ -76,6 +93,6 @@ MainWindow::~MainWindow() {
     delete (player);
     delete (playerWidget);
     delete (mainLayout);
-    delete (timeline);
+    delete (timeline);*/
 }
 

@@ -47,12 +47,17 @@ public:
 
     //GETTER & SETTER
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
-
+    void setDrumStyle(DRUM_STYLE style);
     const QVector<Drum *> &getDrums() const;
+
+    DRUM_STYLE getDrumStyle(){
+        return drumStyle;
+    };
 
 private:
     QVector<Drum *> drums;
     std::list<Observer *> observers;
+    DRUM_STYLE drumStyle;
 };
 
 #endif //MYTEST_DRUMKIT_H

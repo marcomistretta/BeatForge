@@ -3,6 +3,7 @@
 #include "Drum.h"
 #include "Enum.h"
 #include "StepButton.h"
+#include "MyDial.h"
 
 #include <QMainWindow>
 #include <QDial>
@@ -18,53 +19,43 @@
 #include <QStyleOption>
 #include <QPainter>
 
-//DIAL
-MyDial::MyDial(QWidget *parent) : QDial(parent) {
-    this->setNotchesVisible(true);
-    volumeLabel = new QLabel(this);
-    volumeLabel->setStyleSheet(QString("*{background: rgba(255,255,255,210)}"));
-    volumeLabel->hide();
+
+DrumWidget::~DrumWidget() {
+    //TODO IMPLEMENT
+    drum->removeObserver(this);
+    delete (layout);
+    delete (drum_info);
+    delete (muteButton);
+    delete (soloButton);
+    delete (drum);
+    //delete[](buttons);
+    delete (menu);
+    delete (volumeDial);
 }
 
-void MyDial::mousePressEvent(QMouseEvent *me) {
-    volumeLabel->show();
-}
 
-void MyDial::mouseReleaseEvent(QMouseEvent *me) {
-    volumeLabel->hide();
-}
-
-//DRUMWIDGET
 DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
-    //SETTING FIXED SIZE
-    int mainWidth = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().width();
-    int mainHeight = static_cast<QMainWindow *>(this->parent()->parent()->parent())->size().height();
-    setFixedWidth(mainWidth / 1.1);
-    setFixedHeight(mainHeight / 21);
-
-    //TODO PATH
+      //TODO PATH
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
-
-    this->setStyleSheet(QString("*{image: url(../res/icons/DrumWidget.png);}"));
+    this->setStyleSheet(QString("*{image: url(../res/DrumWidget.png);}"));
 
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(10);
-    layout->setMargin(0);
+    layout->setSpacing(0);
 
     //BUILDING INFO BOX
     drum_info = new QPushButton();
     connect(drum_info, SIGNAL(clicked()), this, SLOT(on_drum_info_pressed()));
     drum_info->setStyleSheet(QString("*{background: rgb(136,155,97);}"));
-    drum_info->setFixedSize(mainWidth / 10, mainHeight / 31);
+    drum_info->setFixedSize(this->width()*1.5 , this->height() );
 
     //BUILDING MENU
     //TODO IMPLEMENT QDIR FOR EACH
     menu = new QMenu();
-    menu->setFixedWidth(mainWidth / 10);
+    menu->setFixedWidth(this->width()*1.5);
     QAction *kickPressed = new QAction(QString("KICK"), this);
     connect(kickPressed, SIGNAL(triggered()), this, SLOT(on_kick_pressed()));
     QAction *SnarePressed = new QAction(QString("SNARE"), this);
@@ -87,7 +78,7 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     //TODO CHECK
     /*playicon.addFile(QString("../res/icons/MuteButton-OFF.png"));*/
     playicon.addFile(QString(path + "/MuteButton-OFF.png"));
-    muteButton->setFixedSize(mainHeight / 35, mainHeight / 35);
+    muteButton->setFixedSize(this->height()/2 , this->height()/2 );
     muteButton->setIcon(playicon);
     connect(muteButton, SIGNAL(clicked()), this, SLOT(on_mute_pressed()));
     soloButton = new QPushButton();
@@ -95,26 +86,26 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     //TODO CHECK
     /*soloicon.addFile(QString("../res/icons/SoloButton-OFF.png"));*/
     soloicon.addFile(QString(path + "/SoloButton-OFF.png"));
-    soloButton->setFixedSize(mainHeight / 35, mainHeight / 35);
+    soloButton->setFixedSize(this->height()/2 , this->height()/2 );
     soloButton->setIcon(soloicon);
     connect(soloButton, SIGNAL(clicked()), this, SLOT(on_solo_pressed()));
+
+    layout->addItem(new QSpacerItem(this->width()/12,0));
     layout->addWidget(muteButton, 0, 0);
+    layout->addItem(new QSpacerItem(this->width()/12,0));
     layout->addWidget(soloButton, 1, 0);
 
     //SPACING
-    QWidget *space = new QWidget(this);
-    space->setStyleSheet(QString(" background: transparent;"));
-    space->setFixedWidth(mainWidth / 25);
-    space->setFixedHeight(0);
-    layout->addWidget(space);
+    layout->addItem(new QSpacerItem(this->width()/5,0));
 
     //BUILDING STEP_BUTTONS
     for (int i = 0; i < 16; i++) {
         buttons[i] = new StepButton(this);
         buttons[i]->setStyleSheet(QString("*{background: white;}"));
-        buttons[i]->setFixedSize(mainWidth / 30, mainHeight / 32);
+        buttons[i]->setFixedSize(this->width()/2.5 , this->height()/1.2 );
         buttons[i]->setPosition(i);
         layout->addWidget(buttons[i]);
+        layout->addItem(new QSpacerItem(this->width()/10,0));
         layout->setStretchFactor(buttons[i], 1);
     }
 
@@ -122,24 +113,11 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     volumeDial = new MyDial(this);
     volumeDial->setRange(0, 100);
     connect(volumeDial, SIGNAL(valueChanged(int)), this, SLOT(on_volume_changed()));
-    volumeDial->setFixedSize(mainWidth / 40, mainWidth / 40);
+    volumeDial->setFixedSize(this->width()/2.5 , this->width()/2.5 );
     layout->addWidget(volumeDial);
 
     //SETTING THE LAYOUT
     this->setLayout(layout);
-}
-
-DrumWidget::~DrumWidget() {
-    //TODO IMPLEMENT
-    drum->removeObserver(this);
-    delete (layout);
-    delete (drum_info);
-    delete (muteButton);
-    delete (soloButton);
-    delete (drum);
-    //delete[](buttons);
-    delete (menu);
-    delete (volumeDial);
 }
 
 void DrumWidget::obsUpdate() {

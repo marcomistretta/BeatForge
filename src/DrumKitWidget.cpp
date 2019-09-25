@@ -13,6 +13,7 @@
 #include <QMainWindow>
 
 DrumKitWidget::DrumKitWidget(DrumKit *drumkit, QWidget *parent) : QWidget(parent), drumKit(drumkit) {
+    this->setStyleSheet(QString("*{background-color: black);};"));
     drumKit->addObserver(this);
     //ADD BUTTON
     addbutton = new QPushButton(this);
@@ -24,7 +25,7 @@ DrumKitWidget::DrumKitWidget(DrumKit *drumkit, QWidget *parent) : QWidget(parent
     layout->setDirection(QBoxLayout::BottomToTop);
     layout->addStretch(0);
     layout->setSpacing(0);
-    layout->setContentsMargins(0, 17, 0, 0);
+    layout->setContentsMargins(0, this->height()/9.5, 0, 0);
     layout->addWidget(addbutton, Qt::AlignHCenter);
     layout->setAlignment(addbutton, Qt::AlignHCenter);
     this->setLayout(layout);
@@ -40,6 +41,8 @@ void DrumKitWidget::on_add_pressed() {
 
     //SETTING THE WIDTH AS OBSERVER AND DRUM AS SUBJ
     DrumWidget *drumWidget = new DrumWidget(this);
+    drumWidget->setFixedHeight(this->height()/8.2);
+    drumWidget->setFixedWidth(this->width());
     drumWidget->setDrum(drum);
     drum->addObserver(drumWidget);
     drumWidgets.push_back(drumWidget);
@@ -54,7 +57,6 @@ void DrumKitWidget::on_add_pressed() {
 //TODO OBSERVER
 void DrumKitWidget::obsUpdate() {
 }
-
 DrumKitWidget::~DrumKitWidget() {
     //TODO IMPLEMENT destructor
     delete (layout);
