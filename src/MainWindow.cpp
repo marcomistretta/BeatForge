@@ -44,12 +44,12 @@ metronome(new Metronome()), player(new Player())
 void MainWindow::setUpGui() {
 
     QDesktopWidget dw;
-    this->setStyleSheet(QString("*{image: url(../res/icons/Background.png);};"));
+    this->setStyleSheet(QString("*{image: url(res/icons/Background.png);};"));
     this->height = dw.size().width() * 0.9;
     this->width = dw.size().height() * 0.9;
     this->setFixedSize(height, width);
     this->setContentsMargins(0, 0, 0, 0);
-    mainWidget->setStyleSheet(QString("*{image: url(../res/icons/Transparency.png);};"));
+    mainWidget->setStyleSheet(QString("*{image: url(res/icons/Transparency.png);};"));
     mainWidget->setContentsMargins(0, height / 62, 0, 0);
     upperWidget->setFixedSize(width * 1.67, height / 6);
     upperLayout->addItem(new QSpacerItem(width * 10 / 100, 0));

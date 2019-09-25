@@ -15,7 +15,6 @@ MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) :QWidget(
 volumeDial(new MyDial(this)), boxLayout(new QHBoxLayout(this)), metronomeButton(new QPushButton(this))
 {
     dir = new QDir(QDir::currentPath());
-    dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
     metronome->addObserver(this);
     metronomeButton->setFixedSize(this->width(),this->height()*2.8);

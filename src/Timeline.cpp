@@ -18,7 +18,7 @@ Timeline::Timeline(Player *player, QWidget *parent) : QWidget(parent), Observer(
     //SETTING LED OFF
     for (int i = 0; i < 16; i++) {
         QWidget *step = new QWidget(this);
-        step->setStyleSheet(QString("*{image: url(../res/icons/Led-OFF.png);}"));
+        step->setStyleSheet(QString("*{image: url(res/icons/Led-OFF.png);}"));
 
         steps.push_back(step);
         boxLayout->addWidget(step, Qt::AlignBottom);
@@ -30,14 +30,14 @@ Timeline::Timeline(Player *player, QWidget *parent) : QWidget(parent), Observer(
 
 void Timeline::obsUpdate() {
     for (QWidget *step : steps) {
-        step->setStyleSheet(QString("*{image: url(../res/icons/Led-OFF.png);}"));
+        step->setStyleSheet(QString("*{image: url(res/icons/Led-OFF.png);}"));
     }
     if (player->isFirstStep()) {
-        steps[player->getActualStep()]->setStyleSheet(QString("*{image: url(../res/icons/Led-ON.png);}"));
+        steps[player->getActualStep()]->setStyleSheet(QString("*{image: url(res/icons/Led-ON.png);}"));
         player->setFirstStep(false);
     } else
         steps[(player->getActualStep() - 1 + 16) % 16]->setStyleSheet(
-                QString("*{image: url(../res/icons/Led-ON.png);}"));
+                QString("*{image: url(res/icons/Led-ON.png);}"));
     qDebug() << "Led Updated";
 
 }

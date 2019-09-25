@@ -18,7 +18,6 @@ Drum::Drum() : drumType(KICK), drumStyle(POP), mediaplayer(new QMediaPlayer()), 
 
     //SETTING DEFAULT SAMPLES PATH
     dir = new QDir(QDir::currentPath());
-    dir->cdUp();
     path = dir->absoluteFilePath("res/samples/");
     updatePath();
 

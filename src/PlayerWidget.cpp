@@ -11,7 +11,6 @@
 PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), player(player) {
 
     dir = new QDir(QDir::currentPath());
-    dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
 
     setStyleSheet(QString("*{background: transparent}"));

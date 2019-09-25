@@ -7,7 +7,7 @@
 #include <QMediaPlayer>
 
 Player::Player()
-        : QObject(), metronome(new Metronome()), timer(new QTimer()), mediaPlayer(new QMediaPlayer()) {
+        : QObject(), timer(new QTimer()), mediaPlayer(new QMediaPlayer()) {
     firstStep = true;
     timer->stop();
     setStatus(OFF);

@@ -36,9 +36,8 @@ DrumWidget::~DrumWidget() {
 
 DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     dir = new QDir(QDir::currentPath());
-    dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
-    this->setStyleSheet(QString("*{image: url(../res/icons/DrumWidget.png);}"));
+    this->setStyleSheet(QString("*{image: url(res/icons/DrumWidget.png);}"));
 
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
