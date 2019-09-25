@@ -23,5 +23,4 @@ void StepButton::on_clicked() {
 }
 
 StepButton::~StepButton() {
-    //TODO IMPLEMENT destructor
 }

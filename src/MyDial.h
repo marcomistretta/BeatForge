@@ -14,6 +14,9 @@ public:
     //CONSTRUCTOR
     MyDial(QWidget *parent);
 
+    //DESTRUCTOR
+    virtual ~MyDial();
+
     //SLOTS OVERRIDE
     void mousePressEvent(QMouseEvent *me) override;
 

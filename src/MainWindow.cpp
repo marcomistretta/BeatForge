@@ -85,15 +85,21 @@ void MainWindow::setUpGui() {
 }
 
 MainWindow::~MainWindow() {
-    //TODO IMPLEMENT destructor
-    /*delete (mainWidget);
-    delete (drumKit);
-    delete (drumKitWidget);
-    delete (metronome);
-    delete (metronomeWidget);
-    delete (player);
-    delete (playerWidget);
-    delete (mainLayout);
-    delete (timeline);*/
+    delete drumKit;
+    delete drumKitWidget;
+    delete metronome;
+    delete metronomeWidget;
+    delete player;
+    delete playerWidget;
+    delete displayWidget;
+    delete timeline;
+    delete upperLayout;
+    delete midLayout;
+    delete bottomLayout;
+    delete verticalLayout;
+    delete upperWidget;
+    delete midWidget;
+    delete bottomWidget;
+    delete mainWidget;
 }
 

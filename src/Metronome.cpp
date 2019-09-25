@@ -58,7 +58,9 @@ void Metronome::setVolume(int volume) {
     notify();
 }
 Metronome::~Metronome() {
-    //TODO IMPLEMENT destructor
-    //delete(observers);
-    delete (mediaplayer);
+    for (auto i : observers)
+        delete i;
+    observers.clear();
+    delete mediaplayer;
+    delete dir;
 }

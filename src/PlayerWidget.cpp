@@ -37,11 +37,12 @@ PlayerWidget::PlayerWidget(Player *player, QWidget *parent) : QWidget(parent), p
 }
 
 PlayerWidget::~PlayerWidget() {
-    //TODO IMPLEMENT destructor
-    delete (player);
-    delete (playButton);
-    delete (stopButton);
-    delete (boxLayout);
+    player->removeObserver(this);
+    delete dir;
+    delete player;
+    delete playButton;
+    delete stopButton;
+    delete boxLayout;
     qDebug() << "Player deleted";
 }
 

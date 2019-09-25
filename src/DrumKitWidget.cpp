@@ -57,9 +57,13 @@ void DrumKitWidget::on_add_pressed() {
 //TODO OBSERVER
 void DrumKitWidget::obsUpdate() {
 }
+
 DrumKitWidget::~DrumKitWidget() {
-    //TODO IMPLEMENT destructor
+    drumKit->removeObserver(this);
     delete (layout);
     delete (drumKit);
     delete (addbutton);
+    for (auto i : drumWidgets)
+        delete i;
+    drumWidgets.clear();
 }

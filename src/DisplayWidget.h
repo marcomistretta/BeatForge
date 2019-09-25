@@ -5,7 +5,6 @@
 #ifndef MYTEST_DISPLAYWIDGET_H
 #define MYTEST_DISPLAYWIDGET_H
 
-
 #include <QtWidgets>
 #include <QStringList>
 #include "Observer.h"
@@ -16,6 +15,7 @@ class DrumKit;
 
 class AbstractWheelWidget : public QWidget {
 Q_OBJECT
+
 public:
     AbstractWheelWidget(bool touch, QWidget *parent = 0);
 
@@ -49,11 +49,13 @@ protected:
     qreal m_lastY;
 };
 
-
 class StringWheelWidget : public AbstractWheelWidget {
 Q_OBJECT
+
 public:
     StringWheelWidget(bool touch, QWidget *parent);
+
+    virtual ~StringWheelWidget();
 
     QStringList items() const;
 
@@ -103,7 +105,7 @@ class DisplayWidget : public QWidget, public Observer {
 Q_OBJECT
 
 public:
-    ~DisplayWidget();
+    ~DisplayWidget() override;
 
     DisplayWidget(Player *player, DrumKit *drumKit, QWidget *parent = nullptr);
 
@@ -115,10 +117,8 @@ private slots:
 
     void on_upBpm_clicked();
 
-    //TODO IMPLEMENT
     void on_save_pressed();
 
-    //TODO IMPLEMENT
     void on_load_pressed();
 
     void on_leftStyle_pressed();

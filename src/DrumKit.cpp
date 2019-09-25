@@ -99,5 +99,10 @@ void DrumKit::setDrumStyle(DRUM_STYLE style) {
     qDebug()<< style;
 }
 DrumKit::~DrumKit() {
-    //TODO IMPLEMENT destructor
+    for (auto i : drums)
+        delete i;
+    drums.clear();
+    for (auto i : observers)
+        delete i;
+    observers.clear();
 }

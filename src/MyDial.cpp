@@ -20,3 +20,8 @@ void MyDial::mousePressEvent(QMouseEvent *me) {
 void MyDial::mouseReleaseEvent(QMouseEvent *me) {
     volumeLabel->hide();
 }
+
+MyDial::~MyDial() {
+    delete volumeLabel;
+
+}

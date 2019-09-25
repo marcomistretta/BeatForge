@@ -81,7 +81,6 @@ void AbstractWheelWidget::paintEvent(QPaintEvent *event) {
     QPalette palette = QApplication::palette();
     QPalette::ColorGroup colorGroup = isEnabled() ? QPalette::Active : QPalette::Disabled;
 
-    //PAINT
     painter.setClipRect(QRect(3, 3, w - 6, h - 6));
     painter.setPen(QColor(qRgba(16, 16, 16, 200)));
 
@@ -202,6 +201,10 @@ int StringWheelWidget::itemCount() const {
     return m_items.count();
 }
 
+StringWheelWidget::~StringWheelWidget() {
+
+}
+
 
 DisplayWidget::DisplayWidget(Player *player, DrumKit *drumKit, QWidget *parent)
         : Observer(), QWidget(parent), player(player), drumKit(drumKit),
@@ -281,7 +284,23 @@ DisplayWidget::DisplayWidget(Player *player, DrumKit *drumKit, QWidget *parent)
     obsUpdate();
 }
 
-DisplayWidget::~DisplayWidget() {}
+DisplayWidget::~DisplayWidget() {
+    delete player;
+    delete drumKit;
+    delete stylesWheel;
+    delete bpmBox;
+    delete rightStyle;
+    delete leftStyle;
+    delete saveButton;
+    delete loadButton;
+    delete leftWidget;
+    delete rightWidget;
+    delete styleButtonWidget;
+    delete leftLayout;
+    delete rightLayout;
+    delete styleButtonLayout;
+    delete boxLayout;
+}
 
 void DisplayWidget::obsUpdate() {
     bpmBox->updateBpm(player->getBpm());

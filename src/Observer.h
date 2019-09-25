@@ -8,7 +8,7 @@
 
 class Observer {
 public:
-    ~Observer(){};
+    virtual ~Observer() {};
     virtual void obsUpdate() = 0;
 };
 

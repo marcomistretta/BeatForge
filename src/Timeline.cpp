@@ -43,8 +43,10 @@ void Timeline::obsUpdate() {
 }
 
 Timeline::~Timeline() {
-    //TODO IMPLEMENT destructor
     player->removeObserver(this);
-    delete (player);
-    delete (boxLayout);
+    delete player;
+    delete boxLayout;
+    for (auto i : steps)
+        delete i;
+    steps.clear();
 }

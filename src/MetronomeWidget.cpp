@@ -11,6 +11,7 @@
 #include <QHBoxLayout>
 #include <QSpacerItem>
 #include <QMainWindow>
+
 MetronomeWidget::MetronomeWidget(Metronome* metronome,QWidget *parent) :QWidget(parent), Observer(),metronome(metronome),
 volumeDial(new MyDial(this)), boxLayout(new QHBoxLayout(this)), metronomeButton(new QPushButton(this))
 {
@@ -28,8 +29,12 @@ volumeDial(new MyDial(this)), boxLayout(new QHBoxLayout(this)), metronomeButton(
 }
 
 MetronomeWidget::~MetronomeWidget() {
-    //TODO IMPLEMENT destructor
-    delete (metronome);
+    metronome->removeObserver(this);
+    delete metronome;
+    delete dir;
+    delete volumeDial;
+    delete boxLayout;
+    delete metronomeButton;
     qDebug() << "Metronome deleted";
 }
 
