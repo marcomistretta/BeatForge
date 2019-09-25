@@ -15,7 +15,7 @@
 class MyDial;
 class QHBoxLayout;
 
-class MetronomeWidget: public QPushButton, public Observer {
+class MetronomeWidget: public QWidget, public Observer {
     Q_OBJECT
 public:
     //CONSTRUCTOR

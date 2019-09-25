@@ -18,7 +18,6 @@ volumeDial(new MyDial(this)), boxLayout(new QHBoxLayout(this)), metronomeButton(
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/icons/");
-
     metronome->addObserver(this);
     metronomeButton->setFixedSize(this->width(),this->height()*2.8);
     connect(metronomeButton, SIGNAL(clicked()), this, SLOT(on_pressed()));
@@ -28,7 +27,6 @@ volumeDial(new MyDial(this)), boxLayout(new QHBoxLayout(this)), metronomeButton(
     boxLayout->addItem(new QSpacerItem(this->width()*20/100,height()));
     volumeDial->setFixedSize(this->width()*40/100,this->width()*40/100);
     boxLayout->addWidget(volumeDial);
-
 }
 
 MetronomeWidget::~MetronomeWidget() {
@@ -43,20 +41,19 @@ void MetronomeWidget::obsUpdate() {
     if (metronome->getStatus() == ON) {
         //red
         //TODO CHECK
-        /*metronomeicon.addFile(QString("../res/icons/Metronome-ON"));*/
+        //metronomeicon.addFile(QString("../res/icons/Metronome-ON"));
         metronomeicon.addFile(QString(path + "Metronome-ON.png"));
         qDebug() << "to Red";
     } else {
         //light-green
         //TODO CHECK
-        /*metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));*/
+        //metronomeicon.addFile(QString("../res/icons/Metronome-OFF"));
         metronomeicon.addFile(QString(path + "Metronome-OFF.png"));
         qDebug() << "to Green";
     }
     metronomeButton->setIcon(metronomeicon);
-    metronomeButton->setIconSize(this->size());
+    metronomeButton->setIconSize(metronomeButton->size());
     volumeDial->setValue(metronome->getVolume());
-
     volumeDial->getvolumeLabel()->setText(QString("%1").arg(metronome->getVolume()));
 }
 

@@ -8,9 +8,6 @@
 #include <QDebug>
 #include <QMainWindow>
 
-Timeline::~Timeline() {
-    player->removeObserver(this);
-}
 
 Timeline::Timeline(Player *player, QWidget *parent) : QWidget(parent), Observer(), player(player) {
 

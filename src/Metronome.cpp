@@ -9,14 +9,16 @@
 class MetronomeWidget;
 
 Metronome::Metronome(): status(OFF) {
+    setVolume(100);
     mediaplayer = new QMediaPlayer;
     //TODO PATH
     dir = new QDir(QDir::currentPath());
     dir->cdUp();
     path = dir->absoluteFilePath("res/beeps/");
     //TODO (NOT WORKING)
-    mediaplayer->setMedia(QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/1909/res/beeps/start.wav"));
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/gege/Scrivania/DrumMachine/res/beeps/start.wav"));
     //mediaplayer->setMedia(QUrl::fromLocalFile(QString(path + "start.waw")));
+
     qDebug() << "Metronome constructed";
 }
 
@@ -48,6 +50,7 @@ void Metronome::setStatus(ACTIVE_STATUS status) {
 
 void Metronome::doBeep() {
     mediaplayer->stop();
+    mediaplayer->setVolume(getVolume());
     mediaplayer->play();
     qDebug() << "Metronome played";
 }

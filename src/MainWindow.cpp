@@ -41,39 +41,39 @@ metronome(new Metronome()), player(new Player())
     setUpGui();
 }
 
-void MainWindow::setUpGui(){
+void MainWindow::setUpGui() {
 
     QDesktopWidget dw;
     this->setStyleSheet(QString("*{image: url(../res/icons/Background.png);};"));
-    this->height = dw.size().width()*0.9;
-    this->width = dw.size().height()*0.9;
+    this->height = dw.size().width() * 0.9;
+    this->width = dw.size().height() * 0.9;
     this->setFixedSize(height, width);
-    this->setContentsMargins(0,0,0,0);
+    this->setContentsMargins(0, 0, 0, 0);
     mainWidget->setStyleSheet(QString("*{image: url(../res/icons/Transparency.png);};"));
-    mainWidget->setContentsMargins(0,height/62,0,0);
-    upperWidget->setFixedSize(width*1.67, height/6);
-    upperLayout->addItem(new QSpacerItem(width*10/100,0));
-    metronomeWidget->setFixedSize(width*35/100,height*23/100);
+    mainWidget->setContentsMargins(0, height / 62, 0, 0);
+    upperWidget->setFixedSize(width * 1.67, height / 6);
+    upperLayout->addItem(new QSpacerItem(width * 10 / 100, 0));
+    metronomeWidget->setFixedSize(width * 35 / 100, height * 23 / 100);
     upperLayout->addWidget(metronomeWidget);
-    playerWidget->setFixedSize(width*20/100,height*22.5/100);
-    upperLayout->addItem(new QSpacerItem(width*10/100,0));
+    playerWidget->setFixedSize(width * 20 / 100, height * 22.5 / 100);
+    upperLayout->addItem(new QSpacerItem(width * 10 / 100, 0));
     upperLayout->addWidget(playerWidget);
-    upperLayout->addItem(new QSpacerItem(width*50/100,0));
-    displayWidget->setFixedSize(width/2.1,height/5.5);
+    upperLayout->addItem(new QSpacerItem(width * 50 / 100, 0));
+    displayWidget->setFixedSize(width / 2.1, height / 5.5);
     upperLayout->addWidget(displayWidget);
     upperWidget->setLayout(upperLayout);
 
-    midWidget->setFixedSize(width*1.67,height/40);
-    midLayout->addItem(new QSpacerItem(width*35/100,0));
-    timeline->setFixedSize(width*1.22,height*2.3/100);
-    midLayout->addWidget(timeline,Qt::AlignTop);
+    midWidget->setFixedSize(width * 1.67, height / 40);
+    midLayout->addItem(new QSpacerItem(width * 35 / 100, 0));
+    timeline->setFixedSize(width * 1.22, height * 2.3 / 100);
+    midLayout->addWidget(timeline, Qt::AlignTop);
     midWidget->setLayout(midLayout);
 
 
-    bottomWidget->setFixedSize(width*1.69,height/3);
+    bottomWidget->setFixedSize(width * 1.69, height / 3);
 
-    bottomLayout->addItem(new QSpacerItem(width*7.5/100,0));
-    drumKitWidget->setFixedSize(width*1.59,height/3);
+    bottomLayout->addItem(new QSpacerItem(width * 7.5 / 100, 0));
+    drumKitWidget->setFixedSize(width * 1.59, height / 3);
     bottomLayout->addWidget(drumKitWidget, Qt::AlignTop);
     bottomWidget->setLayout(bottomLayout);
 
@@ -82,6 +82,7 @@ void MainWindow::setUpGui(){
     verticalLayout->addWidget(bottomWidget);
     mainWidget->setLayout(verticalLayout);
     this->setCentralWidget(mainWidget);
+}
 
 MainWindow::~MainWindow() {
     //TODO IMPLEMENT destructor

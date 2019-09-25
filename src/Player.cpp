@@ -7,10 +7,11 @@
 #include <QMediaPlayer>
 
 Player::Player()
-        : QObject(), metronome(new Metronome()), timer(new QTimer()), mediaPlayer(new QMediaPlayer()), actualStep(0) {
+        : QObject(), metronome(new Metronome()), timer(new QTimer()), mediaPlayer(new QMediaPlayer()) {
     firstStep = true;
     timer->stop();
     setStatus(OFF);
+    setActualStep(0);
     setBpm(120);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(PLAY()));
     qDebug() << "Player constructed";
@@ -66,6 +67,7 @@ void Player::stopTimer() {
 }
 
 void Player::PLAY() {
+
     bool foundSolo = false;
     for (auto i : drumKit->getDrums()) {
         if (i->getSoloState() == SOLO) {
