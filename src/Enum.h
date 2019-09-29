@@ -29,19 +29,13 @@ enum DRUM_TYPE {
     SNARE = 1,
     HAT = 2,
     TOM = 3,
-    //TODO ADD TYPE
-    //...
-
 };
 
 //DRUM STYLE
 enum DRUM_STYLE {
-
     JAZZ = 0,
     ROCK = 1,
     POP = 2,
-    //TODO ADD STYLE
-    //...
 };
 
 #endif //MYTEST_ENUM_H

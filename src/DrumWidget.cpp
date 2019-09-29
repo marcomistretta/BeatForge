@@ -21,14 +21,14 @@
 
 
 DrumWidget::~DrumWidget() {
-    //TODO IMPLEMENT destructor
     drum->removeObserver(this);
     delete layout;
     delete drum_info;
     delete muteButton;
     delete soloButton;
     delete drum;
-    //delete[](buttons);
+    for (auto i : buttons)
+        delete[] i;
     delete menu;
     delete volumeDial;
     delete dir;
