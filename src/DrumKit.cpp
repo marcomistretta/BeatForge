@@ -97,6 +97,8 @@ void DrumKit::setDrumStyle(DRUM_STYLE style) {
     drumStyle = style;
     notify();
     qDebug()<< style;
+    for(Drum* drum: drums)
+        drum->setDrumStyle(style);
 }
 DrumKit::~DrumKit() {
     for (auto i : drums)
