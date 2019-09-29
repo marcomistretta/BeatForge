@@ -11,7 +11,7 @@ find_package(Qt5Widgets CONFIG REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
 find_package(Qt5Test REQUIRED)
 
-add_executable(UnitTest test/SingleDrumTest.cpp )
+add_executable(UnitTest UnitTest.cpp )
 
 target_link_libraries(UnitTest Qt5::Widgets)
 target_link_libraries(UnitTest Qt5::Multimedia)
