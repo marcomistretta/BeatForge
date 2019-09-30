@@ -2,8 +2,8 @@
 // Created by Guglielmo Fratticioli on 29/09/19.
 //
 //TODO CHECK
-//#include <QTest>
-#include <QtTest/QtTest>
+#include <QTest>
+//#include <QtTest/QtTest>
 #include <QVector>
 #include "../src/MainWindow.h"
 #include "../src/DrumKitWidget.h"
@@ -14,7 +14,7 @@
 #include "../src/StepButton.h"
 #include "../src/Enum.h"
 
-class SingleDrumTest : public QObject {
+class UnitTest : public QObject {
 
 Q_OBJECT
 private slots:
@@ -95,6 +95,6 @@ private:
     DrumKitWidget *drumKitWidget;
 };
 
-QTEST_MAIN(SingleDrumTest)
+QTEST_MAIN(UnitTest)
 
-#include "SingleDrumTest.moc"
+#include "UnitTest.moc"
