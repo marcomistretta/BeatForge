@@ -1,7 +1,9 @@
 //
 // Created by Guglielmo Fratticioli on 29/09/19.
 //
-#include <QTest>
+//TODO CHECK
+//#include <QTest>
+#include <QtTest/QtTest>
 #include <QVector>
 #include "../src/MainWindow.h"
 #include "../src/DrumKitWidget.h"
@@ -12,13 +14,14 @@
 #include "../src/StepButton.h"
 #include "../src/Enum.h"
 
-class SingleDrumTest: public QObject {
+class SingleDrumTest : public QObject {
 
-    Q_OBJECT
+Q_OBJECT
 private slots:
-            void test(){
+
+    void test() {
         mainWindow = new MainWindow(nullptr);
-        //Is Layout Been Initialised?
+        //Has layout Been Initialised?
         QVERIFY(mainWindow->getUpperWidget() != nullptr);
         QVERIFY(mainWindow->getMidWidget() != nullptr);
         QVERIFY(mainWindow->getBottomWidget() != nullptr);
@@ -31,14 +34,13 @@ private slots:
         drumKitWidget = mainWindow->getDrumKitWidget();
 
 
-
-
     }
+
     void testAdd() {
 
         int count = drumKitWidget->getLayout()->count();
 
-        QTest::mouseClick(drumKitWidget->getAddbutton(),Qt::LeftButton);
+        QTest::mouseClick(drumKitWidget->getAddbutton(), Qt::LeftButton);
         //Has Drum Been Constructed ?
         QVERIFY(drumKit->getDrums().size() == 1);
         QVERIFY(drumKit->getDrums()[0] != nullptr);
@@ -53,16 +55,17 @@ private slots:
         drum = drumKit->getDrums()[0];
 
     }
-    void testPattern(){
-        for(int i = 0; i<16; i++){
+
+    void testPattern() {
+        for (int i = 0; i < 16; i++) {
             //Pressing Buttons
-            QTest::mouseClick(drumKitWidget->getDrumWidgets()[0]->getButtons()[i],Qt::LeftButton);
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[0]->getButtons()[i], Qt::LeftButton);
             //Has Been Switched ON?
             QVERIFY(drum->getGroove()[i] == ON);
         }
-        for(int i = 0; i<16; i++){
+        for (int i = 0; i < 16; i++) {
             //Pressing Buttons
-            QTest::mouseClick(drumKitWidget->getDrumWidgets()[0]->getButtons()[i],Qt::LeftButton);
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[0]->getButtons()[i], Qt::LeftButton);
             //Has Been Switched OFF?
             QVERIFY(drum->getGroove()[i] == OFF);
         }
@@ -73,20 +76,25 @@ private:
     void testMute() {
 
     }
+
     void testVolume() {
 
     }
+
     void testTypeChange() {
 
     }
+
     void testStyleChange() {
 
     }
 
-    MainWindow* mainWindow;
-    Drum* drum;
-    DrumKit* drumKit;
-    DrumKitWidget* drumKitWidget;
+    MainWindow *mainWindow;
+    Drum *drum;
+    DrumKit *drumKit;
+    DrumKitWidget *drumKitWidget;
 };
+
 QTEST_MAIN(SingleDrumTest)
+
 #include "SingleDrumTest.moc"

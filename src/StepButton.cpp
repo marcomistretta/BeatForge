@@ -18,7 +18,7 @@ void StepButton::setBackground(QColor color) {
 }
 
 void StepButton::on_clicked() {
-    qDebug()<<"clicked";
+    //qDebug()<<"clicked";
     static_cast<DrumWidget*>(parent())->getDrum()->editStep(position);
 }
 

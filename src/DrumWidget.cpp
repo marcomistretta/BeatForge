@@ -39,7 +39,8 @@ DrumWidget::~DrumWidget() {
 DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
     dir = new QDir(QDir::currentPath());
     path = dir->absoluteFilePath("res/icons/");
-    this->setStyleSheet(QString("*{image: url(%1DrumWidget.png);}"));
+    //TODO FIND THE ERROR
+    this->setStyleSheet(QString("*{image: url(%1DrumWidget.png);}").arg(path));
 
     //DECLARING HORIZONTAL LAYOUT
     layout = new QHBoxLayout();
@@ -118,7 +119,7 @@ DrumWidget::DrumWidget(QWidget *parent) : QWidget(parent) {
 }
 
 void DrumWidget::obsUpdate() {
-    qDebug() << "DrumWidget Updated";
+    //qDebug() << "DrumWidget Updated";
 
     //STEP
     for (int pos = 0; pos < 16; pos++) {
@@ -162,12 +163,12 @@ void DrumWidget::on_mute_pressed() {
     if (drum->getMuteState() == NOMUTED) {
         drum->setMuteState(MUTED);
         muteicon.addFile(QString(path + "MuteButton-ON.png"));
-        qDebug() << "Mute Updating to MUTED";
+        //qDebug() << "Mute Updating to MUTED";
 
     } else {
         drum->setMuteState(NOMUTED);
         muteicon.addFile(QString(path + "MuteButton-OFF.png"));
-        qDebug() << "Mute Updating to NOMUTED";
+        //qDebug() << "Mute Updating to NOMUTED";
     }
     muteButton->setIcon(muteicon);
 }
@@ -178,17 +179,17 @@ void DrumWidget::on_solo_pressed() {
     if (drum->getSoloState() == NOSOLO) {
         drum->setSoloState(SOLO);
         soloicon.addFile(QString(path + "SoloButton-ON.png"));
-        qDebug() << "Solo Updating to SOLO";
+        //qDebug() << "Solo Updating to SOLO";
     } else {
         drum->setSoloState(NOSOLO);
         soloicon.addFile(QString(path + "SoloButton-OFF.png"));
-        qDebug() << "Solo Updating to NOSOLO";
+        //qDebug() << "Solo Updating to NOSOLO";
     }
     soloButton->setIcon(soloicon);
 }
 
 void DrumWidget::on_drum_info_pressed() {
-    qDebug() << "Infobox clicked";
+    //qDebug() << "Infobox clicked";
 }
 
 void DrumWidget::on_volume_changed() {

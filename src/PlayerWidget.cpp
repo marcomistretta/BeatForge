@@ -43,7 +43,7 @@ PlayerWidget::~PlayerWidget() {
     delete playButton;
     delete stopButton;
     delete boxLayout;
-    qDebug() << "Player deleted";
+    //qDebug() << "Player deleted";
 }
 
 void PlayerWidget::obsUpdate() {
@@ -51,26 +51,26 @@ void PlayerWidget::obsUpdate() {
     if (player->getStatus() == OFF) {
         //red
         playicon.addFile(QString(path + "Play.png"));
-        qDebug() << "Player GUI to ON ";
+        //qDebug() << "Player GUI to ON ";
 
     } else {
         //light-green
         playicon.addFile(QString(path + "Pause.png"));
-        qDebug() << "Player GUI to OFF ";
+        //qDebug() << "Player GUI to OFF ";
     }
     playButton->setIcon(playicon);
     playButton->setIconSize(playButton->size());
-    qDebug() << "Player Widget Updated";
+    //qDebug() << "Player Widget Updated";
 }
 
 void PlayerWidget::on_Play_pressed() {
-    qDebug() << "Play/Pause pressed";
+    //qDebug() << "Play/Pause pressed";
     player->playPauseTimer();
     obsUpdate();
 }
 
 void PlayerWidget::on_Stop_pressed() {
-    qDebug() << "Stop pressed";
+    //qDebug() << "Stop pressed";
     player->stopTimer();
     obsUpdate();
 }

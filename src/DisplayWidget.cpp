@@ -225,7 +225,7 @@ DisplayWidget::DisplayWidget(Player *player, DrumKit *drumKit, QWidget *parent)
     styleButtonWidget = new QWidget(rightWidget);
     styleButtonWidget->setStyleSheet(QString("*{ background-color: #6B8046; }"));
     stylesWheel = new StringWheelWidget(false, rightWidget);
-    connect(stylesWheel, SIGNAL(stopped()), this, SLOT(on_style_changed()));
+    //connect(stylesWheel, SIGNAL(stopped()), this, SLOT(on_style_changed()));
 
     rightLayout = new QVBoxLayout(rightWidget);
     leftStyle = new QPushButton(styleButtonWidget);

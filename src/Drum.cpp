@@ -14,7 +14,7 @@ Drum::Drum() : drumType(KICK), drumStyle(POP), mediaplayer(new QMediaPlayer()), 
                volume(100) {
     for (auto &i : groove)
         i = OFF;
-    qDebug() << "Drum constructed";
+    //qDebug() << "Drum constructed";
 
     //SETTING DEFAULT SAMPLES PATH
     dir = new QDir(QDir::currentPath());
@@ -40,22 +40,22 @@ Drum::Drum(const Drum &drum) {
 
 void Drum::addObserver(Observer *o) {
     observers.push_back(o);
-    qDebug() << "Drum Observer pushed";
+    //qDebug() << "Drum Observer pushed";
 }
 
 void Drum::removeObserver(Observer *o) {
     observers.remove(o);
-    qDebug() << "Drum Observer removed";
+    //qDebug() << "Drum Observer removed";
 }
 
 void Drum::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
-    qDebug() << "Drum Observer notified";
+    //qDebug() << "Drum Observer notified";
 }
 
 void Drum::editStep(int step) {
-    qDebug() << "Drum:: Step edited";
+    //qDebug() << "Drum:: Step edited";
     if (groove[step] == ON)
         groove[step] = OFF;
     else
@@ -68,9 +68,9 @@ void Drum::playDrum() {
     mediaplayer->stop();
     if (getMuteState() == NOMUTED) {
         mediaplayer->play();
-        qDebug() << "Drum played";
-    } else
-        qDebug() << "Drum is muted";
+        //qDebug() << "Drum played";
+    } //else
+        //qDebug() << "Drum is muted";
 }
 
 void Drum::updatePath() {
@@ -119,14 +119,14 @@ void Drum::setDrumStyle(DRUM_STYLE style) {
     drumStyle = style;
     updatePath();
     notify();
-    qDebug() << "DrumStyle changed to: " << drumStyle;
+    //qDebug() << "DrumStyle changed to: " << drumStyle;
 }
 
 void Drum::setDrumType(DRUM_TYPE type) {
     drumType = type;
     updatePath();
     notify();
-    qDebug() << "DrumType changed to: " << drumType;
+    //qDebug() << "DrumType changed to: " << drumType;
 }
 
 void Drum::setVolume(int volume) {

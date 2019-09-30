@@ -50,8 +50,9 @@ void MainWindow::setUpGui() {
 
     QDesktopWidget dw;
     this->setStyleSheet(QString("*{image: url(%1Background.png);};").arg(path));
-    this->height = dw.size().width() * 0.9;
-    this->width = dw.size().height() * 0.9;
+    //TODO 0.7 on Inspiron, 0.9 on vostro
+    this->height = dw.size().width() * 0.7;
+    this->width = dw.size().height() * 0.7;
     this->setFixedSize(height, width);
     this->setContentsMargins(0, 0, 0, 0);
     mainWidget->setStyleSheet(QString("*{image: url(../icons/Transparency.png);};"));

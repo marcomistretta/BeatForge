@@ -80,23 +80,23 @@ const QVector<Drum *> &DrumKit::getDrums() const {
 void DrumKit::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
-    qDebug() << "DrumKit Observer notified";
+    //qDebug() << "DrumKit Observer notified";
 }
 
 void DrumKit::addObserver(Observer *o) {
-    qDebug() << "DrumKit Observer added";
+    //qDebug() << "DrumKit Observer added";
     observers.push_back(o);
 }
 
 void DrumKit::removeObserver(Observer *o) {
-    qDebug() << "DrumKit Observer removed";
+    //qDebug() << "DrumKit Observer removed";
     observers.remove(o);
 }
 
 void DrumKit::setDrumStyle(DRUM_STYLE style) {
     drumStyle = style;
     notify();
-    qDebug()<< style;
+    //qDebug()<< style;
     for(Drum* drum: drums)
         drum->setDrumStyle(style);
 }

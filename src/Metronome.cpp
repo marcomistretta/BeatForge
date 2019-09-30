@@ -14,26 +14,25 @@ Metronome::Metronome(): status(OFF) {
     dir = new QDir(QDir::currentPath());
     path = dir->absoluteFilePath("res/beeps/");
     //TODO (NOT WORKING)
-    mediaplayer->setMedia(
-            QUrl::fromLocalFile("/home/misterm/Scrivania/DrumMachine/DrumMachine/preRicevimento/res/beeps/start.wav"));
+    mediaplayer->setMedia(QUrl::fromLocalFile("/home/marcomix/CLionProjects/DrumMachine3/res/beeps/start.wav"));
     //mediaplayer->setMedia(QUrl::fromLocalFile(QString(path + "start.waw")));
 
-    qDebug() << "Metronome constructed";
+    //qDebug() << "Metronome constructed";
 }
 
 void Metronome::notify() {
     for (Observer *observer : observers)
         observer->obsUpdate();
-    qDebug() << "Metronome Observer notified";
+    //qDebug() << "Metronome Observer notified";
 }
 
 void Metronome::addObserver(Observer *o) {
-    qDebug() << "Metronome Observer added";
+    //qDebug() << "Metronome Observer added";
     observers.push_back(o);
 }
 
 void Metronome::removeObserver(Observer *o) {
-    qDebug() << "Metronome Observer removed";
+    //qDebug() << "Metronome Observer removed";
     observers.remove(o);
 }
 
@@ -51,7 +50,7 @@ void Metronome::doBeep() {
     mediaplayer->stop();
     mediaplayer->setVolume(getVolume());
     mediaplayer->play();
-    qDebug() << "Metronome played";
+    //qDebug() << "Metronome played";
 }
 void Metronome::setVolume(int volume) {
     this->volume = volume;

@@ -25,7 +25,7 @@ Timeline::Timeline(Player *player, QWidget *parent) : QWidget(parent), Observer(
     }
     this->setLayout(boxLayout);
     obsUpdate();
-    qDebug() << "Timeline Constructed";
+    //qDebug() << "Timeline Constructed";
 }
 
 void Timeline::obsUpdate() {
@@ -38,7 +38,7 @@ void Timeline::obsUpdate() {
     } else
         steps[(player->getActualStep() - 1 + 16) % 16]->setStyleSheet(
                 QString("*{image: url(res/icons/Led-ON.png);}"));
-    qDebug() << "Led Updated";
+    //qDebug() << "Led Updated";
 
 }
 

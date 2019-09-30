@@ -35,20 +35,20 @@ MetronomeWidget::~MetronomeWidget() {
     delete volumeDial;
     delete boxLayout;
     delete metronomeButton;
-    qDebug() << "Metronome deleted";
+    //qDebug() << "Metronome deleted";
 }
 
 void MetronomeWidget::obsUpdate() {
-    qDebug() << "MetronomeWidget Updated";
+    //qDebug() << "MetronomeWidget Updated";
     QIcon metronomeicon;
     if (metronome->getStatus() == ON) {
         //red
         metronomeicon.addFile(QString(path + "Metronome-ON.png"));
-        qDebug() << "to Red";
+        //qDebug() << "to Red";
     } else {
         //light-green
         metronomeicon.addFile(QString(path + "Metronome-OFF.png"));
-        qDebug() << "to Green";
+        //qDebug() << "to Green";
     }
     metronomeButton->setIcon(metronomeicon);
     metronomeButton->setIconSize(metronomeButton->size());
@@ -58,7 +58,7 @@ void MetronomeWidget::obsUpdate() {
 
 
 void MetronomeWidget::on_pressed() {
-    qDebug() << "Metronome pressed";
+    //qDebug() << "Metronome pressed";
     if (metronome->getStatus() == ACTIVE_STATUS::ON) {
         metronome->setStatus(OFF);
     } else {
