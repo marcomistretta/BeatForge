@@ -35,6 +35,10 @@ public:
 
     void setDrum(Drum *drum);
 
+    StepButton *const *getButtons() const {
+        return buttons;
+    }
+
 private slots:
 
     //BUTTON & DIAL SLOTS

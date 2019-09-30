@@ -36,6 +36,15 @@ public:
         return addbutton;
     }
 
+    const QVector<DrumWidget*> & getDrumWidgets() const{
+        //TODO CHECK
+        return drumWidgets;
+    }
+
+    QVBoxLayout *getLayout() const {
+        return layout;
+    }
+
 private slots:
     //WHEN YOU CLICK ADD TO ADD A DRUM
     void on_add_pressed();

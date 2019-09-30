@@ -48,11 +48,18 @@ public:
     //GETTER & SETTER
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     void setDrumStyle(DRUM_STYLE style);
-    const QVector<Drum *> &getDrums() const;
+
+    //TODO CHECK (even in cpp)
+    //const QVector<Drum *> &getDrums() const;
+    const QVector<Drum*> & getDrums() const{
+        return drums;
+    }
 
     DRUM_STYLE getDrumStyle(){
         return drumStyle;
     };
+
+
 
 private:
     QVector<Drum *> drums;

@@ -73,9 +73,10 @@ Qt::ItemFlags DrumKit::flags(const QModelIndex &index) const {
     return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
 }
 
+/*
 const QVector<Drum *> &DrumKit::getDrums() const {
     return drums;
-}
+}*/
 
 void DrumKit::notify() {
     for (Observer *observer : observers)

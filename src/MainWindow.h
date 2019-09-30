@@ -41,6 +41,26 @@ public:
     //DESTRUCTOR
     virtual ~MainWindow();
 
+    DrumKit *getDrumKit() const {
+        return drumKit;
+    }
+
+    DrumKitWidget *getDrumKitWidget() const {
+        return drumKitWidget;
+    }
+
+    QWidget *getUpperWidget() const {
+        return upperWidget;
+    }
+
+    QWidget *getMidWidget() const {
+        return midWidget;
+    }
+
+    QWidget *getBottomWidget() const {
+        return bottomWidget;
+    }
+
 private:
     int height;
     int width;

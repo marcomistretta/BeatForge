@@ -20,7 +20,7 @@ Q_OBJECT
 private slots:
 
     void test() {
-        mainWindow = new MainWindow(nullptr);
+        mainWindow = new MainWindow();
         //Has layout Been Initialised?
         QVERIFY(mainWindow->getUpperWidget() != nullptr);
         QVERIFY(mainWindow->getMidWidget() != nullptr);
