@@ -95,10 +95,10 @@ void Drum::updatePath() {
         }
     }
     switch (drumStyle) {
-        case POP: {
-            strStyle = QString("POP");
-            break;
-        }
+        case POP:   strStyle = QString("POP"); break;
+        case ROCK:   strStyle = QString("ROCK"); break;
+        case JAZZ:   strStyle = QString("JAZZ"); break;
+
     }
     //LOAD AUDIO.WAW
     mediaplayer->setMedia(QUrl::fromLocalFile(QString(path + "%1-%2.wav").arg(strType).arg(strStyle)));

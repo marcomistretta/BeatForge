@@ -39,6 +39,38 @@ public:
         return buttons;
     }
 
+    QHBoxLayout *getLayout() const {
+        return layout;
+    }
+
+    QPushButton *getDrumInfo() const {
+        return drum_info;
+    }
+
+    QPushButton *getMuteButton() const {
+        return muteButton;
+    }
+
+    QPushButton *getSoloButton() const {
+        return soloButton;
+    }
+
+    QMenu *getMenu() const {
+        return menu;
+    }
+
+    MyDial *getVolumeDial() const {
+        return volumeDial;
+    }
+
+    QDir *getDir() const {
+        return dir;
+    }
+
+    const QString &getPath() const {
+        return path;
+    }
+
 private slots:
 
     //BUTTON & DIAL SLOTS

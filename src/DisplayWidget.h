@@ -35,6 +35,7 @@ public:
 
     virtual int itemCount() const = 0;
 
+
 public slots:
 
     void scrollTo(int index);
@@ -110,6 +111,66 @@ public:
     DisplayWidget(Player *player, DrumKit *drumKit, QWidget *parent = nullptr);
 
     void obsUpdate() override;
+
+    Player *getPlayer() const {
+        return player;
+    }
+
+    DrumKit *getDrumKit() const {
+        return drumKit;
+    }
+
+    StringWheelWidget *getStylesWheel() const {
+        return stylesWheel;
+    }
+
+    BpmSpinBox *getBpmBox() const {
+        return bpmBox;
+    }
+
+    QPushButton *getRightStyle() const {
+        return rightStyle;
+    }
+
+    QPushButton *getLeftStyle() const {
+        return leftStyle;
+    }
+
+    QPushButton *getSaveButton() const {
+        return saveButton;
+    }
+
+    QPushButton *getLoadButton() const {
+        return loadButton;
+    }
+
+    QWidget *getLeftWidget() const {
+        return leftWidget;
+    }
+
+    QWidget *getRightWidget() const {
+        return rightWidget;
+    }
+
+    QWidget *getStyleButtonWidget() const {
+        return styleButtonWidget;
+    }
+
+    QVBoxLayout *getLeftLayout() const {
+        return leftLayout;
+    }
+
+    QVBoxLayout *getRightLayout() const {
+        return rightLayout;
+    }
+
+    QHBoxLayout *getStyleButtonLayout() const {
+        return styleButtonLayout;
+    }
+
+    QHBoxLayout *getBoxLayout() const {
+        return boxLayout;
+    }
 
 private slots:
 

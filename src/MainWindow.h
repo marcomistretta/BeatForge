@@ -61,6 +61,50 @@ public:
         return bottomWidget;
     }
 
+    Metronome *getMetronome() const {
+        return metronome;
+    }
+
+    MetronomeWidget *getMetronomeWidget() const {
+        return metronomeWidget;
+    }
+
+    Player *getPlayer() const {
+        return player;
+    }
+
+    PlayerWidget *getPlayerWidget() const {
+        return playerWidget;
+    }
+
+    DisplayWidget *getDisplayWidget() const {
+        return displayWidget;
+    }
+
+    Timeline *getTimeline() const {
+        return timeline;
+    }
+
+    QHBoxLayout *getUpperLayout() const {
+        return upperLayout;
+    }
+
+    QHBoxLayout *getMidLayout() const {
+        return midLayout;
+    }
+
+    QHBoxLayout *getBottomLayout() const {
+        return bottomLayout;
+    }
+
+    QVBoxLayout *getVerticalLayout() const {
+        return verticalLayout;
+    }
+
+    QWidget *getMainWidget() const {
+        return mainWidget;
+    }
+
 private:
     int height;
     int width;
