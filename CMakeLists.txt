@@ -20,7 +20,7 @@ find_package(Qt5Widgets CONFIG REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
 
 
-add_library(DrumMachineTest ${MySources})
+
 add_executable(DrumMachine src/main.cpp ${MySources})
 
 target_link_libraries(DrumMachine Qt5::Widgets)
