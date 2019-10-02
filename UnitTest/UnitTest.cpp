@@ -4,7 +4,6 @@
 //TODO CHECK
 
 #include <QTest>
-#include <QtTest/QtTest>
 #include <QVector>
 
 #include "../src/MainWindow.h"
@@ -24,6 +23,7 @@ private slots:
 
     void test() {
         mainWindow = new MainWindow(nullptr);
+
         //Has layout Been Initialised?
         QVERIFY(mainWindow->getUpperWidget() != nullptr);
         QVERIFY(mainWindow->getMidWidget() != nullptr);
@@ -32,12 +32,13 @@ private slots:
         //Has DrumKit,DrumKitWidget Been Constructed?
         QVERIFY(mainWindow->getDrumKit() != nullptr);
         QVERIFY(mainWindow->getDrumKitWidget() != nullptr);
+
         drumKit = mainWindow->getDrumKit();
         drumKitWidget = mainWindow->getDrumKitWidget();
-
     }
 
     void testAdd() {
+
         //FIRST DRUM
         int count = drumKitWidget->getLayout()->count();
         int size;
@@ -86,13 +87,12 @@ private slots:
 
         //Has Layout Been Edited ?
         QVERIFY(drumKitWidget->getLayout()->count() == count + 1);
-
         drums.push_back(drumKit->getDrums()[ndrums]);
 
         //FOURTH DRUM
         count = drumKitWidget->getLayout()->count();
-
         QTest::mouseClick(drumKitWidget->getAddbutton(), Qt::LeftButton);
+
         //Has Drum Been Constructed ?
         QVERIFY(drumKit->getDrums().size() == ++size);
         QVERIFY(drumKit->getDrums()[++ndrums] != nullptr);
@@ -103,7 +103,6 @@ private slots:
 
         //Has Layout Been Edited ?
         QVERIFY(drumKitWidget->getLayout()->count() == count + 1);
-
         drums.push_back(drumKit->getDrums()[ndrums]);
 
     }
@@ -125,13 +124,13 @@ private slots:
         QVERIFY(drums[3]->getDrumStyle() == ROCK);
 
         //Pressing To_RightStyle (POP)
-        QTest::mouseClick(mainWindow->getDisplayWidget()->getRightStyle(), Qt::RightButton);
+        QTest::mouseClick(mainWindow->getDisplayWidget()->getRightStyle(), Qt::LeftButton);
 
         //Are Sample_Path Updated?
-        QVERIFY(drums[0]->getDrumStyle() == ROCK);
-        QVERIFY(drums[1]->getDrumStyle() == ROCK);
-        QVERIFY(drums[2]->getDrumStyle() == ROCK);
-        QVERIFY(drums[3]->getDrumStyle() == ROCK);
+        QVERIFY(drums[0]->getDrumStyle() == POP);
+        QVERIFY(drums[1]->getDrumStyle() == POP);
+        QVERIFY(drums[2]->getDrumStyle() == POP);
+        QVERIFY(drums[3]->getDrumStyle() == POP);
     }
 
     void testType() {
@@ -194,7 +193,7 @@ private slots:
 
     void TestPattern() {
         int count = 0;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < drums.size(); i++) {
             QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getButtons()[0], Qt::LeftButton);
             QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getButtons()[4], Qt::LeftButton);
             QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getButtons()[8], Qt::LeftButton);
@@ -203,6 +202,20 @@ private slots:
             QVERIFY(drums[i]->isActive(4) == ON);
             QVERIFY(drums[i]->isActive(8) == ON);
             QVERIFY(drums[i]->isActive(12) == ON);
+        }
+    }
+
+    void TestSolo() {
+        for (int i = 0; i < drums.size(); i++) {
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getSoloButton(), Qt::LeftButton);
+            QVERIFY(drums[i]->getSoloState() == SOLO);
+        }
+    }
+
+    void TestMute() {
+        for (int i = 0; i < drums.size(); i++) {
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getMuteButton(), Qt::LeftButton);
+            QVERIFY(drums[i]->getMuteState() == MUTED);
         }
     }
 
@@ -216,32 +229,6 @@ private slots:
         QVERIFY(drums[i]->getMediaPlayer()->state() == QMediaPlayer::PlayingState);
 
     };
-
-    void TestSolo() {
-        //TODO FIX
-        int i;
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getSoloButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getSoloState() == SOLO);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getSoloButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getSoloState() == SOLO);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getSoloButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getSoloState() == SOLO);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getSoloButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getSoloState() == SOLO);
-    }
-
-    void TestMute() {
-        //TODO FIX
-        int i;
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getMuteButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getMuteState() == MUTED);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMuteButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getMuteState() == MUTED);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMuteButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getMuteState() == MUTED);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMuteButton(), Qt::LeftButton);
-        QVERIFY(drums[i]->getMuteState() == MUTED);
-    }
 
     //QT default Test
 
