@@ -12,6 +12,8 @@ Choose your drum style and then sequence more than 30 samples.
 * [Clion](https://www.jetbrains.com) - The Cross-platform IDE
 
 ![](README%20images/DrumMachineUML.png)
+![](README%20images/DrumMachine.png)
+![](README%20images/DrumMachine2.png)
 
  
 ## Authors
