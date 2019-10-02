@@ -15,10 +15,12 @@
 #include "../src/StepButton.h"
 #include "../src/Enum.h"
 #include "../src/Player.h"
+#include "../src/PlayerWidget.h"
 
 class UnitTest : public QObject {
 
 Q_OBJECT
+
 private slots:
 
     void test() {
@@ -142,12 +144,10 @@ private slots:
                         if (action->objectName() == KICK) {
                             QTest::keyClick(menu, Qt::Key_Enter);
                             QVERIFY(drums[i]->getDrumType() == KICK);
-                        }
-                        else if (action->objectName() == SNARE) {
+                        } else if (action->objectName() == SNARE) {
                             QTest::keyClick(menu, Qt::Key_Enter);
                             QVERIFY(drums[i]->getDrumType() == KICK);
-                        }
-                        else if (action->objectName() == HAT) {
+                        } else if (action->objectName() == HAT) {
                             QTest::keyClick(menu, Qt::Key_Enter);
                             QVERIFY(drums[i]->getDrumType() == KICK);
                         } else if (action->objectName() == TOM) {
@@ -160,36 +160,6 @@ private slots:
             }
         }
     }
-
-    /*       ;
-   //Pressing FIRST Drum Menu
-   QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getMenu(), Qt::LeftButton);
-   //Pressing Kick
-
-   //Is Type Changed?
-   QVERIFY(drums[i]->getDrumType() == KICK);
-
-   //Pressing SECOND Drum Menu
-   QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
-   //Pressing Snare
-
-   //Is Type Changed?
-   QVERIFY(drums[i]->getDrumType() == SNARE);
-
-   //Pressing THIRD Drum Menu
-   QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
-   //Pressing Hat
-
-   //Is Type Changed?
-   QVERIFY(drums[i]->getDrumType() == HAT);
-
-   //Pressing FOURTH Drum Menu
-   QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
-   //Pressing Tom
-
-   //Is Type Changed?
-   QVERIFY(drums[i]->getDrumType() == TOM);
-*/
 
     void TestPattern() {
         int count = 0;
@@ -207,7 +177,7 @@ private slots:
 
     void TestSolo() {
         for (int i = 0; i < drums.size(); i++) {
-            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getSoloButton(), Qt::LeftButton);
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getSoloButton(), Qt::LeftButton);
             QVERIFY(drums[i]->getSoloState() == SOLO);
         }
     }
@@ -221,13 +191,16 @@ private slots:
 
     void TestPlay() {
         //TODO FIX
-        int i = 0;
-        player->PLAY();
-        QVERIFY(drums[i++]->getMediaPlayer()->state() == QMediaPlayer::PlayingState);
-        QVERIFY(drums[i++]->getMediaPlayer()->state() == QMediaPlayer::PlayingState);
-        QVERIFY(drums[i++]->getMediaPlayer()->state() == QMediaPlayer::PlayingState);
-        QVERIFY(drums[i]->getMediaPlayer()->state() == QMediaPlayer::PlayingState);
-
+        QTest::mouseClick(mainWindow->getPlayerWidget()->getplayButton(), Qt::LeftButton);
+        for (int step = 0; step < 16; step++) {
+            for (int i = 0; i < drums.size(); i++) {
+                if (drums[i]->isActive(step))
+                    QVERIFY(drums[i]->getMediaPlayer()->state() == QMediaPlayer::PlayingState);
+                else
+                    QVERIFY(drums[i]->getMediaPlayer()->state() == QMediaPlayer::StoppedState);
+            }
+            QTest::qWait(mainWindow->getPlayer()->fromBpmToMillisec());
+        }
     };
 
     //QT default Test
@@ -245,6 +218,8 @@ private slots:
     }
 
 private:
+
+
 
     void testMute() {
 

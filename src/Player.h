@@ -63,6 +63,18 @@ public:
         Player::firstStep = firstStep;
     }
 
+    const std::list<Observer *> &getObservers() const;
+
+    ACTIVE_STATUS getState() const;
+
+    QTimer *getTimer() const;
+
+    QMediaPlayer *getMediaPlayer() const;
+
+    Metronome *getMetronome() const;
+
+    DrumKit *getDrumKit() const;
+
     void dialBpm();
 
     //CONVERT BPM IN MILLISECONDS
@@ -76,6 +88,9 @@ public slots:
 private:
     std::list<Observer *> observers;
     ACTIVE_STATUS state;
+
+
+private:
     QTimer *timer;
     QMediaPlayer *mediaPlayer;
     Metronome *metronome;

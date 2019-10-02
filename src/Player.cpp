@@ -121,6 +121,30 @@ Player::~Player() {
     delete drumKit;
 }
 
+const std::list<Observer *> &Player::getObservers() const {
+    return observers;
+}
+
+ACTIVE_STATUS Player::getState() const {
+    return state;
+}
+
+QTimer *Player::getTimer() const {
+    return timer;
+}
+
+QMediaPlayer *Player::getMediaPlayer() const {
+    return mediaPlayer;
+}
+
+Metronome *Player::getMetronome() const {
+    return metronome;
+}
+
+DrumKit *Player::getDrumKit() const {
+    return drumKit;
+}
+
 
 
 
