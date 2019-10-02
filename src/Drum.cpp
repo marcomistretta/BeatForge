@@ -63,6 +63,12 @@ void Drum::editStep(int step) {
     notify();
 }
 
+//TODO NUOVA AGGIUNTA
+void Drum::stopDrum() {
+    //HELP DECREASING LATENCY
+    mediaplayer->stop();
+}
+
 void Drum::playDrum() {
     //HELP DECREASING LATENCY
     mediaplayer->stop();
@@ -139,6 +145,7 @@ Drum::~Drum() {
     for (auto i : observers)
         delete i;
     observers.clear();
+    mediaplayer->stop();
     delete mediaplayer;
     delete dir;
 }

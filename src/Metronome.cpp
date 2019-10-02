@@ -60,6 +60,7 @@ Metronome::~Metronome() {
     for (auto i : observers)
         delete i;
     observers.clear();
+    mediaplayer->stop();
     delete mediaplayer;
     delete dir;
 }

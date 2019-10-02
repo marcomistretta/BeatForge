@@ -19,8 +19,6 @@ add_subdirectory(UnitTest)
 find_package(Qt5Widgets CONFIG REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
 
-
-
 add_executable(DrumMachine src/main.cpp ${MySources})
 
 target_link_libraries(DrumMachine Qt5::Widgets)

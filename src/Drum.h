@@ -34,6 +34,9 @@ public:
     //DRUM
     void playDrum();
 
+    //TODO NUOVA AGGIUNTA
+    void stopDrum();
+
     void editStep(int step);
 
     void updatePath();

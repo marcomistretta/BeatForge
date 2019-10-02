@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.13)
 enable_testing()
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-#set(CMAKE_AUTOMOC ON)
-#set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 
 set(TestSources UnitTest.cpp)
 set(Sources ../src/Observer.h ../src/Subject.h
@@ -22,7 +22,6 @@ find_package(Qt5Multimedia REQUIRED)
 find_package(Qt5Test REQUIRED)
 
 add_executable(UnitTest ${TestSources} ${Sources})
-
 
 target_link_libraries(UnitTest Qt5::Widgets)
 target_link_libraries(UnitTest Qt5::Multimedia)

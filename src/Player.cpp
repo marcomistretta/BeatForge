@@ -81,6 +81,9 @@ void Player::stopTimer() {
 }
 
 void Player::PLAY() {
+    //TODO NUOVA AGGIUNTA
+    for (auto i : drumKit->getDrums())
+            i->stopDrum();
 
     bool foundSolo = false;
     for (auto i : drumKit->getDrums()) {
