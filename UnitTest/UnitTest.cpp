@@ -32,10 +32,8 @@ private slots:
         //Has DrumKit,DrumKitWidget Been Constructed?
         QVERIFY(mainWindow->getDrumKit() != nullptr);
         QVERIFY(mainWindow->getDrumKitWidget() != nullptr);
-
         drumKit = mainWindow->getDrumKit();
         drumKitWidget = mainWindow->getDrumKitWidget();
-
 
     }
 
@@ -137,49 +135,75 @@ private slots:
     }
 
     void testType() {
-        //TODO FIX
-        int i;
-        //Pressing FIRST Drum Menu
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getMenu(), Qt::LeftButton);
-        //Pressing Kick
-
-        //Is Type Changed?
-        QVERIFY(drums[i]->getDrumType() == KICK);
-
-        //Pressing SECOND Drum Menu
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
-        //Pressing Snare
-
-        //Is Type Changed?
-        QVERIFY(drums[i]->getDrumType() == SNARE);
-
-        //Pressing THIRD Drum Menu
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
-        //Pressing Hat
-
-        //Is Type Changed?
-        QVERIFY(drums[i]->getDrumType() == HAT);
-
-        //Pressing FOURTH Drum Menu
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
-        //Pressing Tom
-
-        //Is Type Changed?
-        QVERIFY(drums[i]->getDrumType() == TOM);
-
+        for (int i = 0; i < 4; i++) {
+            QMenu *menu = drumKitWidget->getDrumWidgets()[i]->getMenu();
+            if (menu != nullptr) {
+                QList<QAction *> actions = menu->actions();
+                        foreach (QAction *action, actions) {
+                        if (action->objectName() == KICK) {
+                            QTest::keyClick(menu, Qt::Key_Enter);
+                            QVERIFY(drums[i]->getDrumType() == KICK);
+                        }
+                        else if (action->objectName() == SNARE) {
+                            QTest::keyClick(menu, Qt::Key_Enter);
+                            QVERIFY(drums[i]->getDrumType() == KICK);
+                        }
+                        else if (action->objectName() == HAT) {
+                            QTest::keyClick(menu, Qt::Key_Enter);
+                            QVERIFY(drums[i]->getDrumType() == KICK);
+                        } else if (action->objectName() == TOM) {
+                            QTest::keyClick(menu, Qt::Key_Enter);
+                            QVERIFY(drums[i]->getDrumType() == KICK);
+                        }
+                    }
+                QTest::qWait(1000);
+                QTest::keyClick(menu, Qt::Key_Down);
+            }
+        }
     }
 
+    /*       ;
+   //Pressing FIRST Drum Menu
+   QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getMenu(), Qt::LeftButton);
+   //Pressing Kick
+
+   //Is Type Changed?
+   QVERIFY(drums[i]->getDrumType() == KICK);
+
+   //Pressing SECOND Drum Menu
+   QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
+   //Pressing Snare
+
+   //Is Type Changed?
+   QVERIFY(drums[i]->getDrumType() == SNARE);
+
+   //Pressing THIRD Drum Menu
+   QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
+   //Pressing Hat
+
+   //Is Type Changed?
+   QVERIFY(drums[i]->getDrumType() == HAT);
+
+   //Pressing FOURTH Drum Menu
+   QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getMenu(), Qt::LeftButton);
+   //Pressing Tom
+
+   //Is Type Changed?
+   QVERIFY(drums[i]->getDrumType() == TOM);
+*/
+
     void TestPattern() {
-        //TODO FIX
-        int i;
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getButtons()[0], Qt::LeftButton);
-        QVERIFY(drums[i]->isActive(0) == ON);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getButtons()[4], Qt::LeftButton);
-        QVERIFY(drums[i]->isActive(4) == ON);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getButtons()[8], Qt::LeftButton);
-        QVERIFY(drums[i]->isActive(8) == ON);
-        QTest::mouseClick(drumKitWidget->getDrumWidgets()[++i]->getButtons()[12], Qt::LeftButton);
-        QVERIFY(drums[i]->isActive(12) == ON);
+        int count = 0;
+        for (int i = 0; i < 4; i++) {
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getButtons()[0], Qt::LeftButton);
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getButtons()[4], Qt::LeftButton);
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getButtons()[8], Qt::LeftButton);
+            QTest::mouseClick(drumKitWidget->getDrumWidgets()[i]->getButtons()[12], Qt::LeftButton);
+            QVERIFY(drums[i]->isActive(0) == ON);
+            QVERIFY(drums[i]->isActive(4) == ON);
+            QVERIFY(drums[i]->isActive(8) == ON);
+            QVERIFY(drums[i]->isActive(12) == ON);
+        }
     }
 
     void TestPlay() {
@@ -193,7 +217,7 @@ private slots:
 
     };
 
-    void TestSolo(){
+    void TestSolo() {
         //TODO FIX
         int i;
         QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getSoloButton(), Qt::LeftButton);
@@ -206,7 +230,7 @@ private slots:
         QVERIFY(drums[i]->getSoloState() == SOLO);
     }
 
-    void TestMute(){
+    void TestMute() {
         //TODO FIX
         int i;
         QTest::mouseClick(drumKitWidget->getDrumWidgets()[i = 0]->getMuteButton(), Qt::LeftButton);
