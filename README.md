@@ -1,6 +1,6 @@
-# Drum Machine
+# BeatForge: The Ultimate Drum Machine
 
-A simple yet powerful Drum Machine, allowing you to create and program drum sequences easily. A drum machine is an electronic musical instrument that creates percussion sounds and can mimic drum kits or other instruments. This modern drum machine enables users to sequence over 30 samples and customize their rhythms.
+BeatForge is a simple yet powerful Drum Machine, allowing you to create and program drum sequences easily. A drum machine is an electronic musical instrument that creates percussion sounds and can mimic drum kits or other instruments. This modern drum machine enables users to sequence over 30 samples and customize their rhythms.
 
 ## Features
 
